@@ -16,6 +16,28 @@ using System.Threading;
 
 namespace As
 {
+    /*
+
+    create table asxs_firm (id bigint primary key, id_bew bigint, id_addr bigint, name varchar(255))
+    create table asxs_bewerbung (id bigint primary key, state bit)
+    create table asxs_address (id bigint primary key, city varchar(255), plz int, street varchar(255), hnr int)
+    alter table asxs_firm add foreign key id_addr references asxs_address (id)
+    alter table asxs_firm add foreign key id_bew references asxs_bewerbung (id)
+    
+    create view v_firm
+    as
+    select asxs_firm.name       as 'Firma',
+           asxs_address.city    as 'Stadt',
+           asxs_address.plz     as 'PLZ',
+           asxs_address.street  as 'Straße',
+           asxs_address.hnr     as 'Hausnummer',
+           asxs_bewerbung.state as 'Absage'
+           from asxs_firm
+           left outer join asxs_bewerbung on asxs_bewerbung.id = asxs_firm.id_bew
+           left outer join asxs_address on asxs_address.id = asxs_firm.id_addr
+     
+    */
+
     public partial class UI : Form
     {
         public UI()
@@ -29,16 +51,43 @@ namespace As
         //SendAuthorization
         //SendTransaction
 
-        private void btnPopTest_Click(object sender, EventArgs e)
+        private void UI_Load(object sender, EventArgs e)
         {
-            try
+            AddEmptyItem();
+        }
+
+        private void hinzufügenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var clickedItem = lstFirm.GetItemAt(e.X, e.Y);
+            if (clickedItem != null)
             {
-                
+                var rect = lstFirm.GetItemRect(clickedItem.Index);
+                lstFirm.Controls.Add(new TextBox() { Location = clickedItem.Position, Size = new Size(rect.Width, rect.Height)});
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        }
+
+        private void AddEmptyItem()
+        {
+            var item = new ListViewItem();
+            for (var i = 0; i < lstFirm.Columns.Count; ++i)
+                item.SubItems.Add(string.Empty);
+
+            lstFirm.Items.Add(item);
+        }
+
+        private void lstFirm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstFirm_DoubleClick(object sender, EventArgs e)
+        {
+
         }
     }
 
@@ -205,7 +254,7 @@ namespace As
         /// Gets all necessary transaction parameter
         /// </summary>
         /// <returns>Sequence with waiter</returns>
-        IEnumerable<string> IPopTransactionParameter.GetAuthParameter()
+        IEnumerable<string> IPopTransactionParameter.GetTransactionParameter()
         {
             foreach (var parameter in new string[] { Constants.ListTokenString })
                 yield return parameter;

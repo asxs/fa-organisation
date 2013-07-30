@@ -9,3 +9,6 @@ H:\Referenzen (Bewerbungen)\Code Examples\3\asxs spatial migration\asxs fa organ
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\bin\Debug\FAOrganisationUnit.exe.config
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.exe
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.pdb
+C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\As.UI.resources
+C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.Properties.Resources.resources
+C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.csproj.GenerateResource.Cache

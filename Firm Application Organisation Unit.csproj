@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="iAnywhere.Data.SQLAnywhere.v3.5, Version=12.0.1.34573, Culture=neutral, PublicKeyToken=f222fc4333e0d400, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
