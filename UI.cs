@@ -53,7 +53,7 @@ namespace As
 
         private void UI_Load(object sender, EventArgs e)
         {
-            AddEmptyItem();
+            
         }
 
         private void hinzufügenToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -63,21 +63,7 @@ namespace As
 
         private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var clickedItem = lstFirm.GetItemAt(e.X, e.Y);
-            if (clickedItem != null)
-            {
-                var rect = lstFirm.GetItemRect(clickedItem.Index);
-                lstFirm.Controls.Add(new TextBox() { Location = clickedItem.Position, Size = new Size(rect.Width, rect.Height)});
-            }
-        }
 
-        private void AddEmptyItem()
-        {
-            var item = new ListViewItem();
-            for (var i = 0; i < lstFirm.Columns.Count; ++i)
-                item.SubItems.Add(string.Empty);
-
-            lstFirm.Items.Add(item);
         }
 
         private void lstFirm_SelectedIndexChanged(object sender, EventArgs e)
