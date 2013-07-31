@@ -6,3 +6,4 @@ C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisation
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\Firm Application Organisation Unit.csproj.GenerateResource.Cache
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.exe
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\FAOrganisationUnit.pdb
+C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\Firm Application Organisation Unit.csprojResolveAssemblyReference.cache

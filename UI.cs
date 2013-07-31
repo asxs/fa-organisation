@@ -14,6 +14,14 @@ using System.Net.Mail;
 
 using System.Threading;
 
+using iAnywhere;
+using iAnywhere.Data;
+using iAnywhere.Data.SQLAnywhere;
+
+using System.Data.Common;
+using System.Data.SqlTypes;
+using System.Data.SqlClient;
+
 namespace As
 {
     /*
@@ -36,10 +44,27 @@ namespace As
            left outer join asxs_bewerbung on asxs_bewerbung.id = asxs_firm.id_bew
            left outer join asxs_address on asxs_address.id = asxs_firm.id_addr
      
+    create table asxs_ids (table_name varchar(255), table_id bigint)
+    
+    delete asxs_firm
+    delete asxs_bewerbung
+    delete asxs_address
+    
+    alter table asxs_bewerbung add sent bit
+    alter table asxs_bewerbung add day timestamp
+    
+    update asxs_bewerbung 
+        set reply = 0
+     
+    update asxs_bewerbung 
+        set messages = ''
+     
     */
 
     public partial class UI : Form
     {
+        private ListViewItem selectedItem = null;
+
         public UI()
         {
             InitializeComponent();
@@ -53,12 +78,100 @@ namespace As
 
         private void UI_Load(object sender, EventArgs e)
         {
-            
+            new Thread(new ThreadStart(ReNew)).Start();
+        }
+
+        private void ReNew()
+        {
+            var reNewActivity 
+                = 1;
+
+            while (true)
+            {
+                Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
+
+                lstFirm.Invoke(new Action(() =>
+                {
+                    lstFirm.Items.Clear();
+                    lstFirm.SuspendLayout();
+
+                    using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+                    {
+                        connection.Open();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            var command =
+                                connection.CreateCommand();
+
+                            command.CommandText = "SELECT * FROM V_FIRM";
+                            command.Prepare();
+
+                            using (var reader = command.ExecuteReader())
+                            {
+                                var jobNr = 1;
+
+                                while (reader.Read())
+                                {
+                                    lstFirm.Items.Add(new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = int.Parse(reader["ID"].ToString()), TableName = "ASXS_FIRM" } });
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Firma"].ToString());
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+
+                                    var today = DateTime.Today;
+                                    var idleTime =
+                                        (today - DateTime.Parse(reader["Tag"].ToString())).Days.ToString();
+
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
+
+                                    var negativeReply
+                                        = reader["Absage"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                    if (int.Parse(idleTime) > 3)
+                                    {
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
+                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                    }
+                                    else
+                                    {
+                                        if (int.Parse(idleTime) > 2)
+                                        {
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                        }
+                                    }
+
+                                    if (negativeReply == "Ja")
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
+
+                                    jobNr++;
+                                }
+
+                                try
+                                {
+                                    reader.Close();
+                                }
+                                catch { }
+                            }
+                        }
+                    }
+
+                    lstFirm.PerformLayout();
+
+                    if (selectedItem != null)
+                    {
+                        selectedItem.Selected = true;
+                    }
+                }));
+
+                reNewActivity++;
+            }
         }
 
         private void hinzufügenToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            splitJobControl.Panel2Collapsed = !splitJobControl.Panel2Collapsed;
         }
 
         private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -75,6 +188,392 @@ namespace As
         {
 
         }
+
+        private void btnContinue_Click(object sender, EventArgs e)
+        {
+            using (var faOrganisation =
+                       new FaOrganisationAppend())
+            {
+                faOrganisation.Append
+                (
+                    new AsFirm() 
+                    { 
+                        Name = txtOrganisation.Text 
+                    }, 
+                    new AsAddress() 
+                    { 
+                        City = "Musterstadt" 
+                    }, 
+                    new AsBewerbung() 
+                    { 
+                        State = chkAbsage.Checked,
+                        Sent = chkBewerbung.Checked,
+                        Day = dateTimeDay.Value
+                    }
+                );
+
+                chkAbsage.Checked = false;
+                chkBewerbung.Checked = false;
+                txtOrganisation.Text = string.Empty;
+            }
+        }
+
+        private void lstFirm_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
+            {
+                using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+                {
+                    connection.Open();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        var command =
+                            connection.CreateCommand();
+
+                        command.CommandText = "SELECT * FROM V_FIRM WHERE ID = " + ((DataListItem)e.Item).DataItem.Id.ToString();
+                        command.Prepare();
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            reader.Read();
+                            txtOrganisation.Text = reader["Firma"].ToString();
+                            chkAbsage.Checked = reader["Absage"].ToString().ToUpper() == "TRUE" ? true : false;
+                            chkBewerbung.Checked = reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? true : false;
+                            chkReply.Checked = reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? true : false;
+                            dateTimeDay.Value = reader.GetDateTime(8);
+                        }
+                    }
+                }
+
+                selectedItem = e.Item;
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+            {
+                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+                    var command =
+                        connection.CreateCommand();
+
+                    command.CommandText = 
+                        string.Concat
+                        (
+                            "UPDATE V_FIRM SET Rueckmeldung = ", chkReply.Checked ? 1 : 0, " WHERE ID = ", ((DataListItem)selectedItem).DataItem.Id
+                        );
+
+                    command.Prepare();
+                    command.ExecuteNonQuery();
+
+                    command.CommandText =
+                        string.Concat
+                        (
+                            "UPDATE V_FIRM SET Absage = ", chkAbsage.Checked ? 1 : 0, " WHERE ID = ", ((DataListItem)selectedItem).DataItem.Id
+                        );
+
+                    command.Prepare();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void bearbeitenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            splitJobControl.Panel2Collapsed = !splitJobControl.Panel2Collapsed;
+        }
+
+        private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+    }
+
+    public struct DataPackage
+    {
+        public int Id { get; set; }
+        public string TableName { get; set; }
+    }
+
+    public class DataListItem 
+        : ListViewItem
+    {
+        public DataListItem()
+            : base()
+        {
+
+        }
+
+        public DataListItem(string text)
+            : base(text)
+        {
+
+        }
+
+        public DataPackage DataItem { get; set; }
+    }
+
+    public interface IFaOrganisation
+    {
+
+    }
+
+    public interface IFaOrganisationAppend : IFaOrganisation
+    {
+
+    }
+
+    public interface IFaOrganisationEdit : IFaOrganisation
+    {
+
+    }
+
+    public interface IFaOrganisationRemove : IFaOrganisation
+    {
+
+    }
+
+    public interface IFaOrganisationDisplay : IFaOrganisation
+    {
+
+    }
+
+    public sealed class AsFirm
+    {
+        public AsFirm()
+        {
+
+        }
+
+        public long Id { get; set; }
+        public long Id_Bew { get; set; }
+        public long Id_Addr { get; set; }
+        public string Name { get; set; }
+    }
+
+    public sealed class AsAddress
+    {
+        public AsAddress()
+        {
+
+        }
+
+        public long Id { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public short Plz { get; set; }
+        public short Hnr { get; set; }
+    }
+
+    public sealed class AsBewerbung
+    {
+        public AsBewerbung()
+        {
+
+        }
+
+        public long Id { get; set; }
+        public bool State { get; set; }
+        public bool Sent { get; set; }
+        public SqlDateTime Day { get; set; }
+    }
+
+    public enum PackageType : int
+    {
+        Firm = 0,
+        Bewerbung,
+        Address,
+        None
+    }
+
+    public class FaOrganisationEdit : IFaOrganisationEdit, IDisposable
+    {
+
+    }
+
+    public class FaOrganisationRemove : IFaOrganisationRemove, IDisposable
+    {
+
+    }
+
+    public class FaOrganisationDisplay : IFaOrganisationDisplay, IDisposable
+    {
+
+    }
+
+    public abstract class FaOrganisationAbstract
+        : IFaOrganisation, IDisposable
+    {
+        protected SAConnection connection = null;
+
+        public FaOrganisationAbstract()
+        {
+
+        }
+
+        #region FaOrganisationAppend (IFaOrganisationAppend)
+
+        public void Append(AsFirm firm, AsAddress address, AsBewerbung bewerbung, string connectionString = "uid=dba;pwd=sql;dbf=asxs;eng=asxs")
+        {
+            connection = new SAConnection(connectionString: connectionString);
+            connection.Open();
+
+            if (connection.State == ConnectionState.Open)
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    PrepareTableIds(command, ref firm);
+                    PrepareAddressPackageId(command, ref address);
+
+                    Insert(command, string.Format
+                    (
+                        "INSERT INTO ASXS_ADDRESS VALUES ({0}, '{1}', {2}, '{3}', {4})", address.Id, address.City, address.Plz, address.Street, address.Hnr
+                    ));
+
+                    PrepareBewerbungPackageId(command, ref bewerbung);
+
+                    Insert(command, string.Format
+                    (
+                        "INSERT INTO ASXS_BEWERBUNG VALUES ({0}, {1}, {2}, '{3}')", bewerbung.Id, bewerbung.State ? 1 : 0, bewerbung.Sent ? 1 : 0, bewerbung.Day.ToSaTimeStamp()
+                    ));
+
+                    Insert(command, string.Format
+                    (
+                        "INSERT INTO ASXS_FIRM VALUES ({0},{1},{2},'{3}')", firm.Id, bewerbung.Id, address.Id, firm.Name
+                    ));
+                }
+            }
+        }
+
+        #endregion
+
+        protected virtual void PrepareTableIds(SACommand command, ref AsFirm firm)
+        {
+            firm.Id = GetAndIncrementTableId(command, "ASXS_FIRM", true);
+            firm.Id_Bew = GetAndIncrementTableId(command, "ASXS_BEWERBUNG", true);
+            firm.Id_Addr = GetAndIncrementTableId(command, "ASXS_ADDRESS", true);
+        }
+
+        protected virtual void PrepareAddressPackageId(SACommand command, ref AsAddress address)
+        {
+            address.Id = GetAndIncrementTableId(command, "ASXS_ADDRESS");
+        }
+
+        protected virtual void PrepareBewerbungPackageId(SACommand command, ref AsBewerbung bewerbung)
+        {
+            bewerbung.Id = GetAndIncrementTableId(command, "ASXS_BEWERBUNG");
+        }
+
+        protected virtual void Insert(SACommand command, string commandText)
+        {
+            try
+            {
+                try
+                {
+                    if (command != null)
+                        command.Cancel();
+                }
+                catch { }
+
+                command.CommandText = commandText;
+                command.Prepare();
+
+                var result
+                    = command.BeginExecuteNonQuery();
+
+                while (!result.IsCompleted)
+                    Thread.Sleep(new TimeSpan(1));
+                command.EndExecuteNonQuery(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        protected virtual void InsertTableId(SACommand command, string tableName)
+        {
+            Insert(command, string.Concat("INSERT INTO ASXS_IDS VALUES ('", tableName, "',", 1, ")"));
+        }
+
+        protected virtual bool TableExistsInIds(SACommand command, string tableName)
+        {
+            command.CommandText = string.Concat("SELECT * FROM ASXS_IDS WHERE TABLE_NAME = '", tableName, "'");
+            command.Prepare();
+            var reader
+                = command.ExecuteReader();
+            var tableIsAlive = reader.HasRows;
+
+            try
+            {
+                reader.Close();
+            }
+            catch { }
+            finally
+            {
+                reader.Dispose();
+                reader = null;
+            }
+
+            return tableIsAlive;
+        }
+
+        protected virtual long GetAndIncrementTableId(SACommand command, string tableName, bool increment = false)
+        {
+            if (command == null)
+                throw new ArgumentNullException("command");
+
+            if (tableName == string.Empty || tableName == null)
+                throw new ArgumentNullException("tableName");
+
+            var id
+                 = 0L;
+
+            if (!(TableExistsInIds(command, tableName)))
+                InsertTableId(command, tableName);
+
+            command.CommandText = string.Concat("SELECT TABLE_ID FROM ASXS_IDS WHERE TABLE_NAME = '", tableName, "'");
+            command.Prepare();
+            id = (long)command.ExecuteScalar();
+
+            if (increment)
+            {
+                id++;
+                Insert(command, string.Concat("UPDATE ASXS_IDS SET TABLE_ID = ", id, " WHERE TABLE_NAME = '", tableName, "'"));
+            }
+
+            return id;
+        }
+    }
+
+    public class FaOrganisationAppend : IFaOrganisationAppend, IDisposable
+    {
+        public FaOrganisationAppend()
+        {
+
+        }
+
+        #region FaOrganisationAppend (IDisposable)
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+        }
+
+        #endregion
+
+
     }
 
     /// <summary>
@@ -279,7 +778,7 @@ namespace As
         /// <summary>
         /// Disposing all save or unsaved components
         /// </summary>
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -522,6 +1021,23 @@ namespace As
 
     public static class Extensions
     {
+        public static string ToSaTimeStamp(this SqlDateTime value)
+        {
+            var dateTimeValue = value.ToSqlString();
+            var dateTimeValues
+                = dateTimeValue.Value.Split(new char[] { '.' });
+            var year = string.Empty;
 
+            if (dateTimeValues.Length > 0)
+            {
+                var dateTimeYear
+                    = dateTimeValues[2].Split(new char[] { ' ' });
+                
+                if (dateTimeYear.Length > 0)
+                    year = dateTimeYear[0];
+            }
+
+            return year + "/" + dateTimeValues[1] + "/" + dateTimeValues[0];
+        }
     }
 }
