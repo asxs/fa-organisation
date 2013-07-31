@@ -73,6 +73,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.imgProject = new System.Windows.Forms.ImageList(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -81,6 +84,10 @@
             this.splitJobControl.Panel2.SuspendLayout();
             this.splitJobControl.SuspendLayout();
             this.ctxFirm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -91,7 +98,7 @@
             this.einstellungenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(887, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -173,16 +180,19 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ImageList = this.imgProject;
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
+            this.tabControl1.Location = new System.Drawing.Point(35, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(871, 462);
+            this.tabControl1.Size = new System.Drawing.Size(852, 457);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -192,7 +202,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(863, 435);
+            this.tabPage1.Size = new System.Drawing.Size(844, 430);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Firmenverzeichnis";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -209,6 +219,7 @@
             // 
             // splitJobControl.Panel2
             // 
+            this.splitJobControl.Panel2.Controls.Add(this.btnContinue);
             this.splitJobControl.Panel2.Controls.Add(this.btnSave);
             this.splitJobControl.Panel2.Controls.Add(this.chkReply);
             this.splitJobControl.Panel2.Controls.Add(this.txtBemerkung);
@@ -217,11 +228,10 @@
             this.splitJobControl.Panel2.Controls.Add(this.chkAbsage);
             this.splitJobControl.Panel2.Controls.Add(this.chkBewerbung);
             this.splitJobControl.Panel2.Controls.Add(this.groupBox1);
-            this.splitJobControl.Panel2.Controls.Add(this.btnContinue);
             this.splitJobControl.Panel2.Controls.Add(this.label1);
             this.splitJobControl.Panel2.Controls.Add(this.txtOrganisation);
             this.splitJobControl.Panel2Collapsed = true;
-            this.splitJobControl.Size = new System.Drawing.Size(857, 429);
+            this.splitJobControl.Size = new System.Drawing.Size(838, 424);
             this.splitJobControl.SplitterDistance = 594;
             this.splitJobControl.TabIndex = 1;
             // 
@@ -241,17 +251,21 @@
             this.lstFirm.GridLines = true;
             this.lstFirm.HideSelection = false;
             this.lstFirm.Location = new System.Drawing.Point(0, 0);
-            this.lstFirm.MultiSelect = false;
             this.lstFirm.Name = "lstFirm";
             this.lstFirm.ShowGroups = false;
-            this.lstFirm.Size = new System.Drawing.Size(857, 429);
+            this.lstFirm.Size = new System.Drawing.Size(838, 424);
             this.lstFirm.TabIndex = 0;
             this.lstFirm.UseCompatibleStateImageBehavior = false;
             this.lstFirm.View = System.Windows.Forms.View.Details;
+            this.lstFirm.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lstFirm_DrawItem);
+            this.lstFirm.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lstFirm_DrawSubItem);
             this.lstFirm.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstFirm_ItemSelectionChanged);
             this.lstFirm.SelectedIndexChanged += new System.EventHandler(this.lstFirm_SelectedIndexChanged);
+            this.lstFirm.Click += new System.EventHandler(this.lstFirm_Click);
             this.lstFirm.DoubleClick += new System.EventHandler(this.lstFirm_DoubleClick);
             this.lstFirm.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstFirm_MouseDoubleClick);
+            this.lstFirm.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstFirm_MouseDown);
+            this.lstFirm.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstFirm_MouseUp);
             // 
             // columnHeader5
             // 
@@ -324,7 +338,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(179, 401);
+            this.btnSave.Location = new System.Drawing.Point(98, 395);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 25);
             this.btnSave.TabIndex = 16;
@@ -390,20 +404,19 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Location = new System.Drawing.Point(-14, 369);
+            this.groupBox1.Location = new System.Drawing.Point(-14, 698);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(280, 3);
+            this.groupBox1.Size = new System.Drawing.Size(443, 3);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
             // btnContinue
             // 
-            this.btnContinue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnContinue.Location = new System.Drawing.Point(98, 401);
+            this.btnContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnContinue.Location = new System.Drawing.Point(179, 395);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(75, 1);
+            this.btnContinue.Size = new System.Drawing.Size(75, 25);
             this.btnContinue.TabIndex = 8;
             this.btnContinue.Text = "&Weiter";
             this.btnContinue.UseVisualStyleBackColor = true;
@@ -424,7 +437,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOrganisation.Location = new System.Drawing.Point(6, 23);
             this.txtOrganisation.Name = "txtOrganisation";
-            this.txtOrganisation.Size = new System.Drawing.Size(248, 20);
+            this.txtOrganisation.Size = new System.Drawing.Size(411, 20);
             this.txtOrganisation.TabIndex = 0;
             // 
             // tabPage2
@@ -433,7 +446,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(863, 435);
+            this.tabPage2.Size = new System.Drawing.Size(865, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bearbeitung";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -443,7 +456,7 @@
             this.tabPage3.ImageIndex = 2;
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(863, 435);
+            this.tabPage3.Size = new System.Drawing.Size(865, 438);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Bericht";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -453,7 +466,7 @@
             this.tabPage4.ImageIndex = 2;
             this.tabPage4.Location = new System.Drawing.Point(4, 23);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(863, 435);
+            this.tabPage4.Size = new System.Drawing.Size(865, 438);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Optionen";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -467,14 +480,54 @@
             this.imgProject.Images.SetKeyName(2, "WixLibraryFile.ico");
             this.imgProject.Images.SetKeyName(3, "MSBuild.ico");
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
+            this.splitContainer1.Size = new System.Drawing.Size(887, 460);
+            this.splitContainer1.SplitterDistance = 30;
+            this.splitContainer1.SplitterWidth = 2;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStrip1.Location = new System.Drawing.Point(4, 3);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip1.Size = new System.Drawing.Size(30, 460);
+            this.toolStrip1.Stretch = true;
+            this.toolStrip1.TabIndex = 0;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::FAOrganisationUnit.Properties.Resources.add;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 20);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 486);
+            this.ClientSize = new System.Drawing.Size(887, 484);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "UI";
@@ -491,6 +544,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitJobControl)).EndInit();
             this.splitJobControl.ResumeLayout(false);
             this.ctxFirm.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -541,6 +599,9 @@
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem anzeigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
 
     }
 }

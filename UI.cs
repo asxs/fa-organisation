@@ -78,6 +78,7 @@ namespace As
 
         private void UI_Load(object sender, EventArgs e)
         {
+            splitJobControl.Panel2Collapsed = true;
             new Thread(new ThreadStart(ReNew)).Start();
         }
 
@@ -90,80 +91,90 @@ namespace As
             {
                 Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
 
-                lstFirm.Invoke(new Action(() =>
+                if (lstFirm.InvokeRequired)
                 {
-                    lstFirm.Items.Clear();
-                    lstFirm.SuspendLayout();
-
-                    using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+                    lstFirm.Invoke(new Action(() =>
                     {
-                        connection.Open();
-                        if (connection.State == ConnectionState.Open)
+                        lstFirm.Items.Clear();
+                        lstFirm.SuspendLayout();
+
+                        using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
                         {
-                            var command =
-                                connection.CreateCommand();
-
-                            command.CommandText = "SELECT * FROM V_FIRM";
-                            command.Prepare();
-
-                            using (var reader = command.ExecuteReader())
+                            connection.Open();
+                            if (connection.State == ConnectionState.Open)
                             {
-                                var jobNr = 1;
+                                var command =
+                                    connection.CreateCommand();
 
-                                while (reader.Read())
+                                command.CommandText = "SELECT * FROM V_FIRM";
+                                command.Prepare();
+
+                                using (var reader = command.ExecuteReader())
                                 {
-                                    lstFirm.Items.Add(new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = int.Parse(reader["ID"].ToString()), TableName = "ASXS_FIRM" } });
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Firma"].ToString());
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+                                    var jobNr = 1;
 
-                                    var today = DateTime.Today;
-                                    var idleTime =
-                                        (today - DateTime.Parse(reader["Tag"].ToString())).Days.ToString();
-
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
-
-                                    var negativeReply
-                                        = reader["Absage"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
-
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
-
-                                    if (int.Parse(idleTime) > 3)
+                                    while (reader.Read())
                                     {
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
-                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
-                                    }
-                                    else
-                                    {
-                                        if (int.Parse(idleTime) > 2)
+                                        lstFirm.Items.Add(new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = int.Parse(reader["ID"].ToString()), TableName = "ASXS_FIRM" } });
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Firma"].ToString());
+
+                                        var sentInformationToFirm =
+                                            reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
+
+                                        var today = DateTime.Today;
+                                        var idleTime =
+                                            (today - DateTime.Parse(reader["Tag"].ToString())).Days.ToString();
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
+
+                                        var negativeReply
+                                            = reader["Absage"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                        if (int.Parse(idleTime) > 3)
                                         {
-                                            lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
+                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                         }
+                                        else
+                                        {
+                                            if (int.Parse(idleTime) > 2)
+                                            {
+                                                lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                            }
+                                        }
+
+                                        if (negativeReply == "Ja")
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
+
+                                        if (sentInformationToFirm == "Nein")
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.Khaki;
+
+                                        jobNr++;
                                     }
 
-                                    if (negativeReply == "Ja")
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
-
-                                    jobNr++;
+                                    try
+                                    {
+                                        reader.Close();
+                                    }
+                                    catch { }
                                 }
-
-                                try
-                                {
-                                    reader.Close();
-                                }
-                                catch { }
                             }
                         }
-                    }
 
-                    lstFirm.PerformLayout();
+                        lstFirm.PerformLayout();
 
-                    if (selectedItem != null)
-                    {
-                        selectedItem.Selected = true;
-                    }
-                }));
+                        if (selectedItem != null)
+                        {
+                            selectedItem.Selected = true;
+                        }
+                    }));
+                }
 
                 reNewActivity++;
             }
@@ -289,6 +300,38 @@ namespace As
         {
             
         }
+
+        private void lstFirm_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstFirm_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_MouseUp(object sender, MouseEventArgs e)
+        {
+            var item = lstFirm.SelectedItems[0];
+
+            lstFirm.Controls.Add(new TextBox() { Location = new Point(lstFirm.SelectedItems[0].Bounds.X, lstFirm.SelectedItems[0].Bounds.Y) });
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public struct DataPackage
@@ -313,6 +356,7 @@ namespace As
         }
 
         public DataPackage DataItem { get; set; }
+        public Control EntryControl { get; set; }
     }
 
     public interface IFaOrganisation
@@ -388,30 +432,60 @@ namespace As
         None
     }
 
-    public class FaOrganisationEdit : IFaOrganisationEdit, IDisposable
-    {
+    //public class FaOrganisationEdit : IFaOrganisationEdit, IDisposable
+    //{
 
-    }
+    //}
 
-    public class FaOrganisationRemove : IFaOrganisationRemove, IDisposable
-    {
+    //public class FaOrganisationRemove : IFaOrganisationRemove, IDisposable
+    //{
 
-    }
+    //}
 
-    public class FaOrganisationDisplay : IFaOrganisationDisplay, IDisposable
-    {
+    //public class FaOrganisationDisplay : IFaOrganisationDisplay, IDisposable
+    //{
 
-    }
+    //}
 
-    public abstract class FaOrganisationAbstract
-        : IFaOrganisation, IDisposable
+    //public abstract class FaOrganisationAbstract
+    //    : IFaOrganisation, IDisposable
+    //{
+        
+
+    //    public FaOrganisationAbstract()
+    //    {
+
+    //    }
+
+
+    //}
+
+    public class FaOrganisationAppend : IFaOrganisationAppend, IDisposable
     {
         protected SAConnection connection = null;
 
-        public FaOrganisationAbstract()
+        public FaOrganisationAppend()
         {
 
         }
+
+        #region FaOrganisationAppend (IDisposable)
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+        }
+
+        #endregion
 
         #region FaOrganisationAppend (IFaOrganisationAppend)
 
@@ -436,7 +510,7 @@ namespace As
 
                     Insert(command, string.Format
                     (
-                        "INSERT INTO ASXS_BEWERBUNG VALUES ({0}, {1}, {2}, '{3}')", bewerbung.Id, bewerbung.State ? 1 : 0, bewerbung.Sent ? 1 : 0, bewerbung.Day.ToSaTimeStamp()
+                        "INSERT INTO ASXS_BEWERBUNG (id,state,sent,day) VALUES ({0}, {1}, {2}, '{3}')", bewerbung.Id, bewerbung.State ? 1 : 0, bewerbung.Sent ? 1 : 0, bewerbung.Day.ToSaTimeStamp()
                     ));
 
                     Insert(command, string.Format
@@ -546,34 +620,6 @@ namespace As
 
             return id;
         }
-    }
-
-    public class FaOrganisationAppend : IFaOrganisationAppend, IDisposable
-    {
-        public FaOrganisationAppend()
-        {
-
-        }
-
-        #region FaOrganisationAppend (IDisposable)
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-
-            }
-        }
-
-        #endregion
-
-
     }
 
     /// <summary>
