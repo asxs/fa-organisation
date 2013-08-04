@@ -159,6 +159,9 @@ namespace As
                                     package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
                                     package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
                                     package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
+                                    package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
+                                    package.Address.Id = long.Parse(reader["id_addr"].ToString());
+                                    package.Memo.Id = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
                                     package.Memo.Content = reader["Memo"].ToString();
 
                                     lstFirm.Items.Add(dataItem);

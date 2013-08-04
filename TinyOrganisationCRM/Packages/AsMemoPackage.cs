@@ -41,7 +41,7 @@ namespace As
                     commandText = string.Format("INSERT INTO {0} (id, memo) VALUES ({1}, '{2}')", TableName, id, Content);
                     break;
                 case StatementType.Update:
-                    commandText = string.Concat("UPDATE V_FIRM SET Memo = '", Content, "' WHERE ID = (SELECT ID_MEMO FROM ASXS_FIRM WHERE ID = ", id, ")");
+                    commandText = string.Concat("UPDATE V_FIRM SET Memo = '", Content, "' WHERE ID_MEMO = (SELECT ID_MEMO FROM ASXS_FIRM WHERE ID = ", id, ")");
                     break;
             }
 

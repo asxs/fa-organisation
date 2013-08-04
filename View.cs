@@ -35,6 +35,8 @@ namespace As
 
             if (TypeOfEditing != StatementType.Insert)
                 btnAdd.Enabled = false;
+            else
+                btnSaveNoExit.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -106,7 +108,7 @@ namespace As
                 (
                     new DataUnitPackage()
                     {
-                        Memo = new AsMemoPackage() { Content = memo.Content, Id = Package.Memo.Id }
+                        Memo = new AsMemoPackage() { Content = txtMemo.Text, Id = Package.Memo.Id }
                     },
 
                     new MemoDataUnit(),

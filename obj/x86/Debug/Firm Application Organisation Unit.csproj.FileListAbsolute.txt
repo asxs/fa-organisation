@@ -8,8 +8,4 @@ C:\Users\lherrmann\Documents\GitHub\fa-organisation\bin\Debug\TinyOrganisationCR
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\TinyOrganisationCRM.exe
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\TinyOrganisationCRM.pdb
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\As.Preview.resources
-C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\PrintLayoutDesigner.CustomControl.CustomPDF.resources
-C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\PrintLayout.frmPLD.resources
-C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\PrintLayout.Text.frmEingabe.resources
-C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\KES.Gutschein.ProgressForm.resources
 C:\Users\lherrmann\Documents\GitHub\fa-organisation\obj\x86\Debug\Firm Application Organisation Unit.csprojResolveAssemblyReference.cache
