@@ -19,6 +19,53 @@ namespace As
 {
     public static class Extensions
     {
+        public static int CalculateWaitTimeUntil(this DateTime value, DateTime compareTime)
+        {
+            var time = (value - compareTime);
+            var waitDays
+                = 0;
+
+            if (time.Days > 0)
+            {
+                var i = 0;
+                for (; i < time.Days; ++i)
+                {
+                    var day =
+                        new DateTime(compareTime.Year, compareTime.Month, compareTime.Day);
+
+                    day = day.AddDays(i);
+
+                    if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                        waitDays++;
+                }
+            }
+
+            return waitDays;
+        }
+
+        
+        public static int CalculateWaitTimeUntil(this SqlDateTime value, SqlDateTime compareTime)
+        {
+            var time = (value.Value - compareTime.Value);
+            var waitDays 
+                = 0;
+
+            if (time.Days > 0)
+            {
+                var i = 0;
+                for (; i < time.Days; ++i)
+                {
+                    var day = 
+                        new DateTime(compareTime.Value.Year, compareTime.Value.Month, compareTime.Value.Day + waitDays);
+
+                    if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                        waitDays++;
+                }
+            }
+
+            return waitDays;
+        }
+
         public static string ToSaTimeStamp(this SqlDateTime value)
         {
             var dateTimeValue = value.ToSqlString();

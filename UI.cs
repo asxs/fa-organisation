@@ -72,6 +72,7 @@ namespace As
     public partial class UI : Form
     {
         private ListViewItem selectedItem = null;
+        private ListViewItem.ListViewSubItem selectedSubItem = null;
         private Thread reloadFirmThread = null;
         private ViewUI viewUi = null;
         private DataUnitPackage package;
@@ -160,6 +161,7 @@ namespace As
                                     package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
                                     package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
                                     package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
+                                    package.Bewerbung.Day = (DateTime)reader["Tag"];
                                     package.Address.Id = long.Parse(reader["id_addr"].ToString());
                                     package.Memo.Id = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
                                     package.Memo.Content = reader["Memo"].ToString();
@@ -175,8 +177,10 @@ namespace As
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
 
                                     var today = DateTime.Today;
+                                    //var idleTime =
+                                    //    (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
                                     var idleTime =
-                                        (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
+                                        today.CalculateWaitTimeUntil(DateTime.Parse(reader["Tag"].ToString()));
 
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
 
@@ -185,24 +189,28 @@ namespace As
 
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
 
-                                    if (int.Parse(idleTime) > 3)
+                                    if (idleTime > 3)
                                     {
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
-                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                        //lstFirm.Items[jobNr - 1].BackColor = Color.FromArgb(112, 191, 250);
+                                        //lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                     }
                                     else
                                     {
-                                        if (int.Parse(idleTime) > 2)
+                                        if (idleTime > 2)
                                         {
                                             lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
                                         }
                                     }
 
                                     if (negativeReply == "Ja")
+                                    {
                                         lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
+                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                        lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
+                                    }
 
                                     if (sentInformationToFirm == "Nein")
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.Khaki;
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
 
                                     dataItem.DataItem.Item = package;
 
@@ -336,6 +344,58 @@ namespace As
 
             reloadFirmThread = new Thread(new ThreadStart(ReNewView));
             reloadFirmThread.Start();
+        }
+
+        private void lstFirm_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                e.Item.BackColor = Color.NavajoWhite;
+            }
+            else
+                e.Item.BackColor = Color.White;
+        }
+
+        private void filterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void lstFirm_MouseUp(object sender, MouseEventArgs e)
+        {
+            var hitTestItem 
+                = lstFirm.HitTest(e.Location);
+            
+            if (hitTestItem != null) 
+            {
+                selectedItem = hitTestItem.Item;
+                selectedSubItem = hitTestItem.SubItem;
+            }
+        }
+
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void druckenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void datenbankToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

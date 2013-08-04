@@ -219,6 +219,8 @@
     <None Include="Resources\back.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\000425a_l.gif" />
+    <None Include="Resources\totenkopf_mit_gekreuzter_knochen_aufkleber-re147ed26557047d891c5b8ffd5b9e05b_v9wf3_8byvr_512.jpg" />
     <None Include="Resources\page_writing.png" />
     <None Include="Resources\refresh_icon1.png" />
     <None Include="Resources\refresh_icon.png" />

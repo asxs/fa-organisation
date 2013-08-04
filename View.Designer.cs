@@ -62,9 +62,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.label10 = new System.Windows.Forms.Label();
             this.toolAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolBack = new System.Windows.Forms.ToolStripButton();
+            this.toolNext = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -179,8 +180,9 @@
             // 
             // label4
             // 
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
-            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.BackColor = System.Drawing.Color.Silver;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.ForeColor = System.Drawing.Color.DimGray;
             this.label4.Location = new System.Drawing.Point(480, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(367, 60);
@@ -340,8 +342,8 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolBack,
+            this.toolNext});
             this.toolStrip1.Location = new System.Drawing.Point(799, 563);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -396,6 +398,13 @@
             this.toolStrip2.Size = new System.Drawing.Size(37, 41);
             this.toolStrip2.TabIndex = 51;
             // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(425, 301);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(39, 23);
+            this.label10.TabIndex = 52;
+            // 
             // toolAdd
             // 
             this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -406,31 +415,34 @@
             this.toolAdd.Size = new System.Drawing.Size(35, 36);
             this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
             // 
-            // toolStripButton1
+            // toolBack
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::As.Properties.Resources.arrow_left;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(28, 26);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBack.Image = global::As.Properties.Resources.arrow_left;
+            this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBack.Name = "toolBack";
+            this.toolBack.Size = new System.Drawing.Size(28, 26);
+            this.toolBack.Text = "toolStripButton1";
+            this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
             // 
-            // toolStripButton2
+            // toolNext
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::As.Properties.Resources.arrow_right1;
-            this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 26);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolNext.Image = global::As.Properties.Resources.arrow_right1;
+            this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolNext.Name = "toolNext";
+            this.toolNext.Size = new System.Drawing.Size(28, 26);
+            this.toolNext.Text = "toolStripButton2";
+            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
             // 
             // ViewUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 590);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button2);
@@ -512,13 +524,14 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolBack;
+        private System.Windows.Forms.ToolStripButton toolNext;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton toolAdd;
+        private System.Windows.Forms.Label label10;
     }
 }

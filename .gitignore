@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
+*.db
+*.log
 
 # Build results
 
@@ -14,6 +16,9 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+[Dd]ata/
+[Dd]ebug/[Dd]ata/
+[Rr]elease/[Dd]ata/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -42,6 +47,7 @@ build/
 *.pidb
 *.log
 *.scc
+*.vshost*
 
 # Visual C++ cache files
 ipch/

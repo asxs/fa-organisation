@@ -63,6 +63,16 @@ namespace As.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _000425a_l {
+            get {
+                object obj = ResourceManager.GetObject("000425a_l", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -246,6 +256,17 @@ namespace As.Properties {
         internal static System.Drawing.Bitmap refresh_icon1 {
             get {
                 object obj = ResourceManager.GetObject("refresh_icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap totenkopf_mit_gekreuzter_knochen_aufkleber_re147ed26557047d891c5b8ffd5b9e05b_v9wf3_8byvr_512 {
+            get {
+                object obj = ResourceManager.GetObject("totenkopf_mit_gekreuzter_knochen_aufkleber-re147ed26557047d891c5b8ffd5b9e05b_v9wf" +
+                        "3_8byvr_512", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

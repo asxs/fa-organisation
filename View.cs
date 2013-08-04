@@ -288,6 +288,16 @@ namespace As
             toolAdd.Enabled = false;
             txtMemo.Enabled = true;
         }
+
+        private void toolNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolBack_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public static class ASxFactory
