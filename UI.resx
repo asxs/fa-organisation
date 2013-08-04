@@ -112,24 +112,24 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="imgProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="imgProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
   <data name="imgProject.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAK
-        DAAAAk1TRnQBSQFMAgEBBAEAATABAAEwAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
-        AwABQAMAASADAAEBAQABCAYAAQgYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB6
+        EQAAAk1TRnQBSQFMAgEBCQEAAeABAAHgAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        AwABQAMAATADAAEBAQABCAYAAQwYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
         AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
@@ -156,42 +156,76 @@
         AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
         AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
         AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
-        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD//8A/wD/AP8ABQAQ/xgA
-        Ac8BZgFzAUoBcwFyARUBAAHxAVIMWQFSAbwD/wHzAfEBkgHxAfMI/wEAB/8LAAGuBAkBrgGGAXQBUQJz
-        AXIBSgFzAlkFegGuAeoCbAJmAVkBSwT/AfIB8QHyCf8BAAHvA4sBrgHtAQcB8wH/BfQB/wMAAa4B8wMZ
-        Ac8BrgF0AXMBHAFzAXIBSgFzAXoBtQG8AwkBZgHvAfMCGQHdAWwBWQFuAf8BBwK8AfAB8QHwA7wG/wEA
-        AacBzgLmAbQB5gGtAWwCSQJPAUkBbQHzAwABrgH0AfMCGQHdAc8BmgF6ARwBmQF4AUoBcwF6AQcB9AHz
-        AhkB6gEHAvQB8wEZAa4BegFuAf8BtAOsAc0D0wGzBv8BAAHOAeYB1QGtARkBrQHmAYsBlwGdApcBVQFP
-        AfMDAAGuAvQBGQHzAd0BzwGgAZoBmAGfAXgBUAFzAXoBBwH/AvQB8wGuAbwC/wL0Aa4BegFzAf8BtAGt
-        BqwBswEHAfAB8gP/AQABzwHmAdUC3AGtAeYBiwFPAf8BTwKXAUkB/wMAAa4E9AHdAc8CoAGZAQgBeAFy
-        AXMBegG8A/8B9AGRAbwE/wHtAXoBcwH/AbQCswKtA6wBrQLvAQcB8gL/AQAB/wG0ARQBAQEeAa0BiwGX
-        AXIB9AEZApcB9AQAAZEC/wL0AbUB8gEcAfIBcwHsAf8BcwF0AXoB8AT/AfcB8QH0AfMBGQHdAbUBegFz
-        Af8BtAWzA60B7wG8AfMB9AHzAv8BEAEOASMCJAEBAQcBmAFKAlIBKQEHAf8EAAHsA/8E9AEZAfMBGQFm
-        AQABdAKaAfMB9AEZAd0BBwLxAfABvAEHAZoBegFzAf8BtAPVAbQEswIRA0MB8wEHAg4ETAHsAfQEUwFK
-        AfMEAAGRAf8CzwL/BPQB8wFmAQABdAOaARoFwwEaBJoBdAH/AbQC1QG0A7MBrQG0BQ4B8wFtARABDgRM
-        AUoBmQRTAVIBvAQAAe0BvAF+Af8BzwL/BPQBZgEAAXkCmgEaAosEwwKLA5oBdAb/AbwCQwEPBQ4B8wHv
-        AhUEUwFuAXQBWQJ6AVkBUwHvAgAB8wFRAaAB8wHPAbwBzwHyA/8C9AFmAQABeQKaAa0B1QGtAYYCwwGt
-        AdUBrQGGApoBdAb/AbwDEwEUARUBEQIOAfMBAAEUARMBbQEQASQBIwHwAZkBegFSAnoBUwEHAQAC8wFS
-        AaABCQGUAZ0B/wHxAbwE/wFmAQABmQKaARoBtAGGAcMB9gLDAbQBhgOaAXkG/wG8Am0C6gESARQBFQEQ
-        AfMBAAG8AW0B7AH3AewBEAL/AVIBdAGaAXQBSwHzAQAC8wFSAaABWQFzAv8CvAL/AQcB9wFmAQABmQKa
-        ARoBtQGuBMMBtQGuA5oBeQb/AbwD6wJtAeoBEwEVAfMCAAH/AW0B6wEHAf8CAAOZAXQB8AH/AgAB8wGZ
-        AaABwwEcAv8BvAP/AbwBtQHvAQABmQKaARoBBwHvBMMBBwH3A5oBeQb/AbwGkgLtAfMTAAG1CP8B9AHv
-        BgAC/wQAAv8EABD/EwAB7wG1Ae8CtQP3Ae0BBxMAAUIBTQE+BwABPgMAASgDAAFAAwABIAMAAQEBAAEB
-        BgABARYAA/+DAAP/AQEEAAGAAf8B4AUAAYABAAHgBQABgAEAAeAFAAGAAQAB4AUAAYABAAHgBQABgAEB
-        AeAGAAEBAeABAQUAAQEB4AEBBQABAQHgAQEFAAEBAYABAQQAAYABAQEAAQEEAAGAAQEBAAEBBAABwQGB
-        AYABAQQAAv8B4AEDAfMBzwIAAv8B4AEHAv8L
+        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/wEAAdMB1AHTAdQB0wHU
+        AdMB1AHTAdQB0wHUAdMB1AHTAdQwABDTMAAB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1DAA
+        BNMI/wTTMAAB0wHUAdMB1AH/AdQB0wHUAdMB1AHTAf8B0wHUAdMB1DAABNMI/wTTMAAB0wHUAdMB1AH/
+        AdQB0wHUAdMB1AHTAf8B0wHUAdMB1DAABNMI/wTTMAAB0wHUAdMB1AH/AdQB0wHUAdMB1AHTAf8B0wHU
+        AdMB1DAABNMI/wTTMAAB0wHUAdMB1AH/AdQB0wH/AdMB1AHTAdQB0wHUAdMB1DAABNME/wHTAv8B3ATT
+        MAAB0wHUAdMB1AT/AdMBGQLUAdMB1AHTAdQwABDTMAAB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHU
+        AdMB1DAAENMwAAHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUQdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQD0wL/AtMG/ybTAQkB/wHcC9MB1AHTAv8B1AHTAdQB0wHU
+        AdMB1AHTAdQB0wHUAdMB1AHTCf8B2gHUAdMB1AHTAdQB0wX/AdME/wHUAdMB1AHTAdQB0wH/AdMB/wHc
+        AdQB0wHUAdMB1AHTAdQB0wHUE9MBGQj/AdwG0wH/AdMB/wHTAf8B0wL/AdMB/wbTAdwD/wHcCdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMBCQj/AQkB1AHTAdQB0wHUAdMB/wHTA/8B0wL/
+        AdQB/wHUAdMB1AHTAdQB0wHUAQkD/wHcAdQB0wHUAdMB1AHTAdQD0wL/AtMG/wbTAQkBGQf/ARkG0wH/
+        AdMB/wHTAf8B0wL/AdMB/wjTARkD/wHcB9MB1AHTAv8B1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AfQB2wj/AdQB0wHUAdMB1AHTAf8B0wP/AdMC/wHUAf8B1AHTAdQB0wHUAdMB1AHTAdQB3Ab/AdQB0wHU
+        E9MB/w/TAf8B0wH/AdMB/wHTAv8B0wH/CtMBGQH/AdwB2wEZAf8E0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wj/AdQB0wHUAdMB1AHTAdQB0wH/AdMD/wHTAv8B1AH/AdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AH/AdsB0wHUAf8B1AHTAdQD0wL/AtMG/wfTAv8N0wX/AdME/wvTAf8BGQfTAdQB0wL/
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUA/8B1AHTAdQB0wHUQdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHTAdQB0wHUAdMB1AHT
+        AdRA0xD/GAABzwFmAXMBSgFzAXIBFQEAAfEBUgxZAVIBvAP/AfMB8QGSAfEB8wj/AQAH/wsAAa4ECQGu
+        AYYBdAFRAnMBcgFKAXMCWQV6Aa4B6gJsAmYBWQFLBP8B8gHxAfIJ/wEAAe8DiwGuAe0BBwHzAf8F9AH/
+        AwABrgHzAxkBzwGuAXQBcwEcAXMBcgFKAXMBegG1AbwDCQFmAe8B8wIZAd0BbAFZAW4B/wEHArwB8AHx
+        AfADvAb/AQABpwHOAuYBtAHmAa0BbAJJAk8BSQFtAfMDAAGuAfQB8wIZAd0BzwGaAXoBHAGZAXgBSgFz
+        AXoBBwH0AfMCGQHqAQcC9AHzARkBrgF6AW4B/wG0A6wBzQPTAbMG/wEAAc4B5gHVAa0BGQGtAeYBiwGX
+        AZ0ClwFVAU8B8wMAAa4C9AEZAfMB3QHPAaABmgGYAZ8BeAFQAXMBegEHAf8C9AHzAa4BvAL/AvQBrgF6
+        AXMB/wG0Aa0GrAGzAQcB8AHyA/8BAAHPAeYB1QLcAa0B5gGLAU8B/wFPApcBSQH/AwABrgT0Ad0BzwKg
+        AZkBCAF4AXIBcwF6AbwD/wH0AZEBvAT/Ae0BegFzAf8BtAKzAq0DrAGtAu8BBwHyAv8BAAH/AbQBFAEB
+        AR4BrQGLAZcBcgH0ARkClwH0BAABkQL/AvQBtQHyARwB8gFzAewB/wFzAXQBegHwBP8B9wHxAfQB8wEZ
+        Ad0BtQF6AXMB/wG0BbMDrQHvAbwB8wH0AfMC/wEQAQ4BIwIkAQEBBwGYAUoCUgEpAQcB/wQAAewD/wT0
+        ARkB8wEZAWYBAAF0ApoB8wH0ARkB3QEHAvEB8AG8AQcBmgF6AXMB/wG0A9UBtASzAhEDQwHzAQcCDgRM
+        AewB9ARTAUoB8wQAAZEB/wLPAv8E9AHzAWYBAAF0A5oBGgXDARoEmgF0Af8BtALVAbQDswGtAbQFDgHz
+        AW0BEAEOBEwBSgGZBFMBUgG8BAAB7QG8AX4B/wHPAv8E9AFmAQABeQKaARoCiwTDAosDmgF0Bv8BvAJD
+        AQ8FDgHzAe8CFQRTAW4BdAFZAnoBWQFTAe8CAAHzAVEBoAHzAc8BvAHPAfID/wL0AWYBAAF5ApoBrQHV
+        Aa0BhgLDAa0B1QGtAYYCmgF0Bv8BvAMTARQBFQERAg4B8wEAARQBEwFtARABJAEjAfABmQF6AVICegFT
+        AQcBAALzAVIBoAEJAZQBnQH/AfEBvAT/AWYBAAGZApoBGgG0AYYBwwH2AsMBtAGGA5oBeQb/AbwCbQLq
+        ARIBFAEVARAB8wEAAbwBbQHsAfcB7AEQAv8BUgF0AZoBdAFLAfMBAALzAVIBoAFZAXMC/wK8Av8BBwH3
+        AWYBAAGZApoBGgG1Aa4EwwG1Aa4DmgF5Bv8BvAPrAm0B6gETARUB8wIAAf8BbQHrAQcB/wIAA5kBdAHw
+        Af8CAAHzAZkBoAHDARwC/wG8A/8BvAG1Ae8BAAGZApoBGgEHAe8EwwEHAfcDmgF5Bv8BvAaSAu0B8xMA
+        AbUI/wH0Ae8GAAL/BAAC/wQAEP8TAAHvAbUB7wK1A/cB7QEHEwABQgFNAT4HAAE+AwABKAMAAUADAAEw
+        AwABAQEAAQEFAAGAAQEWAAP//wAEAAP/AQEEAAGAAf8B4AUAAYABAAHgBQABgAEAAeAFAAGAAQAB4AUA
+        AYABAAHgBQABgAEBAeAGAAEBAeABAQUAAQEB4AEBBQABAQHgAQEFAAEBAYABAQQAAYABAQEAAQEEAAGA
+        AQEBAAEBBAABwQGBAYABAQQAAv8B4AEDAfMBzwIAAv8B4AEHAv8L
 </value>
   </data>
-  <metadata name="ctxFirm.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="ctxFirm.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>242, 17</value>
   </metadata>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="label2.Text" xml:space="preserve">
+    <value>Sie können nur Dokumente aus Google Docs heraus laden, wenn Sie den Google API Key für das SDK von Google Drive
+erstellt und aktiviert haben. Wenn Sie z.B. keine Aktivierung hinzugefügt haben, können keine Dokumente aus der Ablage von
+Google Drive geladen werden, hat die Anzeige keine Einträge und Sie sind mit dieser Anwendung nicht in der Lage 
+Dokumente zu sortieren.</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Es können, entsprechend Ihrer Google Dokumente Anlangen zu der Speicherquelle hinzugefügt werden.
+Ausserdem sollten die vorhandenen Dokumente nach Name und Typ, sowie nach Firma sortiert werden, um
+Unordnung zu verhindern.</value>
+  </data>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>333, 17</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>51</value>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>53</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAICAQAAEABADoAgAAZgAAABAQEAABAAQAKAEAAE4DAAAgIAAAAQAIAKgIAAB2BAAAEBAAAAEA

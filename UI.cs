@@ -22,6 +22,12 @@ using System.Data.Common;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 
+//using Google;
+//using Google.Apis;
+//using Google.Apis.Drive;
+//using Google.Apis.Drive.v2;
+//using Google.Apis.Drive.v2.Data;
+
 namespace As
 {
     /*
@@ -59,11 +65,16 @@ namespace As
     update asxs_bewerbung 
         set messages = ''
      
+    create table asxs_memo (id bigint identity primary key, id_firm bigint references asxs_firm (id), memo text)
+
     */
 
     public partial class UI : Form
     {
         private ListViewItem selectedItem = null;
+        private Thread reloadFirmThread = null;
+        private ViewUI viewUi = null;
+        private DataUnitPackage package;
 
         public UI()
         {
@@ -79,1011 +90,249 @@ namespace As
         private void UI_Load(object sender, EventArgs e)
         {
             splitJobControl.Panel2Collapsed = true;
-            new Thread(new ThreadStart(ReNew)).Start();
+            Initialize();
+            reloadFirmThread.Start();
         }
 
-        private void ReNew()
+        private void Initialize()
         {
-            var reNewActivity 
+            reloadFirmThread = new Thread(new ThreadStart(ReNewView));
+            package = new DataUnitPackage()
+            {
+                Memo = new AsMemoPackage(),
+                Address = new AsAddress(),
+                Bewerbung = new AsBewerbung(),
+                Firm = new AsFirm()
+            };
+            viewUi = new ViewUI();
+        }
+
+        private void ReNewView()
+        {
+            var reNewActivity
                 = 1;
 
-            while (true)
+            Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
+
+            if (lstFirm.InvokeRequired)
             {
-                Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
-
-                if (lstFirm.InvokeRequired)
+                lstFirm.Invoke(new Action(() =>
                 {
-                    lstFirm.Invoke(new Action(() =>
+                    lstFirm.SuspendLayout();
+                    lstFirm.Items.Clear();
+
+                    Application.DoEvents();
+
+                    using (var connection = new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString))
                     {
-                        lstFirm.Items.Clear();
-                        lstFirm.SuspendLayout();
-
-                        using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+                        connection.Open();
+                        if (connection.State == ConnectionState.Open)
                         {
-                            connection.Open();
-                            if (connection.State == ConnectionState.Open)
+                            var command =
+                                connection.CreateCommand();
+
+                            command.CommandText = "SELECT * FROM V_FIRM";
+                            command.Prepare();
+
+                            using (var reader = command.ExecuteReader())
                             {
-                                var command =
-                                    connection.CreateCommand();
+                                var jobNr = 1;
 
-                                command.CommandText = "SELECT * FROM V_FIRM";
-                                command.Prepare();
-
-                                using (var reader = command.ExecuteReader())
+                                while (reader.Read())
                                 {
-                                    var jobNr = 1;
+                                    var id = reader.GetInt64(0);
+                                    if (id == 999)
+                                        continue;
 
-                                    while (reader.Read())
+                                    package = new DataUnitPackage() 
+                                    { 
+                                        Firm = new AsFirm(),
+                                        Bewerbung = new AsBewerbung(), 
+                                        Address = new AsAddress(), 
+                                        Memo = new AsMemoPackage() 
+                                    };
+
+                                    var dataItem = 
+                                        new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+
+                                    package.Firm.Website = reader["Website"].ToString();
+                                    package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
+                                    package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
+                                    package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
+                                    package.Memo.Content = reader["Memo"].ToString();
+
+                                    lstFirm.Items.Add(dataItem);
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
+                                    
+                                    var sentInformationToFirm =
+                                        (package.Bewerbung.Sent = (bool)reader["Abgeschickt"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
+
+                                    var today = DateTime.Today;
+                                    var idleTime =
+                                        (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
+
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
+
+                                    var negativeReply
+                                        = (package.Bewerbung.State = (bool)reader["Absage"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                    if (int.Parse(idleTime) > 3)
                                     {
-                                        lstFirm.Items.Add(new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = int.Parse(reader["ID"].ToString()), TableName = "ASXS_FIRM" } });
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Firma"].ToString());
-
-                                        var sentInformationToFirm =
-                                            reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
-
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
-
-                                        var today = DateTime.Today;
-                                        var idleTime =
-                                            (today - DateTime.Parse(reader["Tag"].ToString())).Days.ToString();
-
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
-
-                                        var negativeReply
-                                            = reader["Absage"].ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
-
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
-
-                                        if (int.Parse(idleTime) > 3)
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
+                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                    }
+                                    else
+                                    {
+                                        if (int.Parse(idleTime) > 2)
                                         {
-                                            lstFirm.Items[jobNr - 1].BackColor = Color.DarkGray;
-                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
                                         }
-                                        else
-                                        {
-                                            if (int.Parse(idleTime) > 2)
-                                            {
-                                                lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
-                                            }
-                                        }
-
-                                        if (negativeReply == "Ja")
-                                            lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
-
-                                        if (sentInformationToFirm == "Nein")
-                                            lstFirm.Items[jobNr - 1].BackColor = Color.Khaki;
-
-                                        jobNr++;
                                     }
 
-                                    try
-                                    {
-                                        reader.Close();
-                                    }
-                                    catch { }
+                                    if (negativeReply == "Ja")
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
+
+                                    if (sentInformationToFirm == "Nein")
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.Khaki;
+
+                                    dataItem.DataItem.Item = package;
+
+                                    jobNr++;
                                 }
+
+                                try
+                                {
+                                    reader.Close();
+                                }
+                                catch { }
                             }
                         }
-
-                        lstFirm.PerformLayout();
-
-                        if (selectedItem != null)
-                        {
-                            selectedItem.Selected = true;
-                        }
-                    }));
-                }
-
-                reNewActivity++;
-            }
-        }
-
-        private void hinzufügenToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            splitJobControl.Panel2Collapsed = !splitJobControl.Panel2Collapsed;
-        }
-
-        private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void lstFirm_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstFirm_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnContinue_Click(object sender, EventArgs e)
-        {
-            using (var faOrganisation =
-                       new FaOrganisationAppend())
-            {
-                faOrganisation.Append
-                (
-                    new AsFirm() 
-                    { 
-                        Name = txtOrganisation.Text 
-                    }, 
-                    new AsAddress() 
-                    { 
-                        City = "Musterstadt" 
-                    }, 
-                    new AsBewerbung() 
-                    { 
-                        State = chkAbsage.Checked,
-                        Sent = chkBewerbung.Checked,
-                        Day = dateTimeDay.Value
                     }
-                );
 
-                chkAbsage.Checked = false;
-                chkBewerbung.Checked = false;
-                txtOrganisation.Text = string.Empty;
+                    lstFirm.PerformLayout();
+
+                    if (selectedItem != null)
+                    {
+                        selectedItem.Selected = true;
+                    }
+                }));
             }
+
+            reNewActivity++;
         }
 
         private void lstFirm_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (e.IsSelected)
-            {
-                using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
-                {
-                    connection.Open();
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        var command =
-                            connection.CreateCommand();
-
-                        command.CommandText = "SELECT * FROM V_FIRM WHERE ID = " + ((DataListItem)e.Item).DataItem.Id.ToString();
-                        command.Prepare();
-
-                        using (var reader = command.ExecuteReader())
-                        {
-                            reader.Read();
-                            txtOrganisation.Text = reader["Firma"].ToString();
-                            chkAbsage.Checked = reader["Absage"].ToString().ToUpper() == "TRUE" ? true : false;
-                            chkBewerbung.Checked = reader["Abgeschickt"].ToString().ToUpper() == "TRUE" ? true : false;
-                            chkReply.Checked = reader["Rueckmeldung"].ToString().ToUpper() == "TRUE" ? true : false;
-                            dateTimeDay.Value = reader.GetDateTime(8);
-                        }
-                    }
-                }
-
                 selectedItem = e.Item;
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            using (var connection = new SAConnection("uid=dba;pwd=sql;dbf=asxs;eng=asxs;astart=yes"))
+
+        }
+
+        private void toolStripCrm_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = e.ClickedItem;
+            if (item != null)
             {
-                connection.Open();
-                if (connection.State == ConnectionState.Open)
+                switch (item.Name)
                 {
-                    var command =
-                        connection.CreateCommand();
+                    case "toolBarAdd":
+                        break;
+                    case "toolBarEdit":
+                        break;
+                    case "toolBarDelete":
+                        break;
+                    case "toolBarRefresh":
+                        break;
+                }
 
-                    command.CommandText = 
-                        string.Concat
-                        (
-                            "UPDATE V_FIRM SET Rueckmeldung = ", chkReply.Checked ? 1 : 0, " WHERE ID = ", ((DataListItem)selectedItem).DataItem.Id
-                        );
+                if (item.Name == "toolBarEdit")
+                {
 
-                    command.Prepare();
-                    command.ExecuteNonQuery();
-
-                    command.CommandText =
-                        string.Concat
-                        (
-                            "UPDATE V_FIRM SET Absage = ", chkAbsage.Checked ? 1 : 0, " WHERE ID = ", ((DataListItem)selectedItem).DataItem.Id
-                        );
-
-                    command.Prepare();
-                    command.ExecuteNonQuery();
                 }
             }
         }
 
-        private void bearbeitenToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolBarAdd_Click(object sender, EventArgs e)
         {
-            splitJobControl.Panel2Collapsed = !splitJobControl.Panel2Collapsed;
-        }
+            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+            viewUi.TypeOfEditing = StatementType.Insert;
 
-        private void anzeigenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
+            if (viewUi.IsDisposed)
+            {
+                viewUi = new ViewUI();
+                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+                viewUi.TypeOfEditing = StatementType.Insert;
+            }
 
-        private void lstFirm_DrawItem(object sender, DrawListViewItemEventArgs e)
-        {
-
-        }
-
-        private void lstFirm_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
-
-        }
-
-        private void lstFirm_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstFirm_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void lstFirm_MouseUp(object sender, MouseEventArgs e)
-        {
-            var item = lstFirm.SelectedItems[0];
-
-            lstFirm.Controls.Add(new TextBox() { Location = new Point(lstFirm.SelectedItems[0].Bounds.X, lstFirm.SelectedItems[0].Bounds.Y) });
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-    }
-
-    public struct DataPackage
-    {
-        public int Id { get; set; }
-        public string TableName { get; set; }
-    }
-
-    public class DataListItem 
-        : ListViewItem
-    {
-        public DataListItem()
-            : base()
-        {
-
-        }
-
-        public DataListItem(string text)
-            : base(text)
-        {
-
-        }
-
-        public DataPackage DataItem { get; set; }
-        public Control EntryControl { get; set; }
-    }
-
-    public interface IFaOrganisation
-    {
-
-    }
-
-    public interface IFaOrganisationAppend : IFaOrganisation
-    {
-
-    }
-
-    public interface IFaOrganisationEdit : IFaOrganisation
-    {
-
-    }
-
-    public interface IFaOrganisationRemove : IFaOrganisation
-    {
-
-    }
-
-    public interface IFaOrganisationDisplay : IFaOrganisation
-    {
-
-    }
-
-    public sealed class AsFirm
-    {
-        public AsFirm()
-        {
-
-        }
-
-        public long Id { get; set; }
-        public long Id_Bew { get; set; }
-        public long Id_Addr { get; set; }
-        public string Name { get; set; }
-    }
-
-    public sealed class AsAddress
-    {
-        public AsAddress()
-        {
-
-        }
-
-        public long Id { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public short Plz { get; set; }
-        public short Hnr { get; set; }
-    }
-
-    public sealed class AsBewerbung
-    {
-        public AsBewerbung()
-        {
-
-        }
-
-        public long Id { get; set; }
-        public bool State { get; set; }
-        public bool Sent { get; set; }
-        public SqlDateTime Day { get; set; }
-    }
-
-    public enum PackageType : int
-    {
-        Firm = 0,
-        Bewerbung,
-        Address,
-        None
-    }
-
-    //public class FaOrganisationEdit : IFaOrganisationEdit, IDisposable
-    //{
-
-    //}
-
-    //public class FaOrganisationRemove : IFaOrganisationRemove, IDisposable
-    //{
-
-    //}
-
-    //public class FaOrganisationDisplay : IFaOrganisationDisplay, IDisposable
-    //{
-
-    //}
-
-    //public abstract class FaOrganisationAbstract
-    //    : IFaOrganisation, IDisposable
-    //{
-        
-
-    //    public FaOrganisationAbstract()
-    //    {
-
-    //    }
-
-
-    //}
-
-    public class FaOrganisationAppend : IFaOrganisationAppend, IDisposable
-    {
-        protected SAConnection connection = null;
-
-        public FaOrganisationAppend()
-        {
-
-        }
-
-        #region FaOrganisationAppend (IDisposable)
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
             }
         }
 
-        #endregion
-
-        #region FaOrganisationAppend (IFaOrganisationAppend)
-
-        public void Append(AsFirm firm, AsAddress address, AsBewerbung bewerbung, string connectionString = "uid=dba;pwd=sql;dbf=asxs;eng=asxs")
+        private void toolButtonEdit_Click(object sender, EventArgs e)
         {
-            connection = new SAConnection(connectionString: connectionString);
-            connection.Open();
+            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+            viewUi.TypeOfEditing = StatementType.Update;
 
-            if (connection.State == ConnectionState.Open)
+            if (viewUi.IsDisposed)
             {
-                using (var command = connection.CreateCommand())
-                {
-                    PrepareTableIds(command, ref firm);
-                    PrepareAddressPackageId(command, ref address);
+                viewUi = new ViewUI();
+                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+                viewUi.TypeOfEditing = StatementType.Update;
+            }
 
-                    Insert(command, string.Format
-                    (
-                        "INSERT INTO ASXS_ADDRESS VALUES ({0}, '{1}', {2}, '{3}', {4})", address.Id, address.City, address.Plz, address.Street, address.Hnr
-                    ));
+            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
 
-                    PrepareBewerbungPackageId(command, ref bewerbung);
-
-                    Insert(command, string.Format
-                    (
-                        "INSERT INTO ASXS_BEWERBUNG (id,state,sent,day) VALUES ({0}, {1}, {2}, '{3}')", bewerbung.Id, bewerbung.State ? 1 : 0, bewerbung.Sent ? 1 : 0, bewerbung.Day.ToSaTimeStamp()
-                    ));
-
-                    Insert(command, string.Format
-                    (
-                        "INSERT INTO ASXS_FIRM VALUES ({0},{1},{2},'{3}')", firm.Id, bewerbung.Id, address.Id, firm.Name
-                    ));
-                }
             }
         }
 
-        #endregion
-
-        protected virtual void PrepareTableIds(SACommand command, ref AsFirm firm)
+        private void toolButtonDelete_Click(object sender, EventArgs e)
         {
-            firm.Id = GetAndIncrementTableId(command, "ASXS_FIRM", true);
-            firm.Id_Bew = GetAndIncrementTableId(command, "ASXS_BEWERBUNG", true);
-            firm.Id_Addr = GetAndIncrementTableId(command, "ASXS_ADDRESS", true);
+            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+            viewUi.TypeOfEditing = StatementType.Delete;
+
+            if (viewUi.IsDisposed)
+            {
+                viewUi = new ViewUI();
+                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
+                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+                viewUi.TypeOfEditing = StatementType.Delete;
+            }
+
+            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+            }
         }
 
-        protected virtual void PrepareAddressPackageId(SACommand command, ref AsAddress address)
-        {
-            address.Id = GetAndIncrementTableId(command, "ASXS_ADDRESS");
-        }
-
-        protected virtual void PrepareBewerbungPackageId(SACommand command, ref AsBewerbung bewerbung)
-        {
-            bewerbung.Id = GetAndIncrementTableId(command, "ASXS_BEWERBUNG");
-        }
-
-        protected virtual void Insert(SACommand command, string commandText)
+        private void toolButtonRefresh_Click(object sender, EventArgs e)
         {
             try
             {
-                try
-                {
-                    if (command != null)
-                        command.Cancel();
-                }
-                catch { }
-
-                command.CommandText = commandText;
-                command.Prepare();
-
-                var result
-                    = command.BeginExecuteNonQuery();
-
-                while (!result.IsCompleted)
-                    Thread.Sleep(new TimeSpan(1));
-                command.EndExecuteNonQuery(result);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        protected virtual void InsertTableId(SACommand command, string tableName)
-        {
-            Insert(command, string.Concat("INSERT INTO ASXS_IDS VALUES ('", tableName, "',", 1, ")"));
-        }
-
-        protected virtual bool TableExistsInIds(SACommand command, string tableName)
-        {
-            command.CommandText = string.Concat("SELECT * FROM ASXS_IDS WHERE TABLE_NAME = '", tableName, "'");
-            command.Prepare();
-            var reader
-                = command.ExecuteReader();
-            var tableIsAlive = reader.HasRows;
-
-            try
-            {
-                reader.Close();
+                reloadFirmThread.Abort();
+                reloadFirmThread = null;
             }
             catch { }
-            finally
-            {
-                reader.Dispose();
-                reader = null;
-            }
 
-            return tableIsAlive;
-        }
-
-        protected virtual long GetAndIncrementTableId(SACommand command, string tableName, bool increment = false)
-        {
-            if (command == null)
-                throw new ArgumentNullException("command");
-
-            if (tableName == string.Empty || tableName == null)
-                throw new ArgumentNullException("tableName");
-
-            var id
-                 = 0L;
-
-            if (!(TableExistsInIds(command, tableName)))
-                InsertTableId(command, tableName);
-
-            command.CommandText = string.Concat("SELECT TABLE_ID FROM ASXS_IDS WHERE TABLE_NAME = '", tableName, "'");
-            command.Prepare();
-            id = (long)command.ExecuteScalar();
-
-            if (increment)
-            {
-                id++;
-                Insert(command, string.Concat("UPDATE ASXS_IDS SET TABLE_ID = ", id, " WHERE TABLE_NAME = '", tableName, "'"));
-            }
-
-            return id;
-        }
-    }
-
-    /// <summary>
-    /// Google GMail Property Package
-    /// </summary>
-    public static class GMailPop3
-    {
-        /// <summary>
-        /// Gets the POP3 Server from GMail
-        /// </summary>
-        public const string Server = "pop.gmail.com";
-
-        /// <summary>
-        /// POP3 (SSL)
-        /// </summary>
-        public const uint SslPort = 995;
-
-        /// <summary>
-        /// Gets or sets the client IP Address (for e.g. 192.168.xxx.xxx)
-        /// </summary>
-        public static string Client { get; set; }
-    }
-
-    /// <summary>
-    /// Gets the Token-Type for type of sending messages to a POP3 - Account
-    /// </summary>
-    public enum PopTokenType : int
-    {
-        /// <summary>
-        /// Authorization
-        /// </summary>
-        Authorization = 0,
-
-        /// <summary>
-        /// Transaction
-        /// </summary>
-        Transaction = 1,
-
-        /// <summary>
-        /// Default
-        /// </summary>
-        None
-    }
-
-    /// <summary>
-    /// POP3 Parameter with Tokens for Authentication or Transaction (for e.g. USER or PASS or LIST)
-    /// </summary>
-    public interface IPopParameter
-    {
-        /// <summary>
-        /// Gets or sets the POP3 Token
-        /// </summary>
-        string Token { get; set; }
-    }
-
-    /// <summary>
-    /// POP3 Authentication Parameter
-    /// </summary>
-    public interface IPopAuthParameter 
-        : IPopParameter
-    {
-        /// <summary>
-        /// Gets the Token-Type for type of sending messages to a POP3 - Account
-        /// </summary>
-        PopTokenType Type 
-        { 
-            get; 
-            set; 
-        }
-
-        /// <summary>
-        /// Gets all necessary authentication parameter
-        /// </summary>
-        /// <returns>Sequence with waiter</returns>
-        IEnumerable<string> GetAuthParameter();
-    }
-
-    /// <summary>
-    /// POP3 Transaction Parameter
-    /// </summary>
-    public interface IPopTransactionParameter 
-        : IPopParameter
-    {
-        /// <summary>
-        /// Gets the Token-Type for type of sending messages to a POP3 - Account
-        /// </summary>
-        PopTokenType Type 
-        { 
-            get; 
-            set; 
-        }
-
-        /// <summary>
-        /// Gets all necessary transaction parameter
-        /// </summary>
-        /// <returns>Sequence with waiter</returns>
-        IEnumerable<string> GetTransactionParameter();
-    }
-
-    /// <summary>
-    /// Explicit use of Authentication or Transaction parameters for interfaces of IPopAuthParameter or IPopTransactionParameter
-    /// </summary>
-    public sealed class PopParameter 
-        : 
-        IPopAuthParameter, 
-        IPopTransactionParameter
-    {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="token">Can be a custom token from the protocol type like USER or PASS or LIST</param>
-        public PopParameter(string token)
-        {
-            Token = token;
-        }
-
-        /// <summary>
-        /// Gets or sets the token for communication with the POP3 Server
-        /// </summary>
-        public string Token 
-        { 
-            get; 
-            set; 
-        }
-
-        #region PopParameter (Authentication)
-
-        /// <summary>
-        /// Gets the Token-Type for type of sending messages to a POP3 - Account
-        /// </summary>
-        PopTokenType IPopAuthParameter.Type
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets all necessary authentication parameter
-        /// </summary>
-        /// <returns>Sequence with waiter</returns>
-        IEnumerable<string> IPopAuthParameter.GetAuthParameter()
-        {
-            foreach (var parameter in new string[] { Constants.UserAuthenticationString, Constants.PasswordAuthenticationString })
-                yield return parameter;
-
-            yield break;
-        }
-
-        #endregion
-
-        #region PopParameter (Transaction)
-
-        /// <summary>
-        /// Gets the Token-Type for type of sending messages to a POP3 - Account
-        /// </summary>
-        PopTokenType IPopTransactionParameter.Type
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets all necessary transaction parameter
-        /// </summary>
-        /// <returns>Sequence with waiter</returns>
-        IEnumerable<string> IPopTransactionParameter.GetTransactionParameter()
-        {
-            foreach (var parameter in new string[] { Constants.ListTokenString })
-                yield return parameter;
-
-            yield break;
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Little GMail Client that receives only a List of E-Mails
-    /// </summary>
-    public class GMailClient 
-        : IDisposable
-    {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public GMailClient()
-        {
-
-        }
-
-        #region GMailClient (IDisposable)
-
-        /// <summary>
-        /// Disposing all save or unsaved components
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Disposing all save or unsaved components
-        /// </summary>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-
-            }
-        }
-
-        #endregion
-    }
-
-    public class Pop3Lite 
-        : IDisposable
-    {
-        private UdpClient 
-            client = null;
-
-        private IPEndPoint address = null;
-        private Thread receiverThread = null;
-
-        public Pop3Lite()
-        {
-            
-        }
-
-        internal static int waitToken = -1;
-
-        #region Pop3Lite (IDisposable)
-
-        /// <summary>
-        /// Disposing all save or unsaved components
-        /// </summary>
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-            Dispose(true);
-        }
-
-        /// <summary>
-        /// Disposing all save or unsaved components
-        /// </summary>
-        protected void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                client = null;
-                address = null;
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Open a connection with given information about User and Password (with Authentication)
-        /// </summary>
-        public void Open()
-        {
-            try
-            {
-                OpenClientInternal();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Open a connection with Authentication
-        /// </summary>
-        public void OpenWithAuthentication()
-        {
-            Open();
-
-            IPopAuthParameter authentication =
-                              new PopParameter(Constants.UserAuthenticationString);
-
-            authentication.
-                Type = PopTokenType.Authorization;
-            
-            SendAuthentication(authentication);
-        }
-
-        /// <summary>
-        /// Waits for a receive event on POP-Client
-        /// </summary>
-        private void WaitOnToken()
-        {
-            receiverThread = 
-                new Thread(new ThreadStart(WaitOnClientTokenInternal));
-            receiverThread.Start();
-
-            while (true)
-            {
-                if (waitToken != -1)
-                    break;
-
-                Application.DoEvents();
-                Thread.Sleep(new TimeSpan(500));
-            }
-
-            waitToken = -1;
-        }
-
-        /// <summary>
-        /// Looks in the UDP-Client (POP-Client) if some data is available
-        /// </summary>
-        private void WaitOnClientTokenInternal()
-        {
-            while (true)
-            {
-                if (client.Available > 0)
-                {
-                    waitToken = 1;
-                    return;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Closes the POP-Client
-        /// </summary>
-        public void Close()
-        {
-            if (client == null)
-                return;
-
-            try
-            {
-                client.Close();
-            }
-            catch { }
-        }
-
-        /// <summary>
-        /// Sending information about a transaction (for e.g. LIST)
-        /// </summary>
-        /// <param name="parameter">Gets all transaction parameters</param>
-        public void SendTransaction(IPopTransactionParameter parameter)
-        {
-            foreach (var command in parameter.GetTransactionParameter())
-                SendToServerInternal
-                    (
-                        new PopParameter(command)
-                    );
-        }
-
-        /// <summary>
-        /// Sending information about authentications with USER and PASS
-        /// </summary>
-        /// <param name="parameter">Gets all authentication parameters USER and PASS</param>
-        public void SendAuthentication(IPopAuthParameter parameter)
-        {
-            foreach (var command in parameter.GetAuthParameter())
-            {
-                SendToServerInternal
-                    (
-                        new PopParameter(command)
-                    );
-
-                WaitOnToken();
-            }
-        }
-
-        /// <summary>
-        /// Sending some custom data with the UDP-Client (POP-Client)
-        /// </summary>
-        /// <param name="parameter">Gets only one Token to send</param>
-        internal void SendToServerInternal(IPopParameter parameter)
-        {
-            var byteCount 
-                = -1;
-            var bytes = ConvertToByteSequence(parameter.Token, out byteCount);
-
-            var asyncResult = 
-                client.BeginSend(bytes, byteCount, null, null);
-            
-            while (!asyncResult.IsCompleted)
-            {
-                Application.DoEvents();
-                Thread.Sleep(new TimeSpan(500));
-            }
-
-            client.EndSend(asyncResult);
-        }
-
-        /// <summary>
-        /// Opens a UDP-Client with given local IP-Address
-        /// </summary>
-        internal void OpenClientInternal()
-        {
-            try
-            {
-                client = new UdpClient
-                ((
-                       address = new IPEndPoint(IPAddress.Parse(GMailPop3.Client), 0)
-                ));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Converts a Unicode-String in a byte-sequence and returns a out-value with the byte-count
-        /// </summary>
-        /// <param name="item">Unicode-String that should convert</param>
-        /// <param name="byteCount">Unicode-String that returns with the conversion</param>
-        /// <returns>The given byte-sequence from "item"</returns>
-        private byte[] ConvertToByteSequence(string item, out int byteCount)
-        {
-            byteCount = -1;
-            var bytes = Encoding.Default.GetBytes(item);
-            byteCount = bytes.Length;
-
-            return bytes;
-        }
-    }
-
-    /// <summary>
-    /// Constants for the Process
-    /// </summary>
-    public static class Constants
-    {
-        /// <summary>
-        /// USER
-        /// </summary>
-        public const string UserAuthenticationString = "USER";
-
-        /// <summary>
-        /// PASS
-        /// </summary>
-        public const string PasswordAuthenticationString = "PASS";
-
-        /// <summary>
-        /// LIST
-        /// </summary>
-        public const string ListTokenString = "LIST";
-    }
-
-    public static class Extensions
-    {
-        public static string ToSaTimeStamp(this SqlDateTime value)
-        {
-            var dateTimeValue = value.ToSqlString();
-            var dateTimeValues
-                = dateTimeValue.Value.Split(new char[] { '.' });
-            var year = string.Empty;
-
-            if (dateTimeValues.Length > 0)
-            {
-                var dateTimeYear
-                    = dateTimeValues[2].Split(new char[] { ' ' });
-                
-                if (dateTimeYear.Length > 0)
-                    year = dateTimeYear[0];
-            }
-
-            return year + "/" + dateTimeValues[1] + "/" + dateTimeValues[0];
+            reloadFirmThread = new Thread(new ThreadStart(ReNewView));
+            reloadFirmThread.Start();
         }
     }
 }

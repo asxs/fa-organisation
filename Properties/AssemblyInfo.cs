@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("FAOrganisationUnit")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Tiny Organisation CRM Unit")]
+[assembly: AssemblyDescription("Can allocate some organisation informations and some personal statements in this fact of interaction to a public entry")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FAOrganisationUnit")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Lars Ulrich Herrmann")]
+[assembly: AssemblyProduct("Tiny Organisation CRM Unit")]
+[assembly: AssemblyCopyright("Copyright © Lars Ulrich Herrmann 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,3 +35,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("de-DE")]
