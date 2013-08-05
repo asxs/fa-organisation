@@ -70,7 +70,7 @@ namespace As
             if (tableName == string.Empty || tableName == null)
                 throw new ArgumentNullException("tableName");
 
-            var id = 0L;
+            var id = 1L;
 
             try
             {

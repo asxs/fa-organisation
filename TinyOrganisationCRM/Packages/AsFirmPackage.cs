@@ -15,9 +15,51 @@ using iAnywhere.Data.SQLAnywhere;
 
 #endregion
 
-
 namespace As
 {
+    public struct AnlageItem
+    {
+        public string Name { get; set; }
+        public string Document { get; set; }
+        public string Description { get; set; }
+    }
+
+    public sealed class AsAnlage
+        : IDataUnitPackage
+    {
+        public AsAnlage()
+        {
+
+        }
+
+        public List<AnlageItem> Anlagen { get; set; }
+
+        public string TableName
+        {
+            get
+            {
+                return "ASXS_ANLAGE";
+            }
+            set { ; }
+        }
+
+        public string ToSqlString(StatementType type, DataUnitPackage units, long id = 0)
+        {
+            var commandText =
+                string.Empty;
+
+            switch (type)
+            {
+                case StatementType.Insert:
+                    break;
+                case StatementType.Update:
+                    break;
+            }
+
+            return commandText;
+        }
+    }
+
     public sealed class AsFirm
         : IDataUnitPackage
     {

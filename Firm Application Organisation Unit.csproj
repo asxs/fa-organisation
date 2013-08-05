@@ -49,10 +49,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Lib\new_page.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="iAnywhere.Data.SQLAnywhere.v3.5, Version=12.0.1.34573, Culture=neutral, PublicKeyToken=f222fc4333e0d400, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MigraDoc.DocumentObjectModel, Version=1.32.3885.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MigraDoc.DocumentObjectModel.dll</HintPath>
@@ -219,6 +224,12 @@
     <None Include="Resources\back.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lib\icon_save.png" />
+    <None Include="Lib\top.gif" />
+    <None Include="Lib\thumbs_down_dislike_vote_no-16.png" />
+    <None Include="Lib\yt_dislike_btn.png" />
+    <None Include="Lib\thumbs_down.png" />
+    <None Include="Lib\new_page.ico" />
     <None Include="Resources\000425a_l.gif" />
     <None Include="Resources\totenkopf_mit_gekreuzter_knochen_aufkleber-re147ed26557047d891c5b8ffd5b9e05b_v9wf3_8byvr_512.jpg" />
     <None Include="Resources\page_writing.png" />
@@ -231,6 +242,7 @@
     <None Include="Lib\arrow_left.png" />
     <None Include="Lib\arrow_right.png" />
     <None Include="Lib\book.png" />
+    <None Include="Lib\dislike.ico" />
     <Content Include="Lib\drive\Google.Apis.Drive.v2.dll" />
     <Content Include="Lib\drive\Lib\DotNetOpenAuth.dll" />
     <Content Include="Lib\drive\Lib\Google.Apis.Authentication.OAuth2.dll" />

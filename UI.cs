@@ -22,6 +22,10 @@ using System.Data.Common;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
+
 //using Google;
 //using Google.Apis;
 //using Google.Apis.Drive;
@@ -66,7 +70,8 @@ namespace As
         set messages = ''
      
     create table asxs_memo (id bigint identity primary key, id_firm bigint references asxs_firm (id), memo text)
-
+    create table asxs_anlage (id bigint primary key, id_firm bigint, document binary)
+     
     */
 
     public partial class UI : Form
@@ -87,6 +92,11 @@ namespace As
         //Local ip address 192.168.83.100
         //SendAuthorization
         //SendTransaction
+
+        protected override void DefWndProc(ref Message m)
+        {
+            base.DefWndProc(ref m);
+        }
 
         private void UI_Load(object sender, EventArgs e)
         {
@@ -150,7 +160,8 @@ namespace As
                                         Firm = new AsFirm(),
                                         Bewerbung = new AsBewerbung(), 
                                         Address = new AsAddress(), 
-                                        Memo = new AsMemoPackage() 
+                                        Memo = new AsMemoPackage(),
+                                        Anlage = new AsAnlage()
                                     };
 
                                     var dataItem = 
@@ -187,7 +198,17 @@ namespace As
                                     var negativeReply
                                         = (package.Bewerbung.State = (bool)reader["Absage"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
 
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+                                    var editButtonItem 
+                                        = lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                    lstFirm
+                                        .Controls.Add(new Button() 
+                                                      { 
+                                                          Size = new System.Drawing.Size(25, 20), 
+                                                          Location = new System.Drawing.Point(editButtonItem.Bounds.X+255, editButtonItem.Bounds.Y-1),
+                                                          Text = "...",
+                                                          Visible = false
+                                                      });
 
                                     if (idleTime > 3)
                                     {
@@ -202,15 +223,15 @@ namespace As
                                         }
                                     }
 
+                                    if (sentInformationToFirm == "Nein")
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
+
                                     if (negativeReply == "Ja")
                                     {
                                         lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
                                         lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                         lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
                                     }
-
-                                    if (sentInformationToFirm == "Nein")
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
 
                                     dataItem.DataItem.Item = package;
 
@@ -315,21 +336,20 @@ namespace As
 
         private void toolButtonDelete_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
-            viewUi.TypeOfEditing = StatementType.Delete;
-
-            if (viewUi.IsDisposed)
+            using (var edit = new FaOrganisationEdit())
             {
-                viewUi = new ViewUI();
-                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
-                viewUi.TypeOfEditing = StatementType.Delete;
-            }
+                var bewerbung =
+                    ((DataListItem)selectedItem).DataItem.Item.Bewerbung;
+                
+                bewerbung.State = true;
 
-            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
+                edit.Edit(new DataUnitPackage()
+                {
+                    Bewerbung = bewerbung
+                },
 
+                new BewerbungDataUnit(),
+                ((DataListItem)selectedItem).DataItem.Id);
             }
         }
 
@@ -396,6 +416,162 @@ namespace As
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tabFirm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabFirm.SelectedTab.Name.ToUpper())
+            {
+                case "TABPAGE2":
+                    {
+                        lstDrive.Items.Clear();
+                        try
+                        {
+                            using (var connection = new SAConnection
+                                                    (
+                                                        ConnectionStringManager.TinyOrganisationCrmAnyConnectionString
+                                                    ))
+                            {
+                                connection
+                                    .Open();
+
+                                if (connection.State == System.Data.ConnectionState.Open)
+                                    using (var action = connection.CreateCommand())
+                                    {
+                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((DataListItem)selectedItem).DataItem.Id;
+                                        action.Prepare();
+                                        var anlage
+                                            = action.ExecuteReader();
+
+                                        while (anlage.Read())
+                                        {
+                                            lstDrive.Items.Add(anlage["Anlage"].ToString());
+                                            lstDrive.Items[lstDrive.Items.Count - 1].SubItems.Add(anlage["Firma"].ToString());
+                                        }
+                                    }
+
+                                connection.Close();
+                            }
+                        }
+                        catch { }
+                        finally
+                        {
+
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void tabFirm_TabIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolNew_Click(object sender, EventArgs e)
+        {
+            var id =
+                0L;
+
+            using (var add = new FaOrganisationAppend())
+            {
+                var bewerbung = new AsBewerbung()
+                {
+                     Day = DateTime.Now
+                };
+
+                id = add.Append
+                (
+                    new DataUnitPackage()
+                    {
+                        Bewerbung = bewerbung
+                    },
+
+                    new BewerbungDataUnit()
+                );
+
+                bewerbung.Id = id;
+
+                var address = new AsAddress()
+                {
+                    City = "Musterstadt",
+                    Street = string.Empty,
+                    Plz = 0,
+                    Hnr = 0
+                };
+
+                id = add.Append
+                (
+                    new DataUnitPackage()
+                    {
+                        Address = address
+                    },
+
+                    new AddressDataUnit()
+                );
+
+                address.Id = id;
+
+                var memo = new AsMemoPackage()
+                {
+                    Content = string.Empty
+                };
+
+                id = add.Append
+                (
+                    new DataUnitPackage()
+                    {
+                        Memo = memo
+                    },
+
+                    new MemoDataUnit()
+                );
+
+                memo.Id = id;
+
+                var firm = new AsFirm()
+                {
+                    Id_Bew = bewerbung.Id,
+                    Id_Addr = address.Id,
+                    Id_Memo = memo.Id,
+                };
+
+                id = add.Append
+                (
+                    new DataUnitPackage()
+                    {
+                        Memo = memo,
+                        Address = address,
+                        Bewerbung = bewerbung,
+                        Firm = firm
+                    },
+
+                    new FirmDataUnit()
+                );
+            }
+        }
+
+        private void toolState_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var edit = new FaOrganisationEdit())
+                {
+                    var bewerbung =
+                        ((DataListItem)selectedItem).DataItem.Item.Bewerbung;
+
+                    bewerbung.Sent = true;
+
+                    edit.Edit(new DataUnitPackage()
+                    {
+                        Bewerbung = bewerbung
+                    },
+
+                    new BewerbungDataUnit(),
+                    ((DataListItem)selectedItem).DataItem.Id);
+                }
+            }
+            catch { }
         }
     }
 }

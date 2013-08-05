@@ -6,11 +6,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlTypes;
+
+#region iAnywhere.Data.SQLAnywhere.v3.5
+
+using iAnywhere;
+using iAnywhere.Data;
+using iAnywhere.Data.SQLAnywhere;
+
+#endregion
 
 namespace As
 {
     public partial class ViewUI : Form
     {
+        private SAConnection connection = null;
+
         public ViewUI()
         {
             InitializeComponent();
@@ -18,8 +33,8 @@ namespace As
 
         public DataUnitPackage Package { get; set; }
         public StatementType TypeOfEditing { get; set; }
-
         public long Id { get; set; }
+        public SAConnection Connection { get { return connection; } }
 
         private void ViewUI_Load(object sender, EventArgs e)
         {
@@ -33,10 +48,43 @@ namespace As
             txtMemo.Enabled = (Package.Firm.Id_Memo != 0);
             toolAdd.Enabled = (Package.Firm.Id_Memo == 0);
 
+            lstAnlagen.Items.Clear();
+            try
+            {
+                using (connection = new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString))
+                {
+                    connection
+                        .Open();
+
+                    if (connection.State == System.Data.ConnectionState.Open)
+                        using (var action = connection.CreateCommand())
+                        {
+                            action.CommandText = "SELECT * FROM ASXS_ANLAGE WHERE ID_FIRM = " + Package.Firm.Id;
+                            action.Prepare();
+                            var anlage 
+                                = action.ExecuteReader();
+
+                            while (anlage.Read())
+                            {
+                                lstAnlagen.Items.Add(anlage["name"].ToString());
+                                lstAnlagen.Items[lstAnlagen.Items.Count - 1].SubItems.Add(anlage["descr"].ToString());
+                            }
+                        }
+                }
+            }
+            catch { }
+            finally
+            {
+                connection.Close();
+            }
+
             if (TypeOfEditing != StatementType.Insert)
                 btnAdd.Enabled = false;
             else
                 btnSaveNoExit.Enabled = false;
+
+            if (!radioAbsage.Checked && !radioAbsageUser.Checked)
+                chkAbsageBack.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -297,6 +345,135 @@ namespace As
         private void toolBack_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolSave_Click(object sender, EventArgs e)
+        {
+            using (var stream = new FileStream(txtAnlage.Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                try
+                {
+                    var bytes =
+                        new byte[stream.Length];
+
+                    stream.Read(bytes, 0, bytes.Length);
+                    try
+                    {
+                        stream.Close();
+                    }
+                    finally { stream.Dispose(); }
+
+                    if (bytes.Length == 0)
+                        throw new InvalidOperationException("the document should have a value");
+
+                    if (connection == null || connection.State != System.Data.ConnectionState.Open)
+                    {
+                        connection =
+                            new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString);
+
+                        connection.Open();
+                    }
+
+                    try
+                    {
+                        if (connection.State == System.Data.ConnectionState.Open)
+                        {
+                            var action = connection.CreateCommand();
+                            if (action != null)
+                            {
+                                var id
+                                    = TableIdCommand.CreateInstance(action).Get("NEW", "ASXS_ANLAGE");
+
+                                action.CommandText = string.Format("INSERT INTO ASXS_ANLAGE VALUES ({0}, {1}, csconvert('{2}', 'os_charset'), '{3}', '{4}')", id, Package.Firm.Id, txtAnlage.Text, "Anlage", Path.GetFileNameWithoutExtension(txtAnlage.Text));
+                                action.Prepare();
+                                action.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    catch { }
+                }
+                catch { }
+            }
+
+            lstAnlagen.Items.Clear();
+            try
+            {
+                using (var action = connection.CreateCommand())
+                {
+                    action.CommandText = "SELECT * FROM ASXS_ANLAGE WHERE ID_FIRM = " + Package.Firm.Id;
+                    action.Prepare();
+                    var anlage
+                        = action.ExecuteReader();
+
+                    while (anlage.Read())
+                    {
+                        lstAnlagen.Items.Add(anlage["name"].ToString());
+                        lstAnlagen.Items[lstAnlagen.Items.Count - 1].SubItems.Add(anlage["descr"].ToString());
+                    }
+                }
+            }
+            catch { }
+            finally
+            {
+
+            }
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            using (var documentDialog = new OpenFileDialog())
+            {
+                documentDialog.AddExtension = true;
+                documentDialog.AutoUpgradeEnabled = true;
+                documentDialog.CheckFileExists = true;
+                documentDialog.CheckPathExists = true;
+                documentDialog.Filter = "Alle Dateien (*.*)|*.*";
+
+                if (documentDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtAnlage.Text = documentDialog.FileName;
+                }
+            }
+        }
+
+        private void radioAbsage_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void radioAbsageUser_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkAbsageBack_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAbsageBack.Checked)
+            {
+                try
+                {
+                    using (var edit = new FaOrganisationEdit())
+                    {
+                        var bewerbung =
+                            Package.Bewerbung;
+
+                        bewerbung.State = false;
+
+                        edit.Edit(new DataUnitPackage()
+                        {
+                            Bewerbung = bewerbung
+                        },
+
+                        new BewerbungDataUnit(),
+                        Package.Firm.Id);
+                    }
+                }
+                catch { }
+
+                chkAbsageBack.Enabled = false;
+                radioAbsage.Checked = false;
+                radioAbsageUser.Checked = false;
+            }
         }
     }
 

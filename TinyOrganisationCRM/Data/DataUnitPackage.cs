@@ -11,5 +11,6 @@ namespace As
         public AsMemoPackage Memo { get; set; }
         public AsAddress Address { get; set; }
         public AsFirm Firm { get; set; }
+        public AsAnlage Anlage { get; set; }
     }
 }
