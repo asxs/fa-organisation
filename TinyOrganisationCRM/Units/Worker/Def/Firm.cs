@@ -43,7 +43,7 @@ namespace As
             set { ; }
         }
 
-        public string ToSqlString(StatementType type, UnitPackage units, long id = 0)
+        public string ToSqlString(StatementType type, Units units, long id = 0)
         {
             var commandText =
                 string.Empty;

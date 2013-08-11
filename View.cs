@@ -22,6 +22,8 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace As
 {
+    using Data;
+
     public partial class ViewUI : Form
     {
         private SAConnection connection = null;
@@ -544,11 +546,26 @@ namespace As
 
         private void toolAdd_MouseHover(object sender, EventArgs e)
         {
-            var g = CreateGraphics();
-            if (g != null)
-            {
+            new ToolTipUI() { Location = new Point(x, y) }.Show();
+        }
 
-            }
+        private void toolAdd_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void toolAdd_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private static int x = 0;
+        private static int y = 0;
+
+        private void ViewUI_MouseMove(object sender, MouseEventArgs e)
+        {
+            x = e.Location.X;
+            y = e.Location.Y;
         }
     }
 

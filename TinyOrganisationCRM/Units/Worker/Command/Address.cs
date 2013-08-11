@@ -17,6 +17,8 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace As
 {
+    using Data;
+
     public sealed class AddressDataUnit : IWorkDataUnit
     {
         public AddressDataUnit()
@@ -34,7 +36,7 @@ namespace As
 
         public string Database { get; set; }
 
-        public QueryStateType Insert(UnitPackage units, long id = 0)
+        public QueryStateType Insert(Units units, long id = 0)
         {
             var state = QueryStateType.None;
             try
@@ -66,7 +68,7 @@ namespace As
             return state;
         }
 
-        public QueryStateType Update(UnitPackage units, long id = 0)
+        public QueryStateType Update(Units units, long id = 0)
         {
             var state = QueryStateType.None;
             try
@@ -98,7 +100,7 @@ namespace As
             return state;
         }
 
-        public QueryStateType Remove(UnitPackage units, long id = 0)
+        public QueryStateType Remove(Units units, long id = 0)
         {
             return QueryStateType.None;
         }

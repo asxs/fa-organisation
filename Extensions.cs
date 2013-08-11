@@ -21,6 +21,38 @@ namespace As
 {
     public static class Extensions
     {
+        public static bool CompareWithCase(this string value, string compareValue)
+        {
+            var result =
+                false;
+
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (char.IsUpper(value[i]))
+                    if (i < compareValue.Length && char.IsUpper(compareValue[i]))
+                    {
+                        if (value[i] == compareValue[i])
+                            result = true;
+                    }
+
+                if (result)
+                    break;
+
+                if (!(result))
+                    if (!char.IsLower(value[i]))
+                        if (i < compareValue.Length && char.IsLower(compareValue[i]))
+                        {
+                            if (value[i] == compareValue[i])
+                                result = true;
+                        }
+
+                if (result)
+                    break;
+            }
+
+            return result;
+        }
+
         public static ListViewItem Add(this ListView item, ListViewItemUnit unit)
         {
             return item.Items.Add(unit as ListViewItem);

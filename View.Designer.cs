@@ -78,6 +78,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -334,6 +337,7 @@
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
+            this.toolStrip1.BackColor = System.Drawing.Color.DarkGray;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
@@ -349,10 +353,11 @@
             // 
             // toolBack
             // 
+            this.toolBack.BackColor = System.Drawing.Color.DarkGray;
             this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBack.Image = global::As.Properties.Resources.arrow_left2;
+            this.toolBack.Image = global::As.Properties.Resources.left;
             this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
             this.toolBack.Name = "toolBack";
             this.toolBack.Size = new System.Drawing.Size(109, 68);
             this.toolBack.Text = "toolStripButton1";
@@ -360,8 +365,9 @@
             // 
             // toolNext
             // 
+            this.toolNext.BackColor = System.Drawing.Color.DarkGray;
             this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolNext.Image = global::As.Properties.Resources.arrow_right2;
+            this.toolNext.Image = global::As.Properties.Resources.right;
             this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolNext.Name = "toolNext";
@@ -372,6 +378,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Wheat;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(14, 423);
             this.label9.Name = "label9";
@@ -448,6 +455,8 @@
             this.toolAdd.Size = new System.Drawing.Size(35, 36);
             this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
             this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
+            this.toolAdd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolAdd_MouseMove);
+            this.toolAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.toolAdd_Paint);
             // 
             // label10
             // 
@@ -459,6 +468,7 @@
             // 
             // toolStrip3
             // 
+            this.toolStrip3.BackColor = System.Drawing.Color.Wheat;
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -471,6 +481,7 @@
             // 
             // toolSave
             // 
+            this.toolSave.BackColor = System.Drawing.Color.Wheat;
             this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolSave.Image = global::As.Properties.Resources.icon_save;
             this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -495,7 +506,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 658);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(972, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(858, 22);
             this.statusStrip1.TabIndex = 56;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -530,6 +541,7 @@
             // 
             // label8
             // 
+            this.label8.BackColor = System.Drawing.Color.DarkGray;
             this.label8.Location = new System.Drawing.Point(860, 407);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(150, 80);
@@ -580,11 +592,37 @@
             this.label14.Size = new System.Drawing.Size(387, 111);
             this.label14.TabIndex = 65;
             // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.Color.Wheat;
+            this.label15.Location = new System.Drawing.Point(-3, 413);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(473, 245);
+            this.label15.TabIndex = 66;
+            // 
+            // label16
+            // 
+            this.label16.BackColor = System.Drawing.Color.Wheat;
+            this.label16.Location = new System.Drawing.Point(409, 468);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 3);
+            this.label16.TabIndex = 67;
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.DarkGray;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label17.Location = new System.Drawing.Point(858, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(114, 680);
+            this.label17.TabIndex = 68;
+            // 
             // ViewUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 680);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.chkPositiveReply);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label8);
@@ -628,6 +666,8 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label14);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label17);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -637,6 +677,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bearbeitung von Einträgen im Firmenverzeichnis - (c) Sense Applications 2013";
             this.Load += new System.EventHandler(this.ViewUI_Load);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ViewUI_MouseMove);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -699,5 +740,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }

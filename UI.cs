@@ -34,6 +34,8 @@ using System.Drawing.Text;
 
 namespace As
 {
+    using Data;
+
     /*
 
     create table asxs_firm (id bigint primary key, id_bew bigint, id_addr bigint, name varchar(255))
@@ -85,6 +87,7 @@ namespace As
         private int columnDisplayIndex = -1;
         private string sortColumn = "ORDER BY Absage";
         private bool reNewView = false;
+        private bool caseSensitive4Filter = false;
 
         public UI()
         {
@@ -160,6 +163,13 @@ namespace As
                                     if (id == 999)
                                         continue;
 
+                                    var firmName =
+                                        reader["Firma"].ToString();
+
+                                    if (chkFilter.Checked)
+                                        if (!(firmName.CompareWithCase(txtSearch.Text)))
+                                            continue;
+
                                     package = new Units() 
                                     { 
                                         Firm = new WorkUnitFirm(),
@@ -171,7 +181,7 @@ namespace As
                                     };
 
                                     var dataItem = 
-                                        new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { DataItem = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+                                        new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
 
                                     package.Firm.Website = reader["Website"].ToString();
                                     package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
@@ -186,9 +196,9 @@ namespace As
                                     package.Memo.Content = reader["Memo"].ToString();
 
                                     lstFirm.Items.Add(dataItem);
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
-                                    
+                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+
                                     var sentInformationToFirm =
                                         (package.Bewerbung.Sent = (bool)reader["Abgeschickt"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
 
@@ -249,7 +259,7 @@ namespace As
 
                                     }
 
-                                    dataItem.DataItem.Item = package;
+                                    dataItem.Value.Item = package;
 
                                     jobNr++;
                                 }
@@ -324,15 +334,15 @@ namespace As
 
         private void toolBarAdd_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
-            viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
+            viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
+            viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
             viewUi.TypeOfEditing = StatementType.Insert;
 
             if (viewUi.IsDisposed)
             {
                 viewUi = new ViewUI();
-                viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
-                viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
+                viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
+                viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
                 viewUi.TypeOfEditing = StatementType.Insert;
             }
 
@@ -344,15 +354,15 @@ namespace As
 
         private void toolButtonEdit_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
-            viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
+            viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
+            viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
             viewUi.TypeOfEditing = StatementType.Update;
 
             if (viewUi.IsDisposed)
             {
                 viewUi = new ViewUI();
-                viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
-                viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
+                viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
+                viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
                 viewUi.TypeOfEditing = StatementType.Update;
             }
 
@@ -367,7 +377,7 @@ namespace As
             using (var edit = new FaOrganisationEdit())
             {
                 var bewerbung =
-                    ((ListViewItemUnit)selectedItem).DataItem.Item.Bewerbung;
+                    ((ListViewItemUnit)selectedItem).Value.Item.Bewerbung;
                 
                 bewerbung.State = true;
 
@@ -377,7 +387,7 @@ namespace As
                 },
 
                 new BewerbungDataUnit(),
-                ((ListViewItemUnit)selectedItem).DataItem.Id);
+                ((ListViewItemUnit)selectedItem).Value.Id);
             }
         }
 
@@ -467,7 +477,7 @@ namespace As
                                 if (connection.State == System.Data.ConnectionState.Open)
                                     using (var action = connection.CreateCommand())
                                     {
-                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((ListViewItemUnit)selectedItem).DataItem.Id;
+                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((ListViewItemUnit)selectedItem).Value.Id;
                                         action.Prepare();
                                         var anlage
                                             = action.ExecuteReader();
@@ -593,7 +603,7 @@ namespace As
                 using (var edit = new FaOrganisationEdit())
                 {
                     var bewerbung =
-                        ((ListViewItemUnit)selectedItem).DataItem.Item.Bewerbung;
+                        ((ListViewItemUnit)selectedItem).Value.Item.Bewerbung;
 
                     bewerbung.Sent = true;
 
@@ -603,7 +613,7 @@ namespace As
                     },
 
                     new BewerbungDataUnit(),
-                    ((ListViewItemUnit)selectedItem).DataItem.Id);
+                    ((ListViewItemUnit)selectedItem).Value.Id);
                 }
             }
             catch { }
@@ -619,24 +629,24 @@ namespace As
 
             switch (lstFirm.Columns[e.Column].DisplayIndex)
             {
-                case 3:
+                case 1:
                     sortColumn = "Firma";
                     break;
-                case 6:
+                case 5:
                     sortColumn = "Absage";
                     break;
-                case 4:
+                case 3:
                     sortColumn = "Abgeschickt";
                     break;
-                case 5:
+                case 4:
                     sortColumn = "Tag";
                     break;
-                case 1:
+                case 2:
                     sortColumn = "Rueckmeldung";
                     break;
-            } sortColumn = "ORDER BY " + sortColumn;
+            } sortColumn = !string.IsNullOrEmpty(sortColumn) ? "ORDER BY " + sortColumn : string.Empty;
 
-            toolButtonRefresh_Click(sender, e);
+            //toolButtonRefresh_Click(sender, e);
 
             if (columnDisplayIndex == -1 || columnDisplayIndex != e.Column)
                 columnDisplayIndex = e.Column;
@@ -661,15 +671,15 @@ namespace As
                     case 0:
                         continue;
                     case 1:
-                        if (value.DataItem.Item.Bewerbung.Sent) 
+                        if (value.Value.Item.Bewerbung.Sent) 
                             continue;
                         break;
                     case 2:
-                        if (value.DataItem.Item.Bewerbung.Reply)
+                        if (value.Value.Item.Bewerbung.Reply)
                             continue;
                         break;
                     case 3:
-                        if (value.DataItem.Item.Bewerbung.State)
+                        if (value.Value.Item.Bewerbung.State)
                             continue;
                         break;
                     case 4:
@@ -698,7 +708,18 @@ namespace As
         {
             if (txtSearch.Text.Length > 0)
             {
-                sortColumn = "WHERE Upper(Firma) LIKE '%" + txtSearch.Text.ToUpper() + "%'"; ;
+                //sense applications: die funktionen stehen immer fuer mehr funktion als der text oder die anscheinende ansicht aussagt.
+                //das ist der sinn von sense applications. better to read as view
+
+                switch (caseSensitive4Filter)
+                {
+                    case true:
+                        sortColumn = "WHERE Firma LIKE '" + txtSearch.Text + "%'"; ;
+                        break;
+                    case false:
+                        sortColumn = "WHERE Upper(Firma) LIKE '%" + txtSearch.Text.ToUpper() + "%'"; ;
+                        break;
+                }
             }
             else
                 if (string.IsNullOrEmpty(txtSearch.Text))
@@ -709,6 +730,21 @@ namespace As
             reNewView = false;
 
             toolStripFilter_SelectedIndexChanged(sender, e);
+        }
+
+        private void chkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            caseSensitive4Filter = chkFilter.Checked;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = string.Empty;
+        }
+
+        private void lstFirm_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            
         }
     }
 }

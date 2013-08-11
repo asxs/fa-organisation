@@ -38,10 +38,16 @@
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.datenbankToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tabFirm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitJobControl = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.chkFilter = new System.Windows.Forms.CheckBox();
+            this.toolStripFilter = new System.Windows.Forms.ComboBox();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.lstFirm = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,7 +65,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lstDrive = new System.Windows.Forms.ListView();
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,44 +75,43 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolBarAdd = new System.Windows.Forms.ToolStripButton();
             this.toolButtonEdit = new System.Windows.Forms.ToolStripButton();
             this.toolButtonRefresh = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolNew = new System.Windows.Forms.ToolStripButton();
             this.toolAbsage = new System.Windows.Forms.ToolStripButton();
             this.toolState = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.tabFirm.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitJobControl.Panel1.SuspendLayout();
             this.splitJobControl.Panel2.SuspendLayout();
             this.splitJobControl.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.ctxFirm.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
-            this.einstellungenToolStripMenuItem,
-            this.toolStripFilter});
+            this.einstellungenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1104, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1104, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -118,7 +122,7 @@
             this.toolStripSeparator1,
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem.Text = "&Datei";
             // 
             // druckenToolStripMenuItem
@@ -146,7 +150,7 @@
             this.reportToolStripMenuItem,
             this.datenbankToolStripMenuItem1});
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(90, 23);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.einstellungenToolStripMenuItem.Text = "Eins&tellungen";
             // 
             // reportToolStripMenuItem
@@ -162,22 +166,6 @@
             this.datenbankToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
             this.datenbankToolStripMenuItem1.Text = "&Datenbank";
             this.datenbankToolStripMenuItem1.Click += new System.EventHandler(this.datenbankToolStripMenuItem1_Click);
-            // 
-            // toolStripFilter
-            // 
-            this.toolStripFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripFilter.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.toolStripFilter.Items.AddRange(new object[] {
-            "Kein Filter (Default)",
-            "Bewerbungen",
-            "Rückmeldungen",
-            "Absagen",
-            "Zusagen"});
-            this.toolStripFilter.MergeAction = System.Windows.Forms.MergeAction.Insert;
-            this.toolStripFilter.Name = "toolStripFilter";
-            this.toolStripFilter.Size = new System.Drawing.Size(130, 23);
-            this.toolStripFilter.SelectedIndexChanged += new System.EventHandler(this.toolStripFilter_SelectedIndexChanged);
-            this.toolStripFilter.Click += new System.EventHandler(this.toolStripFilter_Click);
             // 
             // tabFirm
             // 
@@ -236,14 +224,98 @@
             this.splitJobControl.SplitterDistance = 580;
             this.splitJobControl.TabIndex = 1;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.chkFilter);
+            this.panel1.Controls.Add(this.toolStripFilter);
+            this.panel1.Controls.Add(this.toolStrip2);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtSearch);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Location = new System.Drawing.Point(776, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(235, 104);
+            this.panel1.TabIndex = 1;
+            // 
+            // chkFilter
+            // 
+            this.chkFilter.AutoSize = true;
+            this.chkFilter.Checked = true;
+            this.chkFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFilter.Location = new System.Drawing.Point(8, 38);
+            this.chkFilter.Name = "chkFilter";
+            this.chkFilter.Size = new System.Drawing.Size(232, 17);
+            this.chkFilter.TabIndex = 4;
+            this.chkFilter.Text = "Filterung unter Beachtung der Schreibweise";
+            this.chkFilter.UseVisualStyleBackColor = true;
+            this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
+            // 
+            // toolStripFilter
+            // 
+            this.toolStripFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripFilter.FormattingEnabled = true;
+            this.toolStripFilter.Items.AddRange(new object[] {
+            "Kein Filter (Default)",
+            "Bewerbungen",
+            "Rückmeldungen",
+            "Absagen",
+            "Zusagen"});
+            this.toolStripFilter.Location = new System.Drawing.Point(8, 80);
+            this.toolStripFilter.Name = "toolStripFilter";
+            this.toolStripFilter.Size = new System.Drawing.Size(183, 21);
+            this.toolStripFilter.TabIndex = 3;
+            this.toolStripFilter.SelectedIndexChanged += new System.EventHandler(this.toolStripFilter_SelectedIndexChanged);
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.BackColor = System.Drawing.Color.White;
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnDelete,
+            this.toolStripButton2});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStrip2.Location = new System.Drawing.Point(194, 58);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip2.Size = new System.Drawing.Size(24, 48);
+            this.toolStrip2.TabIndex = 2;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(186, 26);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Bitte geben Sie den Firmennamen ein,\r\nnachdem Sie die Liste filtern wollen:";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(8, 58);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(183, 20);
+            this.txtSearch.TabIndex = 0;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(194, 61);
+            this.label5.TabIndex = 2;
+            // 
             // lstFirm
             // 
             this.lstFirm.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.lstFirm.CheckBoxes = true;
             this.lstFirm.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
-            this.columnHeader6,
             this.columnHeader1,
+            this.columnHeader6,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
@@ -254,12 +326,14 @@
             this.lstFirm.HideSelection = false;
             this.lstFirm.Location = new System.Drawing.Point(0, 0);
             this.lstFirm.Name = "lstFirm";
+            this.lstFirm.OwnerDraw = true;
             this.lstFirm.ShowGroups = false;
             this.lstFirm.Size = new System.Drawing.Size(1055, 552);
             this.lstFirm.TabIndex = 0;
             this.lstFirm.UseCompatibleStateImageBehavior = false;
             this.lstFirm.View = System.Windows.Forms.View.Details;
             this.lstFirm.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstFirm_ColumnClick);
+            this.lstFirm.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.lstFirm_DrawColumnHeader);
             this.lstFirm.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstFirm_ItemCheck);
             this.lstFirm.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstFirm_ItemChecked);
             this.lstFirm.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstFirm_ItemSelectionChanged);
@@ -282,12 +356,12 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Bewerbung (Ja / Nein)";
+            this.columnHeader2.Text = "Beworben";
             this.columnHeader2.Width = 148;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Wartezeit";
+            this.columnHeader3.Text = "Wartezeit i.T.";
             this.columnHeader3.Width = 100;
             // 
             // columnHeader4
@@ -396,16 +470,6 @@
             this.label1.Size = new System.Drawing.Size(513, 39);
             this.label1.TabIndex = 2;
             this.label1.Text = resources.GetString("label1.Text");
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::As.Properties.Resources.list;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // lstDrive
             // 
@@ -531,6 +595,53 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripCrm_ItemClicked);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(28, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(28, 6);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(811, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.White;
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::As.Properties.Resources.delete;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(22, 20);
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Enabled = false;
+            this.toolStripButton2.Image = global::As.Properties.Resources.add;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(22, 20);
+            this.toolStripButton2.Text = "toolStripButton2";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::As.Properties.Resources.list;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // toolBarAdd
             // 
             this.toolBarAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -557,11 +668,6 @@
             this.toolButtonRefresh.Name = "toolButtonRefresh";
             this.toolButtonRefresh.Size = new System.Drawing.Size(28, 20);
             this.toolButtonRefresh.Click += new System.EventHandler(this.toolButtonRefresh_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(28, 6);
             // 
             // toolNew
             // 
@@ -590,53 +696,6 @@
             this.toolState.Size = new System.Drawing.Size(28, 20);
             this.toolState.Click += new System.EventHandler(this.toolState_Click);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(28, 6);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(811, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(3, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(194, 61);
-            this.label5.TabIndex = 2;
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(8, 34);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(183, 20);
-            this.txtSearch.TabIndex = 0;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(186, 26);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Bitte geben Sie den Firmennamen ein,\r\nnachdem Sie die Liste filtern wollen:";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.txtSearch);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(819, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 61);
-            this.panel1.TabIndex = 1;
-            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,7 +704,6 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabFirm);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "UI";
@@ -660,18 +718,20 @@
             this.splitJobControl.Panel1.ResumeLayout(false);
             this.splitJobControl.Panel2.ResumeLayout(false);
             this.splitJobControl.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ctxFirm.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -726,12 +786,16 @@
         private System.Windows.Forms.ToolStripButton toolNew;
         private System.Windows.Forms.ToolStripButton toolState;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripComboBox toolStripFilter;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripButton btnDelete;
+        private System.Windows.Forms.ComboBox toolStripFilter;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.CheckBox chkFilter;
 
     }
 }

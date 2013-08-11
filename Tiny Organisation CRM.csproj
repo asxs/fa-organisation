@@ -157,6 +157,12 @@
     <Compile Include="TinyOrganisationCRM\Data\QueryState.cs" />
     <Compile Include="TinyOrganisationCRM\Data\SqlQuery.cs" />
     <Compile Include="TinyOrganisationCRM\Data\ConnectionStringManager.cs" />
+    <Compile Include="ToolTipUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolTipUI.Designer.cs">
+      <DependentUpon>ToolTipUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PropertyStartUI.resx">
       <DependentUpon>PropertyStartUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolTipUI.resx">
+      <DependentUpon>ToolTipUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
@@ -246,6 +255,8 @@
     <None Include="Resources\back.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\right.png" />
+    <None Include="Resources\left.png" />
     <None Include="Resources\arrow_right.png" />
     <None Include="Resources\arrow_left.png" />
     <None Include="Lib\icon_save.png" />

@@ -17,6 +17,8 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace As
 {
+    using Data;
+
     public abstract class FaOrganisationAbstract
         : IFaOrganisation, IDisposable
     {

@@ -22,7 +22,7 @@ namespace As
 
         }
 
-        public UnitContentInfo DataItem { get; set; }
         public Control EntryControl { get; set; }
+        public UnitContentInfo Value { get; set; }
     }
 }

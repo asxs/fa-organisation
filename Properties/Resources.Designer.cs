@@ -213,6 +213,16 @@ namespace As.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap left {
+            get {
+                object obj = ResourceManager.GetObject("left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap list {
             get {
                 object obj = ResourceManager.GetObject("list", resourceCulture);
@@ -313,6 +323,16 @@ namespace As.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap right {
+            get {
+                object obj = ResourceManager.GetObject("right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap thumbs_down {
             get {
                 object obj = ResourceManager.GetObject("thumbs_down", resourceCulture);
@@ -360,5 +380,29 @@ namespace As.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        ///// <summary>
+        /////   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        ///// </summary>
+        //internal static System.Drawing.Bitmap left
+        //{
+        //    get
+        //    {
+        //        object obj = ResourceManager.GetObject("left", resourceCulture);
+        //        return ((System.Drawing.Bitmap)(obj));
+        //    }
+        //}
+
+        ///// <summary>
+        /////   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        ///// </summary>
+        //internal static System.Drawing.Bitmap right
+        //{
+        //    get
+        //    {
+        //        object obj = ResourceManager.GetObject("left", resourceCulture);
+        //        return ((System.Drawing.Bitmap)(obj));
+        //    }
+        //}
     }
 }
