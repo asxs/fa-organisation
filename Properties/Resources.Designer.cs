@@ -103,6 +103,16 @@ namespace As.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow_left2 {
+            get {
+                object obj = ResourceManager.GetObject("arrow_left2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_right {
             get {
                 object obj = ResourceManager.GetObject("arrow_right", resourceCulture);
@@ -116,6 +126,16 @@ namespace As.Properties {
         internal static System.Drawing.Bitmap arrow_right1 {
             get {
                 object obj = ResourceManager.GetObject("arrow_right1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_right2 {
+            get {
+                object obj = ResourceManager.GetObject("arrow_right2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

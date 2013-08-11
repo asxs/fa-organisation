@@ -38,13 +38,13 @@
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.datenbankToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tabFirm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitJobControl = new System.Windows.Forms.SplitContainer();
             this.lstFirm = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -78,6 +78,11 @@
             this.toolAbsage = new System.Windows.Forms.ToolStripButton();
             this.toolState = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.tabFirm.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -88,18 +93,21 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
-            this.einstellungenToolStripMenuItem});
+            this.einstellungenToolStripMenuItem,
+            this.toolStripFilter});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1104, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1104, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -110,7 +118,7 @@
             this.toolStripSeparator1,
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
             this.dateiToolStripMenuItem.Text = "&Datei";
             // 
             // druckenToolStripMenuItem
@@ -138,7 +146,7 @@
             this.reportToolStripMenuItem,
             this.datenbankToolStripMenuItem1});
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(90, 23);
             this.einstellungenToolStripMenuItem.Text = "Eins&tellungen";
             // 
             // reportToolStripMenuItem
@@ -155,6 +163,22 @@
             this.datenbankToolStripMenuItem1.Text = "&Datenbank";
             this.datenbankToolStripMenuItem1.Click += new System.EventHandler(this.datenbankToolStripMenuItem1_Click);
             // 
+            // toolStripFilter
+            // 
+            this.toolStripFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripFilter.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.toolStripFilter.Items.AddRange(new object[] {
+            "Kein Filter (Default)",
+            "Bewerbungen",
+            "Rückmeldungen",
+            "Absagen",
+            "Zusagen"});
+            this.toolStripFilter.MergeAction = System.Windows.Forms.MergeAction.Insert;
+            this.toolStripFilter.Name = "toolStripFilter";
+            this.toolStripFilter.Size = new System.Drawing.Size(130, 23);
+            this.toolStripFilter.SelectedIndexChanged += new System.EventHandler(this.toolStripFilter_SelectedIndexChanged);
+            this.toolStripFilter.Click += new System.EventHandler(this.toolStripFilter_Click);
+            // 
             // tabFirm
             // 
             this.tabFirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -167,10 +191,10 @@
             this.tabFirm.Controls.Add(this.tabPage3);
             this.tabFirm.Controls.Add(this.tabPage5);
             this.tabFirm.ImageList = this.imgProject;
-            this.tabFirm.Location = new System.Drawing.Point(35, 27);
+            this.tabFirm.Location = new System.Drawing.Point(35, 30);
             this.tabFirm.Name = "tabFirm";
             this.tabFirm.SelectedIndex = 0;
-            this.tabFirm.Size = new System.Drawing.Size(1069, 588);
+            this.tabFirm.Size = new System.Drawing.Size(1069, 585);
             this.tabFirm.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabFirm.TabIndex = 2;
             this.tabFirm.SelectedIndexChanged += new System.EventHandler(this.tabFirm_SelectedIndexChanged);
@@ -183,7 +207,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage1.Size = new System.Drawing.Size(1061, 558);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Firmenverzeichnis";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -191,11 +215,13 @@
             // splitJobControl
             // 
             this.splitJobControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitJobControl.IsSplitterFixed = true;
             this.splitJobControl.Location = new System.Drawing.Point(3, 3);
             this.splitJobControl.Name = "splitJobControl";
             // 
             // splitJobControl.Panel1
             // 
+            this.splitJobControl.Panel1.Controls.Add(this.panel1);
             this.splitJobControl.Panel1.Controls.Add(this.lstFirm);
             this.splitJobControl.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
@@ -206,7 +232,7 @@
             this.splitJobControl.Panel2.Controls.Add(this.groupBox1);
             this.splitJobControl.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitJobControl.Panel2Collapsed = true;
-            this.splitJobControl.Size = new System.Drawing.Size(1055, 555);
+            this.splitJobControl.Size = new System.Drawing.Size(1055, 552);
             this.splitJobControl.SplitterDistance = 580;
             this.splitJobControl.TabIndex = 1;
             // 
@@ -217,7 +243,6 @@
             this.lstFirm.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6,
-            this.columnHeader7,
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -226,15 +251,15 @@
             this.lstFirm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstFirm.FullRowSelect = true;
             this.lstFirm.GridLines = true;
-            this.lstFirm.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstFirm.HideSelection = false;
             this.lstFirm.Location = new System.Drawing.Point(0, 0);
             this.lstFirm.Name = "lstFirm";
             this.lstFirm.ShowGroups = false;
-            this.lstFirm.Size = new System.Drawing.Size(1055, 555);
+            this.lstFirm.Size = new System.Drawing.Size(1055, 552);
             this.lstFirm.TabIndex = 0;
             this.lstFirm.UseCompatibleStateImageBehavior = false;
             this.lstFirm.View = System.Windows.Forms.View.Details;
+            this.lstFirm.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstFirm_ColumnClick);
             this.lstFirm.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstFirm_ItemCheck);
             this.lstFirm.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstFirm_ItemChecked);
             this.lstFirm.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstFirm_ItemSelectionChanged);
@@ -249,11 +274,6 @@
             // 
             this.columnHeader6.Text = "Rückmeldung";
             this.columnHeader6.Width = 82;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Korrespondenz";
-            this.columnHeader7.Width = 100;
             // 
             // columnHeader1
             // 
@@ -273,7 +293,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Absage";
-            this.columnHeader4.Width = 250;
+            this.columnHeader4.Width = 131;
             // 
             // ctxFirm
             // 
@@ -325,7 +345,7 @@
             this.tabPage6.ImageIndex = 5;
             this.tabPage6.Location = new System.Drawing.Point(4, 23);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage6.Size = new System.Drawing.Size(1061, 558);
             this.tabPage6.TabIndex = 6;
             this.tabPage6.Text = "Arbeitsagentur";
             // 
@@ -334,7 +354,7 @@
             this.tabPage4.ImageIndex = 7;
             this.tabPage4.Location = new System.Drawing.Point(4, 23);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage4.Size = new System.Drawing.Size(1061, 558);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Optionen";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -351,7 +371,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage2.Size = new System.Drawing.Size(1061, 558);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "Unterlagen";
             // 
@@ -452,7 +472,7 @@
             this.tabPage3.ImageIndex = 6;
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage3.Size = new System.Drawing.Size(1061, 558);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Bericht";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -463,7 +483,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 23);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1061, 561);
+            this.tabPage5.Size = new System.Drawing.Size(1061, 558);
             this.tabPage5.TabIndex = 5;
             this.tabPage5.Text = "Zusammenfassung";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -471,13 +491,17 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(1104, 591);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(1104, 615);
             this.splitContainer1.SplitterDistance = 39;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
@@ -499,10 +523,10 @@
             this.toolState,
             this.toolStripSeparator3});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(4, 3);
+            this.toolStrip1.Location = new System.Drawing.Point(4, 28);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(30, 591);
+            this.toolStrip1.Size = new System.Drawing.Size(30, 615);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripCrm_ItemClicked);
@@ -571,14 +595,56 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(28, 6);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(811, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(194, 61);
+            this.label5.TabIndex = 2;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(8, 34);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(183, 20);
+            this.txtSearch.TabIndex = 0;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(186, 26);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Bitte geben Sie den Firmennamen ein,\r\nnachdem Sie die Liste filtern wollen:";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtSearch);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Location = new System.Drawing.Point(819, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 61);
+            this.panel1.TabIndex = 1;
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1104, 615);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabFirm);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -599,9 +665,13 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -631,7 +701,6 @@
         private System.Windows.Forms.Button btnContinue;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -657,6 +726,12 @@
         private System.Windows.Forms.ToolStripButton toolNew;
         private System.Windows.Forms.ToolStripButton toolState;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripComboBox toolStripFilter;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label label5;
 
     }
 }

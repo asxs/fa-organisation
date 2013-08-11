@@ -31,7 +31,7 @@ namespace As
             InitializeComponent();
         }
 
-        public DataUnitPackage Package { get; set; }
+        public Units Package { get; set; }
         public StatementType TypeOfEditing { get; set; }
         public long Id { get; set; }
         public SAConnection Connection { get { return connection; } }
@@ -47,21 +47,23 @@ namespace As
             chkReply.Checked = Package.Bewerbung.Reply;
             txtMemo.Enabled = (Package.Firm.Id_Memo != 0);
             toolAdd.Enabled = (Package.Firm.Id_Memo == 0);
+            chkUserReply.Checked = Package.Mandant.ReplyRequired;
 
             lstAnlagen.Items.Clear();
             try
             {
-                using (connection = new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString))
+                using (connection = new SAConnection(ConnectionStringManager.ConnectionStringNetworkServer))
                 {
                     connection
                         .Open();
 
                     if (connection.State == System.Data.ConnectionState.Open)
+                    {
                         using (var action = connection.CreateCommand())
                         {
                             action.CommandText = "SELECT * FROM ASXS_ANLAGE WHERE ID_FIRM = " + Package.Firm.Id;
                             action.Prepare();
-                            var anlage 
+                            var anlage
                                 = action.ExecuteReader();
 
                             while (anlage.Read())
@@ -69,7 +71,32 @@ namespace As
                                 lstAnlagen.Items.Add(anlage["name"].ToString());
                                 lstAnlagen.Items[lstAnlagen.Items.Count - 1].SubItems.Add(anlage["descr"].ToString());
                             }
+
+                            if (!anlage.IsClosed)
+                                anlage.Close();
+
+                            action.CommandText = "SELECT * FROM ASXS_MANDANT WHERE ID = " + Package.Firm.Id_Mandant;
+                            action.Prepare();
+
+                            var haveToInsertOneMandant = true;
+                            var reader 
+                                = default(SADataReader);
+                            if ((reader = action.ExecuteReader()).HasRows)
+                            {
+                                haveToInsertOneMandant = false;
+                            }
+
+                            if (!reader.IsClosed)
+                                reader.Close();
+
+                            if (haveToInsertOneMandant)
+                            {
+                                action.CommandText = "INSERT INTO ASXS_MANDANT VALUES (" + (Package.Mandant.Id = TableIdCommand.CreateInstance(action).Get("NEW", "ASXS_MANDANT")) + ", 0)";
+                                action.Prepare();
+                                action.ExecuteNonQuery();
+                            }
                         }
+                    }
                 }
             }
             catch { }
@@ -107,7 +134,7 @@ namespace As
 
             using (var save = new FaOrganisationEdit())
             {
-                var bewerbung = new AsBewerbung()
+                var bewerbung = new WorkUnitBewerbung()
                 {
                     Day = dateTimeDay.Value,
                     NegativeStateAtOwn = radioAbsageUser.Checked,
@@ -118,7 +145,7 @@ namespace As
 
                 save.Edit
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Bewerbung = bewerbung
                     },
@@ -129,14 +156,14 @@ namespace As
 
                 bewerbung.Id = Id;
 
-                var address = new AsAddress()
+                var address = new WorkUnitAddress()
                 {
                     City = "Musterstadt"
                 };
 
                 save.Edit
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Address = address
                     },
@@ -147,16 +174,16 @@ namespace As
 
                 address.Id = Id;
 
-                var memo = new AsMemoPackage()
+                var memo = new WorkUnitMemo()
                 {
                     Content = txtMemo.Text
                 };
 
                 save.Edit
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
-                        Memo = new AsMemoPackage() { Content = txtMemo.Text, Id = Package.Memo.Id }
+                        Memo = new WorkUnitMemo() { Content = txtMemo.Text, Id = Package.Memo.Id }
                     },
 
                     new MemoDataUnit(),
@@ -165,24 +192,45 @@ namespace As
 
                 memo.Id = Package.Memo.Id;
 
-                var firm = new AsFirm()
+                var mandant = new WorkUnitMandant()
+                {
+                    ReplyRequired = chkUserReply.Checked
+                };
+
+                save.Edit
+                (
+                    new Units()
+                    {
+                        Mandant = mandant
+                    },
+
+                    new MandantDataUnit(),
+                    Id = this.Id
+                );
+
+                mandant.Id = Package.Mandant.Id;
+
+                var firm = new WorkUnitFirm()
                 {
                     Id = this.Id,
                     Id_Bew = bewerbung.Id,
                     Id_Addr = address.Id,
                     Id_Memo = Package.Memo.Id,
+                    Id_Mandant = mandant.Id,
                     Name = txtOrganisation.Text,
-                    Website = txtAnzeige.Text
+                    Website = txtAnzeige.Text,
+                    ReplyRequired = chkUserReply.Checked
                 };
 
                 save.Edit
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = memo,
                         Address = address,
                         Bewerbung = bewerbung,
-                        Firm = firm
+                        Firm = firm,
+                        Mandant = mandant
                     },
 
                     new FirmDataUnit(),
@@ -199,7 +247,7 @@ namespace As
 
             using (var add = new FaOrganisationAppend())
             {
-                var bewerbung = new AsBewerbung()
+                var bewerbung = new WorkUnitBewerbung()
                 {
                     Day = dateTimeDay.Value,
                     NegativeStateAtOwn = radioAbsageUser.Checked,
@@ -210,7 +258,7 @@ namespace As
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Bewerbung = bewerbung
                     },
@@ -220,14 +268,14 @@ namespace As
 
                 bewerbung.Id = id;
 
-                var address = new AsAddress()
+                var address = new WorkUnitAddress()
                 {
                     City = "Musterstadt"
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Address = address
                     },
@@ -237,14 +285,14 @@ namespace As
 
                 address.Id = id;
 
-                var memo = new AsMemoPackage()
+                var memo = new WorkUnitMemo()
                 {
                     Content = txtMemo.Text
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = memo
                     },
@@ -254,28 +302,46 @@ namespace As
 
                 memo.Id = id;
 
-                var firm = new AsFirm()
+                var mandant = new WorkUnitMandant()
+                {
+                    ReplyRequired = chkUserReply.Checked
+                };
+
+                id = add.Append
+                (
+                    new Units()
+                    {
+                        Mandant = mandant
+                    },
+
+                    new MandantDataUnit()
+                );
+
+                mandant.Id = id;
+
+                var firm = new WorkUnitFirm()
                 {
                     Id_Bew = bewerbung.Id,
                     Id_Addr = address.Id,
                     Id_Memo = memo.Id,
+                    Id_Mandant = mandant.Id,
                     Name = txtOrganisation.Text,
                     Website = txtAnzeige.Text
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = memo,
                         Address = address,
                         Bewerbung = bewerbung,
-                        Firm = firm
+                        Firm = firm,
+                        Mandant = mandant
                     },
 
                     new FirmDataUnit()
                 );
-
             }
         }
 
@@ -297,14 +363,14 @@ namespace As
             using (var add = new FaOrganisationAppend())
             {
                 var content
-                    = new AsMemoPackage()
+                    = new WorkUnitMemo()
                     {
                         Content = txtMemo.Text
                     };
 
                 var id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = content
                     },
@@ -320,7 +386,7 @@ namespace As
 
                 edit.Edit
                 (
-                    new DataUnitPackage() 
+                    new Units() 
                     {
                         Address = Package.Address,
                         Bewerbung = Package.Bewerbung,
@@ -369,7 +435,7 @@ namespace As
                     if (connection == null || connection.State != System.Data.ConnectionState.Open)
                     {
                         connection =
-                            new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString);
+                            new SAConnection(ConnectionStringManager.ConnectionStringNetworkServer);
 
                         connection.Open();
                     }
@@ -459,7 +525,7 @@ namespace As
 
                         bewerbung.State = false;
 
-                        edit.Edit(new DataUnitPackage()
+                        edit.Edit(new Units()
                         {
                             Bewerbung = bewerbung
                         },
@@ -473,6 +539,15 @@ namespace As
                 chkAbsageBack.Enabled = false;
                 radioAbsage.Checked = false;
                 radioAbsageUser.Checked = false;
+            }
+        }
+
+        private void toolAdd_MouseHover(object sender, EventArgs e)
+        {
+            var g = CreateGraphics();
+            if (g != null)
+            {
+
             }
         }
     }

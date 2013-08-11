@@ -71,6 +71,7 @@ namespace As
      
     create table asxs_memo (id bigint identity primary key, id_firm bigint references asxs_firm (id), memo text)
     create table asxs_anlage (id bigint primary key, id_firm bigint, document binary)
+    create table asxs_mandant (id bigint primary key, id_firm bigint, reply_req bit, foreign key id_firm references asxs_firm (id))
      
     */
 
@@ -80,7 +81,10 @@ namespace As
         private ListViewItem.ListViewSubItem selectedSubItem = null;
         private Thread reloadFirmThread = null;
         private ViewUI viewUi = null;
-        private DataUnitPackage package;
+        private Units package;
+        private int columnDisplayIndex = -1;
+        private string sortColumn = "ORDER BY Absage";
+        private bool reNewView = false;
 
         public UI()
         {
@@ -108,12 +112,13 @@ namespace As
         private void Initialize()
         {
             reloadFirmThread = new Thread(new ThreadStart(ReNewView));
-            package = new DataUnitPackage()
+            package = new Units()
             {
-                Memo = new AsMemoPackage(),
-                Address = new AsAddress(),
-                Bewerbung = new AsBewerbung(),
-                Firm = new AsFirm()
+                Memo = new WorkUnitMemo(),
+                Address = new WorkUnitAddress(),
+                Bewerbung = new WorkUnitBewerbung(),
+                Firm = new WorkUnitFirm(),
+                Mandant = new WorkUnitMandant()
             };
             viewUi = new ViewUI();
         }
@@ -125,7 +130,7 @@ namespace As
 
             Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
 
-            if (lstFirm.InvokeRequired)
+            if (lstFirm.InvokeRequired || reNewView)
             {
                 lstFirm.Invoke(new Action(() =>
                 {
@@ -134,7 +139,7 @@ namespace As
 
                     Application.DoEvents();
 
-                    using (var connection = new SAConnection(ConnectionStringManager.TinyOrganisationCrmAnyConnectionString))
+                    using (var connection = new SAConnection(ConnectionStringManager.ConnectionStringNetworkServer))
                     {
                         connection.Open();
                         if (connection.State == ConnectionState.Open)
@@ -142,7 +147,7 @@ namespace As
                             var command =
                                 connection.CreateCommand();
 
-                            command.CommandText = "SELECT * FROM V_FIRM";
+                            command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " ASC" : string.Empty);
                             command.Prepare();
 
                             using (var reader = command.ExecuteReader())
@@ -155,22 +160,25 @@ namespace As
                                     if (id == 999)
                                         continue;
 
-                                    package = new DataUnitPackage() 
+                                    package = new Units() 
                                     { 
-                                        Firm = new AsFirm(),
-                                        Bewerbung = new AsBewerbung(), 
-                                        Address = new AsAddress(), 
-                                        Memo = new AsMemoPackage(),
-                                        Anlage = new AsAnlage()
+                                        Firm = new WorkUnitFirm(),
+                                        Bewerbung = new WorkUnitBewerbung(), 
+                                        Address = new WorkUnitAddress(), 
+                                        Memo = new WorkUnitMemo(),
+                                        Anlage = new WorkUnitAnlage(),
+                                        Mandant = new WorkUnitMandant()
                                     };
 
                                     var dataItem = 
-                                        new DataListItem(jobNr.ToString().PadLeft(2, '0')) { DataItem = new DataPackage() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+                                        new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { DataItem = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
 
                                     package.Firm.Website = reader["Website"].ToString();
                                     package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
                                     package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
                                     package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
+                                    package.Firm.Id_Mandant = package.Mandant.Id = long.Parse(string.IsNullOrEmpty(reader["id_man"].ToString()) ? "0" : reader["id_man"].ToString());
+                                    package.Firm.ReplyRequired = package.Mandant.ReplyRequired = string.IsNullOrEmpty(reader["reply_req"].ToString()) ? false : (bool)reader["reply_req"];
                                     package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
                                     package.Bewerbung.Day = (DateTime)reader["Tag"];
                                     package.Address.Id = long.Parse(reader["id_addr"].ToString());
@@ -179,7 +187,6 @@ namespace As
 
                                     lstFirm.Items.Add(dataItem);
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(reader["Korrespondenz"].ToString());
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
                                     
                                     var sentInformationToFirm =
@@ -191,7 +198,7 @@ namespace As
                                     //var idleTime =
                                     //    (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
                                     var idleTime =
-                                        today.CalculateWaitTimeUntil(DateTime.Parse(reader["Tag"].ToString()));
+                                        today.SubtractTimeSpanWithoutWeekends(DateTime.Parse(reader["Tag"].ToString()));
 
                                     lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
 
@@ -233,6 +240,15 @@ namespace As
                                         lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
                                     }
 
+                                    //make a rule change set, with priority for color management of that information from user or for e.g. firm
+
+                                    if (package.Firm.ReplyRequired)
+                                    {
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.Chocolate;
+                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+
+                                    }
+
                                     dataItem.DataItem.Item = package;
 
                                     jobNr++;
@@ -253,6 +269,18 @@ namespace As
                     {
                         selectedItem.Selected = true;
                     }
+
+                    //Make a control, draw it in item directly
+
+                    //var g = lstFirm.CreateGraphics();
+                    //if (g != null)
+                    //{
+                    //    var item = lstFirm.Items[15 - 1].GetBounds(ItemBoundsPortion.Entire);
+                    //    g.DrawRectangle(Pens.DarkGray, new System.Drawing.Rectangle(item.X, item.Y, 929, 17));
+                    //}
+
+                    if (toolStripFilter.SelectedIndex == -1)
+                        toolStripFilter.SelectedIndex = 0;
                 }));
             }
 
@@ -296,15 +324,15 @@ namespace As
 
         private void toolBarAdd_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+            viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
+            viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
             viewUi.TypeOfEditing = StatementType.Insert;
 
             if (viewUi.IsDisposed)
             {
                 viewUi = new ViewUI();
-                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+                viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
+                viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
                 viewUi.TypeOfEditing = StatementType.Insert;
             }
 
@@ -316,15 +344,15 @@ namespace As
 
         private void toolButtonEdit_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-            viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+            viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
+            viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
             viewUi.TypeOfEditing = StatementType.Update;
 
             if (viewUi.IsDisposed)
             {
                 viewUi = new ViewUI();
-                viewUi.Id = ((DataListItem)selectedItem).DataItem.Id;
-                viewUi.Package = ((DataListItem)selectedItem).DataItem.Item;
+                viewUi.Id = ((ListViewItemUnit)selectedItem).DataItem.Id;
+                viewUi.Package = ((ListViewItemUnit)selectedItem).DataItem.Item;
                 viewUi.TypeOfEditing = StatementType.Update;
             }
 
@@ -339,22 +367,23 @@ namespace As
             using (var edit = new FaOrganisationEdit())
             {
                 var bewerbung =
-                    ((DataListItem)selectedItem).DataItem.Item.Bewerbung;
+                    ((ListViewItemUnit)selectedItem).DataItem.Item.Bewerbung;
                 
                 bewerbung.State = true;
 
-                edit.Edit(new DataUnitPackage()
+                edit.Edit(new Units()
                 {
                     Bewerbung = bewerbung
                 },
 
                 new BewerbungDataUnit(),
-                ((DataListItem)selectedItem).DataItem.Id);
+                ((ListViewItemUnit)selectedItem).DataItem.Id);
             }
         }
 
         private void toolButtonRefresh_Click(object sender, EventArgs e)
         {
+            reNewView = false;
             try
             {
                 reloadFirmThread.Abort();
@@ -429,7 +458,7 @@ namespace As
                         {
                             using (var connection = new SAConnection
                                                     (
-                                                        ConnectionStringManager.TinyOrganisationCrmAnyConnectionString
+                                                        ConnectionStringManager.ConnectionStringNetworkServer
                                                     ))
                             {
                                 connection
@@ -438,7 +467,7 @@ namespace As
                                 if (connection.State == System.Data.ConnectionState.Open)
                                     using (var action = connection.CreateCommand())
                                     {
-                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((DataListItem)selectedItem).DataItem.Id;
+                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((ListViewItemUnit)selectedItem).DataItem.Id;
                                         action.Prepare();
                                         var anlage
                                             = action.ExecuteReader();
@@ -475,14 +504,20 @@ namespace As
 
             using (var add = new FaOrganisationAppend())
             {
-                var bewerbung = new AsBewerbung()
+                //factory workunits
+                //primary keys, foreign keys constraint
+                //check
+                //add,edit,remove,create
+                //sql tables
+
+                var bewerbung = new WorkUnitBewerbung()
                 {
                      Day = DateTime.Now
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Bewerbung = bewerbung
                     },
@@ -492,7 +527,7 @@ namespace As
 
                 bewerbung.Id = id;
 
-                var address = new AsAddress()
+                var address = new WorkUnitAddress()
                 {
                     City = "Musterstadt",
                     Street = string.Empty,
@@ -502,7 +537,7 @@ namespace As
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Address = address
                     },
@@ -512,14 +547,14 @@ namespace As
 
                 address.Id = id;
 
-                var memo = new AsMemoPackage()
+                var memo = new WorkUnitMemo()
                 {
                     Content = string.Empty
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = memo
                     },
@@ -529,16 +564,16 @@ namespace As
 
                 memo.Id = id;
 
-                var firm = new AsFirm()
+                var firm = new WorkUnitFirm()
                 {
                     Id_Bew = bewerbung.Id,
                     Id_Addr = address.Id,
-                    Id_Memo = memo.Id,
+                    Id_Memo = memo.Id
                 };
 
                 id = add.Append
                 (
-                    new DataUnitPackage()
+                    new Units()
                     {
                         Memo = memo,
                         Address = address,
@@ -558,20 +593,122 @@ namespace As
                 using (var edit = new FaOrganisationEdit())
                 {
                     var bewerbung =
-                        ((DataListItem)selectedItem).DataItem.Item.Bewerbung;
+                        ((ListViewItemUnit)selectedItem).DataItem.Item.Bewerbung;
 
                     bewerbung.Sent = true;
 
-                    edit.Edit(new DataUnitPackage()
+                    edit.Edit(new Units()
                     {
                         Bewerbung = bewerbung
                     },
 
                     new BewerbungDataUnit(),
-                    ((DataListItem)selectedItem).DataItem.Id);
+                    ((ListViewItemUnit)selectedItem).DataItem.Id);
                 }
             }
             catch { }
+        }
+
+        private void lstFirm_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (columnDisplayIndex != -1)
+                lstFirm.Columns[columnDisplayIndex].TextAlign = HorizontalAlignment.Left;
+
+            //lstFirm.Columns[e.Column].TextAlign = HorizontalAlignment.Right;
+            //lstFirm.Columns[e.Column].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            switch (lstFirm.Columns[e.Column].DisplayIndex)
+            {
+                case 3:
+                    sortColumn = "Firma";
+                    break;
+                case 6:
+                    sortColumn = "Absage";
+                    break;
+                case 4:
+                    sortColumn = "Abgeschickt";
+                    break;
+                case 5:
+                    sortColumn = "Tag";
+                    break;
+                case 1:
+                    sortColumn = "Rueckmeldung";
+                    break;
+            } sortColumn = "ORDER BY " + sortColumn;
+
+            toolButtonRefresh_Click(sender, e);
+
+            if (columnDisplayIndex == -1 || columnDisplayIndex != e.Column)
+                columnDisplayIndex = e.Column;
+
+            toolStripFilter_SelectedIndexChanged(sender, e);
+        }
+
+        private void toolStripFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            reNewView = true;
+            ReNewView();
+            reNewView = false;
+
+            foreach (ListViewItem item in lstFirm.Items)
+            {
+                var value = (ListViewItemUnit)item;
+                if (value == null)
+                    continue;
+
+                switch (toolStripFilter.SelectedIndex) 
+                {
+                    case 0:
+                        continue;
+                    case 1:
+                        if (value.DataItem.Item.Bewerbung.Sent) 
+                            continue;
+                        break;
+                    case 2:
+                        if (value.DataItem.Item.Bewerbung.Reply)
+                            continue;
+                        break;
+                    case 3:
+                        if (value.DataItem.Item.Bewerbung.State)
+                            continue;
+                        break;
+                    case 4:
+                        continue;
+                }
+
+                item.ForeColor = Color.LightGray;
+                item.BackColor = Color.White;
+
+                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                    subItem.ForeColor = Color.LightGray;
+            }
+        }
+
+        private void toolStripFilter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearch.Text.Length > 0)
+            {
+                sortColumn = "WHERE Upper(Firma) LIKE '%" + txtSearch.Text.ToUpper() + "%'"; ;
+            }
+            else
+                if (string.IsNullOrEmpty(txtSearch.Text))
+                    sortColumn = string.Empty;
+
+            reNewView = true;
+            ReNewView();
+            reNewView = false;
+
+            toolStripFilter_SelectedIndexChanged(sender, e);
         }
     }
 }

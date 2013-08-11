@@ -49,7 +49,6 @@
             this.txtMemo = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSaveNoExit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -68,10 +67,17 @@
             this.label10 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolSave = new System.Windows.Forms.ToolStripButton();
-            this.label8 = new System.Windows.Forms.Label();
             this.chkAbsageBack = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.cbFirma = new System.Windows.Forms.ComboBox();
+            this.chkUserReply = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chkPositiveReply = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -79,22 +85,25 @@
             // 
             // chkReply
             // 
+            this.chkReply.BackColor = System.Drawing.Color.Wheat;
             this.chkReply.Location = new System.Drawing.Point(15, 227);
             this.chkReply.Name = "chkReply";
             this.chkReply.Size = new System.Drawing.Size(379, 36);
             this.chkReply.TabIndex = 23;
             this.chkReply.Text = "Haben Sie eine erste Rückmeldung bekommen?\r\n(Automatische E-Mail - Antwort, Anruf" +
     " oder Postschreiben)";
-            this.chkReply.UseVisualStyleBackColor = true;
+            this.chkReply.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(477, 51);
+            this.label2.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label2.Location = new System.Drawing.Point(480, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(243, 13);
+            this.label2.Size = new System.Drawing.Size(372, 48);
             this.label2.TabIndex = 21;
-            this.label2.Text = "An welchem Tag haben Sie die Anzeige bemerkt?";
+            this.label2.Text = "Bitte tragen Sie das letzte wichtige Datum für diese Vakanz ein, durch das eine r" +
+    "elevante Wartezeit berechnet werden kann.\r\nÄnderungsdaten der Anzeige selbst, wü" +
+    "rden dazu z.B. nicht ausreichen.";
             // 
             // dateTimeDay
             // 
@@ -107,16 +116,18 @@
             // chkBewerbung
             // 
             this.chkBewerbung.AutoSize = true;
+            this.chkBewerbung.BackColor = System.Drawing.Color.Wheat;
             this.chkBewerbung.Location = new System.Drawing.Point(15, 209);
             this.chkBewerbung.Name = "chkBewerbung";
             this.chkBewerbung.Size = new System.Drawing.Size(223, 17);
             this.chkBewerbung.TabIndex = 18;
             this.chkBewerbung.Text = "Haben Sie eine Bewerbung abgeschickt?";
-            this.chkBewerbung.UseVisualStyleBackColor = true;
+            this.chkBewerbung.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(14, 37);
+            this.label1.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label1.Location = new System.Drawing.Point(14, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(421, 30);
             this.label1.TabIndex = 17;
@@ -129,12 +140,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOrganisation.Location = new System.Drawing.Point(15, 67);
             this.txtOrganisation.Name = "txtOrganisation";
-            this.txtOrganisation.Size = new System.Drawing.Size(418, 20);
+            this.txtOrganisation.Size = new System.Drawing.Size(416, 20);
             this.txtOrganisation.TabIndex = 16;
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(-3, 101);
+            this.groupBox1.Location = new System.Drawing.Point(-136, 101);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(995, 2);
             this.groupBox1.TabIndex = 24;
@@ -143,6 +154,7 @@
             // 
             // label3
             // 
+            this.label3.BackColor = System.Drawing.Color.Wheat;
             this.label3.Location = new System.Drawing.Point(12, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(448, 32);
@@ -155,12 +167,12 @@
             this.radioAbsage.AutoSize = true;
             this.radioAbsage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.radioAbsage.ForeColor = System.Drawing.Color.White;
-            this.radioAbsage.Location = new System.Drawing.Point(493, 235);
+            this.radioAbsage.Location = new System.Drawing.Point(493, 188);
             this.radioAbsage.Name = "radioAbsage";
-            this.radioAbsage.Size = new System.Drawing.Size(320, 17);
+            this.radioAbsage.Size = new System.Drawing.Size(327, 17);
             this.radioAbsage.TabIndex = 26;
             this.radioAbsage.TabStop = true;
-            this.radioAbsage.Text = "Haben Sie eine Absage von der angegebenen Firma erhalten?";
+            this.radioAbsage.Text = "Negative Meldung (Absage, Entf., Umzug, Tätigk.-Feld, Besetzt)";
             this.radioAbsage.UseVisualStyleBackColor = false;
             this.radioAbsage.CheckedChanged += new System.EventHandler(this.radioAbsage_CheckedChanged);
             // 
@@ -169,7 +181,7 @@
             this.radioAbsageUser.AutoSize = true;
             this.radioAbsageUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.radioAbsageUser.ForeColor = System.Drawing.Color.White;
-            this.radioAbsageUser.Location = new System.Drawing.Point(493, 253);
+            this.radioAbsageUser.Location = new System.Drawing.Point(493, 206);
             this.radioAbsageUser.Name = "radioAbsageUser";
             this.radioAbsageUser.Size = new System.Drawing.Size(223, 17);
             this.radioAbsageUser.TabIndex = 27;
@@ -183,9 +195,9 @@
             this.label4.BackColor = System.Drawing.Color.Silver;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.ForeColor = System.Drawing.Color.DimGray;
-            this.label4.Location = new System.Drawing.Point(480, 158);
+            this.label4.Location = new System.Drawing.Point(480, 111);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(367, 60);
+            this.label4.Size = new System.Drawing.Size(369, 60);
             this.label4.TabIndex = 30;
             this.label4.Text = "(Wenn Sie die Bewerbung direkt bei der Sichtung von dem Stellenangebot abschicken" +
     " - das heisst am selben Tag - werden die Daten mit dem Eintragsdatum verglichen)" +
@@ -204,9 +216,9 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.label5.Location = new System.Drawing.Point(480, 223);
+            this.label5.Location = new System.Drawing.Point(480, 176);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(367, 58);
+            this.label5.Size = new System.Drawing.Size(369, 58);
             this.label5.TabIndex = 32;
             // 
             // txtAnzeige
@@ -219,6 +231,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Wheat;
             this.label6.Location = new System.Drawing.Point(12, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(157, 13);
@@ -228,6 +241,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Wheat;
             this.linkLabel1.Location = new System.Drawing.Point(439, 182);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(16, 13);
@@ -238,6 +252,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Wheat;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(14, 268);
             this.label7.Name = "label7";
@@ -260,7 +275,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(437, 67);
+            this.button1.Location = new System.Drawing.Point(436, 67);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(28, 20);
             this.button1.TabIndex = 38;
@@ -269,7 +284,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(772, 375);
+            this.btnExit.Location = new System.Drawing.Point(769, 623);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 25);
             this.btnExit.TabIndex = 39;
@@ -277,18 +292,9 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Location = new System.Drawing.Point(470, 366);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(418, 2);
-            this.groupBox3.TabIndex = 40;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
-            // 
             // btnSaveNoExit
             // 
-            this.btnSaveNoExit.Location = new System.Drawing.Point(557, 375);
+            this.btnSaveNoExit.Location = new System.Drawing.Point(565, 623);
             this.btnSaveNoExit.Name = "btnSaveNoExit";
             this.btnSaveNoExit.Size = new System.Drawing.Size(75, 25);
             this.btnSaveNoExit.TabIndex = 41;
@@ -299,7 +305,7 @@
             // btnCancel
             // 
             this.btnCancel.Enabled = false;
-            this.btnCancel.Location = new System.Drawing.Point(634, 375);
+            this.btnCancel.Location = new System.Drawing.Point(642, 623);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(78, 25);
             this.btnCancel.TabIndex = 42;
@@ -309,7 +315,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(480, 375);
+            this.btnAdd.Location = new System.Drawing.Point(488, 623);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 25);
             this.btnAdd.TabIndex = 43;
@@ -319,46 +325,47 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Location = new System.Drawing.Point(-70, 407);
+            this.groupBox5.Location = new System.Drawing.Point(-134, 412);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(995, 2);
+            this.groupBox5.Size = new System.Drawing.Size(604, 2);
             this.groupBox5.TabIndex = 44;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox5";
             // 
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBack,
             this.toolNext});
-            this.toolStrip1.Location = new System.Drawing.Point(799, 629);
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStrip1.Location = new System.Drawing.Point(863, 253);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(89, 29);
+            this.toolStrip1.Size = new System.Drawing.Size(111, 159);
             this.toolStrip1.TabIndex = 46;
             // 
             // toolBack
             // 
             this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBack.Image = global::As.Properties.Resources.arrow_left;
+            this.toolBack.Image = global::As.Properties.Resources.arrow_left2;
             this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolBack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBack.Name = "toolBack";
-            this.toolBack.Size = new System.Drawing.Size(28, 26);
+            this.toolBack.Size = new System.Drawing.Size(109, 68);
             this.toolBack.Text = "toolStripButton1";
             this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
             // 
             // toolNext
             // 
             this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolNext.Image = global::As.Properties.Resources.arrow_right1;
+            this.toolNext.Image = global::As.Properties.Resources.arrow_right2;
             this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolNext.Name = "toolNext";
-            this.toolNext.Size = new System.Drawing.Size(28, 26);
+            this.toolNext.Size = new System.Drawing.Size(109, 68);
             this.toolNext.Text = "toolStripButton2";
             this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
             // 
@@ -418,6 +425,7 @@
             // 
             // toolStrip2
             // 
+            this.toolStrip2.BackColor = System.Drawing.Color.Wheat;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -431,6 +439,7 @@
             // 
             // toolAdd
             // 
+            this.toolAdd.BackColor = System.Drawing.Color.Wheat;
             this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolAdd.Image = global::As.Properties.Resources.page_writing;
             this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -438,9 +447,11 @@
             this.toolAdd.Name = "toolAdd";
             this.toolAdd.Size = new System.Drawing.Size(35, 36);
             this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
+            this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
             // 
             // label10
             // 
+            this.label10.BackColor = System.Drawing.Color.Wheat;
             this.label10.Location = new System.Drawing.Point(425, 326);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 23);
@@ -467,22 +478,12 @@
             this.toolSave.Size = new System.Drawing.Size(23, 22);
             this.toolSave.Click += new System.EventHandler(this.toolSave_Click);
             // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(658, 597);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(139, 64);
-            this.label8.TabIndex = 45;
-            this.label8.Text = "Sie haben die Option, sich Einzelinformationen von jeder Firm anzeigen zu lassen." +
-    "";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // chkAbsageBack
             // 
             this.chkAbsageBack.BackColor = System.Drawing.SystemColors.Control;
             this.chkAbsageBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAbsageBack.ForeColor = System.Drawing.Color.Black;
-            this.chkAbsageBack.Location = new System.Drawing.Point(493, 287);
+            this.chkAbsageBack.Location = new System.Drawing.Point(493, 240);
             this.chkAbsageBack.Name = "chkAbsageBack";
             this.chkAbsageBack.Size = new System.Drawing.Size(354, 36);
             this.chkAbsageBack.TabIndex = 54;
@@ -494,7 +495,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 658);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(857, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(972, 22);
             this.statusStrip1.TabIndex = 56;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -507,11 +508,87 @@
             this.cbFirma.Size = new System.Drawing.Size(321, 21);
             this.cbFirma.TabIndex = 57;
             // 
+            // chkUserReply
+            // 
+            this.chkUserReply.AutoSize = true;
+            this.chkUserReply.BackColor = System.Drawing.Color.Wheat;
+            this.chkUserReply.Location = new System.Drawing.Point(243, 209);
+            this.chkUserReply.Name = "chkUserReply";
+            this.chkUserReply.Size = new System.Drawing.Size(190, 17);
+            this.chkUserReply.TabIndex = 58;
+            this.chkUserReply.Text = "Ist eine Rückmeldung erforderlich?";
+            this.chkUserReply.UseVisualStyleBackColor = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(858, -10);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(2, 721);
+            this.groupBox2.TabIndex = 59;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(860, 407);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(150, 80);
+            this.label8.TabIndex = 60;
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.SteelBlue;
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label11.Location = new System.Drawing.Point(480, 279);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(369, 58);
+            this.label11.TabIndex = 61;
+            // 
+            // chkPositiveReply
+            // 
+            this.chkPositiveReply.AutoSize = true;
+            this.chkPositiveReply.BackColor = System.Drawing.Color.SteelBlue;
+            this.chkPositiveReply.ForeColor = System.Drawing.Color.White;
+            this.chkPositiveReply.Location = new System.Drawing.Point(493, 302);
+            this.chkPositiveReply.Name = "chkPositiveReply";
+            this.chkPositiveReply.Size = new System.Drawing.Size(309, 17);
+            this.chkPositiveReply.TabIndex = 62;
+            this.chkPositiveReply.Text = "Haben Sie eine Zusage bekommen? (Vorstellungsgespräch)";
+            this.chkPositiveReply.UseVisualStyleBackColor = false;
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label12.Location = new System.Drawing.Point(-2, -10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(472, 113);
+            this.label12.TabIndex = 63;
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.Color.Wheat;
+            this.label13.Location = new System.Drawing.Point(-2, 103);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(472, 309);
+            this.label13.TabIndex = 64;
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label14.Location = new System.Drawing.Point(471, -10);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(387, 111);
+            this.label14.TabIndex = 65;
+            // 
             // ViewUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 680);
+            this.ClientSize = new System.Drawing.Size(972, 680);
+            this.Controls.Add(this.chkPositiveReply);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.chkUserReply);
             this.Controls.Add(this.cbFirma);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.chkAbsageBack);
@@ -522,12 +599,10 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtAnlage);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveNoExit);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtMemo);
@@ -548,7 +623,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtOrganisation);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label14);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -591,7 +670,6 @@
         private System.Windows.Forms.TextBox txtMemo;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnSaveNoExit;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAdd;
@@ -608,11 +686,18 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton toolSave;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.CheckBox chkAbsageBack;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ComboBox cbFirma;
+        private System.Windows.Forms.CheckBox chkUserReply;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chkPositiveReply;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }

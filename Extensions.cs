@@ -15,11 +15,18 @@ using iAnywhere.Data.SQLAnywhere;
 
 #endregion
 
+using System.Windows.Forms;
+
 namespace As
 {
     public static class Extensions
     {
-        public static int CalculateWaitTimeUntil(this DateTime value, DateTime compareTime)
+        public static ListViewItem Add(this ListView item, ListViewItemUnit unit)
+        {
+            return item.Items.Add(unit as ListViewItem);
+        }
+
+        public static int SubtractTimeSpanWithoutWeekends(this DateTime value, DateTime compareTime)
         {
             var time = (value - compareTime);
             var waitDays
@@ -43,30 +50,13 @@ namespace As
             return waitDays;
         }
 
-        
-        public static int CalculateWaitTimeUntil(this SqlDateTime value, SqlDateTime compareTime)
+
+        public static int SubtractTimeSpanWithoutWeekends(this SqlDateTime value, SqlDateTime compareTime)
         {
-            var time = (value.Value - compareTime.Value);
-            var waitDays 
-                = 0;
-
-            if (time.Days > 0)
-            {
-                var i = 0;
-                for (; i < time.Days; ++i)
-                {
-                    var day = 
-                        new DateTime(compareTime.Value.Year, compareTime.Value.Month, compareTime.Value.Day + waitDays);
-
-                    if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
-                        waitDays++;
-                }
-            }
-
-            return waitDays;
+            return value.Value.SubtractTimeSpanWithoutWeekends(compareTime.Value);
         }
 
-        public static string ToSaTimeStamp(this SqlDateTime value)
+        public static string ToTimeStamp(this SqlDateTime value)
         {
             var dateTimeValue = value.ToSqlString();
             var dateTimeValues
