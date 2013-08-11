@@ -16,7 +16,7 @@ using System.Text;
 
 using System.Windows.Forms;
 
-namespace IxSApp.Units
+namespace IxSApp.LvUnits
 {
     /// <summary>
     /// 
