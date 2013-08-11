@@ -28,10 +28,26 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IWorkUnitDef
     {
+        /// <summary>
+        /// To the SQL string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         string ToSqlString(StatementType type, Units units, long id = 0);
 
+        /// <summary>
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
         string TableName { get; set; }
     }
 }

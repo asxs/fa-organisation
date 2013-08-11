@@ -28,18 +28,37 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class TableIdCommand : ITableId
     {
+        /// <summary>
+        /// The command
+        /// </summary>
         private IDbCommand command =
             null;
+        /// <summary>
+        /// The single
+        /// </summary>
         internal static TableIdCommand single =
             null;
 
+        /// <summary>
+        /// Prevents a default instance of the <see cref="TableIdCommand"/> class from being created.
+        /// </summary>
         TableIdCommand()
         {
 
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">command</exception>
+        /// <exception cref="System.InvalidOperationException">connection have to be initialized</exception>
         public static TableIdCommand CreateInstance(IDbCommand command)
         {
             if (command == null)
@@ -61,6 +80,13 @@ namespace IxSApp
                 single;
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        /// <exception cref="System.InvalidOperationException">Call CreateInstance before</exception>
         public static TableIdCommand Instance
         {
             get
@@ -74,6 +100,14 @@ namespace IxSApp
 
         #region DataTableIdCommand (ITableId)
 
+        /// <summary>
+        /// Gets the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">tableName</exception>
+        /// <exception cref="System.InvalidOperationException">id must be higher then zero</exception>
         public long Get(string type, string tableName)
         {
             type = type.ToUpper();
@@ -157,6 +191,13 @@ namespace IxSApp
             return id;
         }
 
+        /// <summary>
+        /// Throws the new id internal.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">id must be higher then zero</exception>
         internal long ThrowNewIdInternal(string tableName, long id)
         {
             if (id == -1)
@@ -166,6 +207,11 @@ namespace IxSApp
             return key;
         }
 
+        /// <summary>
+        /// Inserts the table with default id.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <exception cref="System.ArgumentNullException">tableName</exception>
         private void InsertTableWithDefaultId(string tableName)
         {
             if (tableName == string.Empty || tableName == null)
@@ -191,6 +237,12 @@ namespace IxSApp
             }
         }
 
+        /// <summary>
+        /// Tables the exist.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">tableName</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:SQL-Abfragen auf Sicherheitsrisiken überprüfen")]
         private bool TableExist(string tableName)
         {
@@ -235,12 +287,22 @@ namespace IxSApp
             return tableIsAlive;
         }
 
+        /// <summary>
+        /// Incrs the id with one.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         private static long IncrIdWithOne(long id)
         {
             var key = id + 1;
             return key;
         }
 
+        /// <summary>
+        /// Decrs the id with one.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         private static long DecrIdWithOne(long id)
         {
             var key = id - 1;

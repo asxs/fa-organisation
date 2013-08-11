@@ -16,11 +16,26 @@ using System.Text;
 
 namespace IxSApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum QueryStateType : int
     {
+        /// <summary>
+        /// The success
+        /// </summary>
         Success = 0,
+        /// <summary>
+        /// The warning
+        /// </summary>
         Warning,
+        /// <summary>
+        /// The error
+        /// </summary>
         Error,
+        /// <summary>
+        /// The none
+        /// </summary>
         None
     }
 }

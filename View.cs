@@ -33,9 +33,33 @@ namespace IxSApp
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets or sets the package.
+        /// </summary>
+        /// <value>
+        /// The package.
+        /// </value>
         public Units Package { get; set; }
+        /// <summary>
+        /// Gets or sets the type of editing.
+        /// </summary>
+        /// <value>
+        /// The type of editing.
+        /// </value>
         public StatementType TypeOfEditing { get; set; }
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
         public long Id { get; set; }
+        /// <summary>
+        /// Gets the connection.
+        /// </summary>
+        /// <value>
+        /// The connection.
+        /// </value>
         public SAConnection Connection { get { return connection; } }
 
         private void ViewUI_Load(object sender, EventArgs e)
@@ -546,7 +570,7 @@ namespace IxSApp
 
         private void toolAdd_MouseHover(object sender, EventArgs e)
         {
-            new ToolTipUI() { Location = new Point(x, y) }.Show();
+            
         }
 
         private void toolAdd_Paint(object sender, PaintEventArgs e)
@@ -559,45 +583,9 @@ namespace IxSApp
             
         }
 
-        private static int x = 0;
-        private static int y = 0;
-
         private void ViewUI_MouseMove(object sender, MouseEventArgs e)
         {
-            x = e.Location.X;
-            y = e.Location.Y;
+
         }
-    }
-
-    public static class ASxFactory
-    {
-        public static IFaOrganisation CreateFaOrganisation(ViewEditState state)
-        {
-            IFaOrganisation unit = null;
-
-            switch (state)
-            {
-                case ViewEditState.Add:
-                    unit = new FaOrganisationAppend();
-                    break;
-                case ViewEditState.Edit:
-                    break;
-                case ViewEditState.Remove:
-                    break;
-                case ViewEditState.Update:
-                    break;
-            }
-
-            return unit;
-        }
-    }
-
-    public enum ViewEditState : int
-    {
-        Add = 0,
-        Edit = 1,
-        Remove = 2,
-        Update = 3,
-        None
     }
 }

@@ -28,23 +28,78 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class WorkUnitBewerbung
         : IWorkUnitDef
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkUnitBewerbung"/> class.
+        /// </summary>
         public WorkUnitBewerbung()
         {
 
         }
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
         public long Id { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="WorkUnitBewerbung"/> is state.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if state; otherwise, <c>false</c>.
+        /// </value>
         public bool State { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="WorkUnitBewerbung"/> is sent.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if sent; otherwise, <c>false</c>.
+        /// </value>
         public bool Sent { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [negative state at own].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [negative state at own]; otherwise, <c>false</c>.
+        /// </value>
         public bool NegativeStateAtOwn { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="WorkUnitBewerbung"/> is reply.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if reply; otherwise, <c>false</c>.
+        /// </value>
         public bool Reply { get; set; }
+        /// <summary>
+        /// Gets or sets the day.
+        /// </summary>
+        /// <value>
+        /// The day.
+        /// </value>
         public SqlDateTime Day { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
         public string TableName { get { return "ASXS_BEWERBUNG"; } set { ; } }
 
+        /// <summary>
+        /// To the SQL string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public string ToSqlString(StatementType type, Units units, long id = 0)
         {
             var commandText =

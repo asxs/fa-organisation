@@ -28,8 +28,17 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ConnectionFactory
     {
+        /// <summary>
+        /// Creates any system connection.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">connectionString</exception>
         public static IDbConnection CreateAnySystemConnection(string connectionString)
         {
             if (connectionString == string.Empty || connectionString == null)

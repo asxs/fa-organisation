@@ -16,8 +16,15 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ErrorHandler
     {
+        /// <summary>
+        /// Writes the specified type of warning.
+        /// </summary>
+        /// <param name="typeOfWarning">The type of warning.</param>
         public static void Write(ErrorHandlingWarningType typeOfWarning)
         {
             switch (typeOfWarning)

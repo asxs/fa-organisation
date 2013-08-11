@@ -30,12 +30,24 @@ namespace IxSApp
 {
     using Data;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class FaOrganisationAbstract
         : IFaOrganisation, IDisposable
     {
+        /// <summary>
+        /// The connection
+        /// </summary>
         protected SAConnection connection = null;
+        /// <summary>
+        /// The table id
+        /// </summary>
         protected TableIdCommand tableId = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FaOrganisationAbstract"/> class.
+        /// </summary>
         public FaOrganisationAbstract()
         {
             
@@ -43,12 +55,19 @@ namespace IxSApp
 
         #region FaOrganisationAppend (IDisposable)
 
+        /// <summary>
+        /// Führt anwendungsspezifische Aufgaben durch, die mit der Freigabe, der Zurückgabe oder dem Zurücksetzen von nicht verwalteten Ressourcen zusammenhängen.
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
             Dispose(true);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -60,6 +79,16 @@ namespace IxSApp
 
         #endregion
 
+        /// <summary>
+        /// Opens the internal.
+        /// </summary>
+        /// <param name="encapsulateWithTransaction">if set to <c>true</c> [encapsulate with transaction].</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// connection have to be initialized
+        /// or
+        /// connection have to be open
+        /// </exception>
         protected virtual IDbConnection OpenInternal(bool encapsulateWithTransaction)
         {
             if (connection == null)
@@ -87,6 +116,15 @@ namespace IxSApp
             return connection;
         }
 
+        /// <summary>
+        /// Appends the specified package.
+        /// </summary>
+        /// <param name="package">The package.</param>
+        /// <param name="unit">The unit.</param>
+        /// <param name="saveWithNewId">if set to <c>true</c> [save with new id].</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">unit</exception>
+        /// <exception cref="System.InvalidOperationException">tableIdCommand have to be initialized</exception>
         public virtual long Append(Units package, IWorkDataUnit unit, bool saveWithNewId = true)
         {
             var key = 0L;
@@ -117,6 +155,14 @@ namespace IxSApp
             return key;
         }
 
+        /// <summary>
+        /// Edits the specified package.
+        /// </summary>
+        /// <param name="package">The package.</param>
+        /// <param name="unit">The unit.</param>
+        /// <param name="id">The id.</param>
+        /// <exception cref="System.ArgumentNullException">unit</exception>
+        /// <exception cref="System.InvalidOperationException">tableIdCommand have to be initialized</exception>
         public virtual void Edit(Units package, IWorkDataUnit unit, long id = 0)
         {
             var key = id;
@@ -142,6 +188,9 @@ namespace IxSApp
             }
         }
 
+        /// <summary>
+        /// Rollbacks this instance.
+        /// </summary>
         protected virtual void Rollback()
         {
             try
@@ -156,6 +205,9 @@ namespace IxSApp
             catch { }
         }
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         public virtual void Close()
         {
             try

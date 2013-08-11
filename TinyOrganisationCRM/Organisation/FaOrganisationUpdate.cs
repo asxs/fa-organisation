@@ -16,15 +16,25 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FaOrganisationUpdate
         : FaOrganisationAbstract, IDisposable
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FaOrganisationUpdate"/> class.
+        /// </summary>
         public FaOrganisationUpdate()
             : base()
         {
 
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

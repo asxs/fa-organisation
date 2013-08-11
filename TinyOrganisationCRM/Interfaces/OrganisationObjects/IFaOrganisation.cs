@@ -16,6 +16,9 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IFaOrganisation
     {
 

@@ -16,8 +16,17 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ITableId
     {
+        /// <summary>
+        /// Gets the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns></returns>
         long Get(string type, string tableName);
     }
 }

@@ -14,10 +14,22 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum UnitPriorityType : int
     {
+        /// <summary>
+        /// The head
+        /// </summary>
         Head = 0,
+        /// <summary>
+        /// The children
+        /// </summary>
         Children,
+        /// <summary>
+        /// The none
+        /// </summary>
         None
     }
 }

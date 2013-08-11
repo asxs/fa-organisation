@@ -18,22 +18,44 @@ using System.Windows.Forms;
 
 namespace IxSApp.Units
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ListViewItemUnit
         : ListViewItem
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListViewItemUnit"/> class.
+        /// </summary>
         public ListViewItemUnit()
             : base()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListViewItemUnit"/> class.
+        /// </summary>
+        /// <param name="text">Der für das Element anzuzeigende Text. Der Text darf nicht länger als 259 Zeichen sein.</param>
         public ListViewItemUnit(string text)
             : base(text)
         {
 
         }
 
+        /// <summary>
+        /// Gets or sets the entry control.
+        /// </summary>
+        /// <value>
+        /// The entry control.
+        /// </value>
         public Control EntryControl { get; set; }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public UnitContentInfo Value { get; set; }
     }
 }

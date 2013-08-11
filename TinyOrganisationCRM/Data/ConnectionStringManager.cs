@@ -16,10 +16,22 @@ using System.Text;
 
 namespace IxSApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ConnectionStringManager
     {
+        /// <summary>
+        /// The connection string auto stop
+        /// </summary>
         public static string ConnectionStringAutoStop = "Uid=dba;Pwd=sql;Dbf=ASXS;Eng=ASXS;AutoStart=Yes;AutoStop=Yes;DatabaseFile=.\\Data\\asxs.db";
+        /// <summary>
+        /// The connection string without auto stop
+        /// </summary>
         public static string ConnectionStringWithoutAutoStop = "Uid=dba;Pwd=sql;Dbf=ASXS;Eng=ASXS;AutoStart=Yes;AutoStop=No;DatabaseFile=.\\Data\\asxs.db";
+        /// <summary>
+        /// The connection string network server
+        /// </summary>
         public static string ConnectionStringNetworkServer = "Uid=dba;Pwd=sql;Dbf=ASXS;Eng=ASXS;AutoStart=Yes;AutoStop=No;DatabaseFile=.\\Data\\asxs.db;Start=dbsrv12";
     }
 }

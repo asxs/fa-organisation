@@ -112,6 +112,9 @@ namespace IxSApp
             reloadFirmThread.Start();
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         private void Initialize()
         {
             reloadFirmThread = new Thread(new ThreadStart(ReNewView));
@@ -126,6 +129,9 @@ namespace IxSApp
             viewUi = new ViewUI();
         }
 
+        /// <summary>
+        /// Res the new view.
+        /// </summary>
         private void ReNewView()
         {
             var reNewActivity

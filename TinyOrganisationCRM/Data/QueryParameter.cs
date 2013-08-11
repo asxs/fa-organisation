@@ -28,11 +28,26 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct QueryParameter
     {
+        /// <summary>
+        /// The command
+        /// </summary>
         public IDbCommand Command;
+        /// <summary>
+        /// The command text
+        /// </summary>
         public string CommandText;
+        /// <summary>
+        /// The compile
+        /// </summary>
         public bool Compile;
+        /// <summary>
+        /// The make async
+        /// </summary>
         public bool MakeAsync;
     }
 }

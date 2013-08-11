@@ -30,8 +30,17 @@ using System.Windows.Forms;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Compares the with case.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="compareValue">The compare value.</param>
+        /// <returns></returns>
         public static bool CompareWithCase(this string value, string compareValue)
         {
             var result =
@@ -64,11 +73,23 @@ namespace IxSApp
             return result;
         }
 
+        /// <summary>
+        /// Adds the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="unit">The unit.</param>
+        /// <returns></returns>
         public static ListViewItem Add(this ListView item, ListViewItemUnit unit)
         {
             return item.Items.Add(unit as ListViewItem);
         }
 
+        /// <summary>
+        /// Subtracts the time span without weekends.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="compareTime">The compare time.</param>
+        /// <returns></returns>
         public static int SubtractTimeSpanWithoutWeekends(this DateTime value, DateTime compareTime)
         {
             var time = (value - compareTime);
@@ -94,11 +115,22 @@ namespace IxSApp
         }
 
 
+        /// <summary>
+        /// Subtracts the time span without weekends.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="compareTime">The compare time.</param>
+        /// <returns></returns>
         public static int SubtractTimeSpanWithoutWeekends(this SqlDateTime value, SqlDateTime compareTime)
         {
             return value.Value.SubtractTimeSpanWithoutWeekends(compareTime.Value);
         }
 
+        /// <summary>
+        /// To the time stamp.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static string ToTimeStamp(this SqlDateTime value)
         {
             var dateTimeValue = value.ToSqlString();

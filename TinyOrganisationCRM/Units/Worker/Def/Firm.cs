@@ -28,23 +28,83 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class WorkUnitFirm
         : IWorkUnitDef
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkUnitFirm"/> class.
+        /// </summary>
         public WorkUnitFirm()
         {
 
         }
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
         public long Id { get; set; }
+        /// <summary>
+        /// Gets or sets the id_ bew.
+        /// </summary>
+        /// <value>
+        /// The id_ bew.
+        /// </value>
         public long Id_Bew { get; set; }
+        /// <summary>
+        /// Gets or sets the id_ addr.
+        /// </summary>
+        /// <value>
+        /// The id_ addr.
+        /// </value>
         public long Id_Addr { get; set; }
+        /// <summary>
+        /// Gets or sets the id_ memo.
+        /// </summary>
+        /// <value>
+        /// The id_ memo.
+        /// </value>
         public long Id_Memo { get; set; }
+        /// <summary>
+        /// Gets or sets the id_ mandant.
+        /// </summary>
+        /// <value>
+        /// The id_ mandant.
+        /// </value>
         public long Id_Mandant { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the website.
+        /// </summary>
+        /// <value>
+        /// The website.
+        /// </value>
         public string Website { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [reply required].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [reply required]; otherwise, <c>false</c>.
+        /// </value>
         public bool ReplyRequired { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
         public string TableName
         {
             get
@@ -54,6 +114,13 @@ namespace IxSApp
             set { ; }
         }
 
+        /// <summary>
+        /// To the SQL string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public string ToSqlString(StatementType type, Units units, long id = 0)
         {
             var commandText =

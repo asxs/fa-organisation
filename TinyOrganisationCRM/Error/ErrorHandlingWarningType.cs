@@ -16,12 +16,30 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ErrorHandlingWarningType : int
     {
+        /// <summary>
+        /// The usual
+        /// </summary>
         Usual = 0,
+        /// <summary>
+        /// The warning
+        /// </summary>
         Warning = 1,
+        /// <summary>
+        /// The critical
+        /// </summary>
         Critical = 2,
+        /// <summary>
+        /// The error
+        /// </summary>
         Error = 3,
+        /// <summary>
+        /// The none
+        /// </summary>
         None
     }
 }

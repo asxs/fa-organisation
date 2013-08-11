@@ -28,16 +28,34 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class WorkUnitAnlage
         : IWorkUnitDef
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkUnitAnlage"/> class.
+        /// </summary>
         public WorkUnitAnlage()
         {
 
         }
 
+        /// <summary>
+        /// Gets or sets the anlagen.
+        /// </summary>
+        /// <value>
+        /// The anlagen.
+        /// </value>
         public List<AnlageItemInfo> Anlagen { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
         public string TableName
         {
             get
@@ -47,6 +65,13 @@ namespace IxSApp
             set { ; }
         }
 
+        /// <summary>
+        /// To the SQL string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public string ToSqlString(StatementType type, Units units, long id = 0)
         {
             var commandText =

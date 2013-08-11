@@ -16,13 +16,34 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct Units
     {
+        /// <summary>
+        /// The bewerbung
+        /// </summary>
         public WorkUnitBewerbung Bewerbung;
+        /// <summary>
+        /// The memo
+        /// </summary>
         public WorkUnitMemo Memo;
+        /// <summary>
+        /// The address
+        /// </summary>
         public WorkUnitAddress Address;
+        /// <summary>
+        /// The firm
+        /// </summary>
         public WorkUnitFirm Firm;
+        /// <summary>
+        /// The anlage
+        /// </summary>
         public WorkUnitAnlage Anlage;
+        /// <summary>
+        /// The mandant
+        /// </summary>
         public WorkUnitMandant Mandant;
     }
 }

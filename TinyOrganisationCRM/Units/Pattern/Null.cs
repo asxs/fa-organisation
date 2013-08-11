@@ -30,9 +30,15 @@ namespace IxSApp
 {
     using Data;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class NullDataUnit
         : IWorkDataUnit
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullDataUnit"/> class.
+        /// </summary>
         public NullDataUnit()
         {
 
@@ -40,24 +46,66 @@ namespace IxSApp
 
         #region NullDataUnit (IDataUnit)
 
+        /// <summary>
+        /// Gets or sets the priority.
+        /// </summary>
+        /// <value>
+        /// The priority.
+        /// </value>
         public UnitPriorityType Priority { get; set; }
 
+        /// <summary>
+        /// Gets or sets the command.
+        /// </summary>
+        /// <value>
+        /// The command.
+        /// </value>
         public IDbCommand Command { get; set; }
 
+        /// <summary>
+        /// Gets the table.
+        /// </summary>
+        /// <value>
+        /// The table.
+        /// </value>
         public string Table { get { return ""; } }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
         public string Database { get; set; }
 
+        /// <summary>
+        /// Inserts the specified units.
+        /// </summary>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public QueryStateType Insert(Units units, long id = 0)
         {
             return QueryStateType.None;
         }
 
+        /// <summary>
+        /// Updates the specified units.
+        /// </summary>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public QueryStateType Update(Units units, long id = 0)
         {
             return QueryStateType.None;
         }
 
+        /// <summary>
+        /// Removes the specified units.
+        /// </summary>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public QueryStateType Remove(Units units, long id = 0)
         {
             return QueryStateType.None;

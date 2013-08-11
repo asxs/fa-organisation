@@ -28,19 +28,50 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class WorkUnitMemo
         : IWorkUnitDef
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkUnitMemo"/> class.
+        /// </summary>
         public WorkUnitMemo()
         {
 
         }
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
         public long Id { get; set; }
+        /// <summary>
+        /// Gets or sets the content.
+        /// </summary>
+        /// <value>
+        /// The content.
+        /// </value>
         public string Content { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
         public string TableName { get { return "ASXS_MEMO"; } set { ; } }
 
+        /// <summary>
+        /// To the SQL string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="units">The units.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public string ToSqlString(StatementType type, Units units, long id = 0)
         {
             var commandText =

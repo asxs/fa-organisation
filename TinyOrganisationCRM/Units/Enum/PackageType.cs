@@ -16,11 +16,26 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum PackageType : int
     {
+        /// <summary>
+        /// The firm
+        /// </summary>
         Firm = 0,
+        /// <summary>
+        /// The bewerbung
+        /// </summary>
         Bewerbung,
+        /// <summary>
+        /// The address
+        /// </summary>
         Address,
+        /// <summary>
+        /// The none
+        /// </summary>
         None
     }
 }

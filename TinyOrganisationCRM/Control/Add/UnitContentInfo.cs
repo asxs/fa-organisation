@@ -16,12 +16,27 @@ using System.Text;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UnitContentInfo
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnitContentInfo"/> class.
+        /// </summary>
         public UnitContentInfo() { }
 
+        /// <summary>
+        /// The id
+        /// </summary>
         public long Id;
+        /// <summary>
+        /// The table name
+        /// </summary>
         public string TableName;
+        /// <summary>
+        /// The item
+        /// </summary>
         public Units Item;
     }
 }

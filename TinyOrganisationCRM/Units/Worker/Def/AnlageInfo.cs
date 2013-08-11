@@ -28,10 +28,22 @@ using iAnywhere.Data.SQLAnywhere;
 
 namespace IxSApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct AnlageItemInfo
     {
+        /// <summary>
+        /// The name
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// The document
+        /// </summary>
         public string Document;
+        /// <summary>
+        /// The description
+        /// </summary>
         public string Description;
     }
 }

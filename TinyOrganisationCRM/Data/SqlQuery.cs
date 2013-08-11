@@ -30,9 +30,32 @@ using System.Threading;
 
 namespace IxSApp.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SqlQuery
     {
         //regexp
+        /// <summary>
+        /// Inserts the specified parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter
+        /// or
+        /// commandText
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">
+        /// Doesn't contain the correct DDL command
+        /// or
+        /// Syntax problem in correct DDL command
+        /// or
+        /// Connection must be opened before
+        /// or
+        /// anyCommand have to be converted in SACommand, if the Async - Method is used
+        /// </exception>
+        /// <exception cref="System.NullReferenceException">command</exception>
         public static QueryStateType Insert(QueryParameter parameter)
         {
             if (((object)parameter == null))
@@ -120,11 +143,32 @@ namespace IxSApp.Data
             return QueryStateType.None;
         }
 
+        /// <summary>
+        /// Selects this instance.
+        /// </summary>
         public static void Select()
         {
 
         }
 
+        /// <summary>
+        /// Updates the specified parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter
+        /// or
+        /// commandText
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">
+        /// Doesn't contain the correct DDL command
+        /// or
+        /// Connection must be opened before
+        /// or
+        /// anyCommand have to be converted in SACommand, if the Async - Method is used
+        /// </exception>
+        /// <exception cref="System.NullReferenceException">command</exception>
         public static QueryStateType Update(QueryParameter parameter)
         {
             if (((object)parameter == null))
@@ -209,6 +253,9 @@ namespace IxSApp.Data
             return QueryStateType.None;
         }
 
+        /// <summary>
+        /// Drops this instance.
+        /// </summary>
         public static void Drop()
         {
 
