@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace As.Properties {
+namespace IxSApp.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace As.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("As.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IxSApp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -380,29 +380,5 @@ namespace As.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
-        ///// <summary>
-        /////   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        ///// </summary>
-        //internal static System.Drawing.Bitmap left
-        //{
-        //    get
-        //    {
-        //        object obj = ResourceManager.GetObject("left", resourceCulture);
-        //        return ((System.Drawing.Bitmap)(obj));
-        //    }
-        //}
-
-        ///// <summary>
-        /////   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        ///// </summary>
-        //internal static System.Drawing.Bitmap right
-        //{
-        //    get
-        //    {
-        //        object obj = ResourceManager.GetObject("left", resourceCulture);
-        //        return ((System.Drawing.Bitmap)(obj));
-        //    }
-        //}
     }
 }

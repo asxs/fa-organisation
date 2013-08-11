@@ -8,7 +8,7 @@
     <ProjectGuid>{8E08D079-F456-41F5-BFCF-5601DC8030AA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>As</RootNamespace>
+    <RootNamespace>IxSApp</RootNamespace>
     <AssemblyName>TinyOrganisationCRM</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>

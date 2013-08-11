@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace As
+namespace IxSApp
 {
     public partial class Preview : Form
     {

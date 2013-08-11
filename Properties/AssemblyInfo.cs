@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("Tiny Organisation CRM Unit")]
 [assembly: AssemblyDescription("Can allocate some organisation informations and some personal statements in this fact of interaction to a public entry")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lars Ulrich Herrmann")]
+[assembly: AssemblyCompany("Sense Applications (XSA)")]
 [assembly: AssemblyProduct("Tiny Organisation CRM Unit")]
-[assembly: AssemblyCopyright("Copyright © Lars Ulrich Herrmann 2013")]
+[assembly: AssemblyCopyright("Copyright © XSA 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

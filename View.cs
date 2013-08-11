@@ -20,7 +20,7 @@ using iAnywhere.Data.SQLAnywhere;
 
 #endregion
 
-namespace As
+namespace IxSApp
 {
     using Data;
 

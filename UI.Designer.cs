@@ -1,4 +1,4 @@
-﻿namespace As
+﻿namespace IxSApp
 {
     partial class UI
     {
