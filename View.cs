@@ -74,6 +74,7 @@ namespace IxSApp
             txtMemo.Enabled = (Package.Firm.Id_Memo != 0);
             toolAdd.Enabled = (Package.Firm.Id_Memo == 0);
             chkUserReply.Checked = Package.Mandant.ReplyRequired;
+            chkPositiveReply.Checked = Package.Bewerbung.Zusage;
 
             lstAnlagen.Items.Clear();
             try
@@ -166,7 +167,8 @@ namespace IxSApp
                     NegativeStateAtOwn = radioAbsageUser.Checked,
                     Reply = chkReply.Checked,
                     Sent = chkBewerbung.Checked,
-                    State = radioAbsage.Checked
+                    State = radioAbsage.Checked,
+                    Zusage = chkPositiveReply.Checked
                 };
 
                 save.Edit

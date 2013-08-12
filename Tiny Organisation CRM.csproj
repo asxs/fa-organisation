@@ -95,6 +95,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendarUI.Designer.cs">
+      <DependentUpon>CalendarUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="PropertyStartUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     <Compile Include="View.Designer.cs">
       <DependentUpon>View.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CalendarUI.resx">
+      <DependentUpon>CalendarUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Preview.resx">
       <DependentUpon>Preview.cs</DependentUpon>
     </EmbeddedResource>

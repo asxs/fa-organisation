@@ -30,6 +30,8 @@ using System.Windows.Forms;
 
 namespace IxSApp
 {
+    using LvUnits;
+
     /// <summary>
     /// 
     /// </summary>

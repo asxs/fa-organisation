@@ -88,7 +88,7 @@
             // 
             // chkReply
             // 
-            this.chkReply.BackColor = System.Drawing.Color.Wheat;
+            this.chkReply.BackColor = System.Drawing.SystemColors.Control;
             this.chkReply.Location = new System.Drawing.Point(15, 227);
             this.chkReply.Name = "chkReply";
             this.chkReply.Size = new System.Drawing.Size(379, 36);
@@ -99,7 +99,7 @@
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Location = new System.Drawing.Point(480, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(372, 48);
@@ -119,7 +119,7 @@
             // chkBewerbung
             // 
             this.chkBewerbung.AutoSize = true;
-            this.chkBewerbung.BackColor = System.Drawing.Color.Wheat;
+            this.chkBewerbung.BackColor = System.Drawing.SystemColors.Control;
             this.chkBewerbung.Location = new System.Drawing.Point(15, 209);
             this.chkBewerbung.Name = "chkBewerbung";
             this.chkBewerbung.Size = new System.Drawing.Size(223, 17);
@@ -129,7 +129,7 @@
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
             this.label1.Location = new System.Drawing.Point(14, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(421, 30);
@@ -157,7 +157,7 @@
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.Wheat;
+            this.label3.BackColor = System.Drawing.SystemColors.Control;
             this.label3.Location = new System.Drawing.Point(12, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(448, 32);
@@ -234,7 +234,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Wheat;
+            this.label6.BackColor = System.Drawing.SystemColors.Control;
             this.label6.Location = new System.Drawing.Point(12, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(157, 13);
@@ -244,7 +244,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Wheat;
+            this.linkLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.linkLabel1.Location = new System.Drawing.Point(439, 182);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(16, 13);
@@ -255,7 +255,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Wheat;
+            this.label7.BackColor = System.Drawing.SystemColors.Control;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(14, 268);
             this.label7.Name = "label7";
@@ -355,7 +355,7 @@
             // 
             this.toolBack.BackColor = System.Drawing.Color.DarkGray;
             this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBack.Image = global::As.Properties.Resources.left;
+            this.toolBack.Image = global::IxSApp.Properties.Resources.left;
             this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
             this.toolBack.Name = "toolBack";
@@ -367,7 +367,7 @@
             // 
             this.toolNext.BackColor = System.Drawing.Color.DarkGray;
             this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolNext.Image = global::As.Properties.Resources.right;
+            this.toolNext.Image = global::IxSApp.Properties.Resources.right;
             this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolNext.Name = "toolNext";
@@ -378,7 +378,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Wheat;
+            this.label9.BackColor = System.Drawing.SystemColors.Control;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(14, 423);
             this.label9.Name = "label9";
@@ -432,7 +432,7 @@
             // 
             // toolStrip2
             // 
-            this.toolStrip2.BackColor = System.Drawing.Color.Wheat;
+            this.toolStrip2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -448,7 +448,7 @@
             // 
             this.toolAdd.BackColor = System.Drawing.Color.Wheat;
             this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolAdd.Image = global::As.Properties.Resources.page_writing;
+            this.toolAdd.Image = global::IxSApp.Properties.Resources.page_writing;
             this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolAdd.Name = "toolAdd";
@@ -460,7 +460,7 @@
             // 
             // label10
             // 
-            this.label10.BackColor = System.Drawing.Color.Wheat;
+            this.label10.BackColor = System.Drawing.SystemColors.Control;
             this.label10.Location = new System.Drawing.Point(425, 326);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 23);
@@ -468,7 +468,7 @@
             // 
             // toolStrip3
             // 
-            this.toolStrip3.BackColor = System.Drawing.Color.Wheat;
+            this.toolStrip3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -481,9 +481,9 @@
             // 
             // toolSave
             // 
-            this.toolSave.BackColor = System.Drawing.Color.Wheat;
+            this.toolSave.BackColor = System.Drawing.SystemColors.Control;
             this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolSave.Image = global::As.Properties.Resources.icon_save;
+            this.toolSave.Image = global::IxSApp.Properties.Resources.icon_save;
             this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolSave.Name = "toolSave";
             this.toolSave.Size = new System.Drawing.Size(23, 22);
@@ -522,7 +522,7 @@
             // chkUserReply
             // 
             this.chkUserReply.AutoSize = true;
-            this.chkUserReply.BackColor = System.Drawing.Color.Wheat;
+            this.chkUserReply.BackColor = System.Drawing.SystemColors.Control;
             this.chkUserReply.Location = new System.Drawing.Point(243, 209);
             this.chkUserReply.Name = "chkUserReply";
             this.chkUserReply.Size = new System.Drawing.Size(190, 17);
@@ -570,7 +570,7 @@
             // 
             // label12
             // 
-            this.label12.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label12.BackColor = System.Drawing.SystemColors.Control;
             this.label12.Location = new System.Drawing.Point(-2, -10);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(472, 113);
@@ -578,7 +578,7 @@
             // 
             // label13
             // 
-            this.label13.BackColor = System.Drawing.Color.Wheat;
+            this.label13.BackColor = System.Drawing.SystemColors.Control;
             this.label13.Location = new System.Drawing.Point(-2, 103);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(472, 309);
@@ -586,7 +586,7 @@
             // 
             // label14
             // 
-            this.label14.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label14.BackColor = System.Drawing.SystemColors.Control;
             this.label14.Location = new System.Drawing.Point(471, -10);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(387, 111);
@@ -594,7 +594,7 @@
             // 
             // label15
             // 
-            this.label15.BackColor = System.Drawing.Color.Wheat;
+            this.label15.BackColor = System.Drawing.SystemColors.Control;
             this.label15.Location = new System.Drawing.Point(-3, 413);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(473, 245);
@@ -602,7 +602,7 @@
             // 
             // label16
             // 
-            this.label16.BackColor = System.Drawing.Color.Wheat;
+            this.label16.BackColor = System.Drawing.SystemColors.Control;
             this.label16.Location = new System.Drawing.Point(409, 468);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(30, 3);

@@ -86,6 +86,14 @@ namespace IxSApp
         public SqlDateTime Day { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="WorkUnitBewerbung"/> is zusage.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if zusage; otherwise, <c>false</c>.
+        /// </value>
+        public bool Zusage { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the table.
         /// </summary>
         /// <value>
@@ -108,10 +116,10 @@ namespace IxSApp
             switch (type)
             {
                 case StatementType.Insert:
-                    commandText = string.Format("INSERT INTO {0} (id, state, sent, state_own, reply, day) VALUES ({1}, {2}, {3}, {4}, {5}, '{6}')", TableName, id, State ? 1 : 0, Sent ? 1 : 0, NegativeStateAtOwn ? 1 : 0, Reply ? 1 : 0, Day.ToTimeStamp());
+                    commandText = string.Format("INSERT INTO {0} (id, state, sent, state_own, reply, day, positive_reply) VALUES ({1}, {2}, {3}, {4}, {5}, '{6}', {7})", TableName, id, State ? 1 : 0, Sent ? 1 : 0, NegativeStateAtOwn ? 1 : 0, Reply ? 1 : 0, Day.ToTimeStamp(), Zusage ? 1 : 0);
                     break;
                 case StatementType.Update:
-                    commandText = string.Concat("UPDATE V_FIRM SET Absage = ", State ? 1 : 0, ", Abgeschickt = ", Sent ? 1 : 0, ", Tag = '", Day.ToTimeStamp(), "', Rueckmeldung = ", Reply ? 1 : 0, " WHERE ID = ", id);
+                    commandText = string.Concat("UPDATE V_FIRM SET Zusage = ", Zusage ? 1 : 0, ", Absage = ", State ? 1 : 0, ", Abgeschickt = ", Sent ? 1 : 0, ", Tag = '", Day.ToTimeStamp(), "', Rueckmeldung = ", Reply ? 1 : 0, " WHERE ID = ", id);
                     break;
             }
 

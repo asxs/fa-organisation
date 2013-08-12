@@ -126,6 +126,17 @@
   <metadata name="ctxFirm.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>242, 17</value>
   </metadata>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Sie können nur Dokumente aus Google Docs heraus laden, wenn Sie den Google API Key für das SDK von Google Drive
+erstellt und aktiviert haben. Wenn Sie z.B. keine Aktivierung hinzugefügt haben, können keine Dokumente aus der Ablage von
+Google Drive geladen werden, hat die Anzeige keine Einträge und Sie sind mit dieser Anwendung nicht in der Lage 
+Dokumente zu sortieren.</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Es können, entsprechend Ihrer Google Dokumente Anlangen zu der Speicherquelle hinzugefügt werden.
+Ausserdem sollten die vorhandenen Dokumente nach Name und Typ, sowie nach Firma sortiert werden, um
+Unordnung zu verhindern.</value>
+  </data>
   <metadata name="imgProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
@@ -134,7 +145,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB6
-        EQAAAk1TRnQBSQFMAgEBCQEAAYABAQGAAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        EQAAAk1TRnQBSQFMAgEBCQEAAZgBAQGYAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAATADAAEBAQABCAYAAQwYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -210,20 +221,6 @@
         AYABAAHgBQABgAEBAeAGAAEBAeABAQUAAQEB4AEBBQABAQHgAQEFAAEBAYABAQQAAYABAQEAAQEEAAGA
         AQEBAAEBBAABwQGBAYABAQQAAv8B4AEDAfMBzwIAAv8B4AEHAv8L
 </value>
-  </data>
-  <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>438, 17</value>
-  </metadata>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Sie können nur Dokumente aus Google Docs heraus laden, wenn Sie den Google API Key für das SDK von Google Drive
-erstellt und aktiviert haben. Wenn Sie z.B. keine Aktivierung hinzugefügt haben, können keine Dokumente aus der Ablage von
-Google Drive geladen werden, hat die Anzeige keine Einträge und Sie sind mit dieser Anwendung nicht in der Lage 
-Dokumente zu sortieren.</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Es können, entsprechend Ihrer Google Dokumente Anlangen zu der Speicherquelle hinzugefügt werden.
-Ausserdem sollten die vorhandenen Dokumente nach Name und Typ, sowie nach Firma sortiert werden, um
-Unordnung zu verhindern.</value>
   </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>333, 17</value>

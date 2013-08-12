@@ -22,7 +22,6 @@ using System.Data.Common;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 
@@ -35,6 +34,7 @@ using System.Drawing.Text;
 namespace IxSApp
 {
     using Data;
+    using LvUnits;
 
     /*
 
@@ -172,7 +172,7 @@ namespace IxSApp
                                     var firmName =
                                         reader["Firma"].ToString();
 
-                                    if (chkFilter.Checked)
+                                    if (chkFilter.Checked && !string.IsNullOrEmpty(txtSearch.Text))
                                         if (!(firmName.CompareWithCase(txtSearch.Text)))
                                             continue;
 
@@ -197,6 +197,7 @@ namespace IxSApp
                                     package.Firm.ReplyRequired = package.Mandant.ReplyRequired = string.IsNullOrEmpty(reader["reply_req"].ToString()) ? false : (bool)reader["reply_req"];
                                     package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
                                     package.Bewerbung.Day = (DateTime)reader["Tag"];
+                                    package.Bewerbung.Zusage = !string.IsNullOrEmpty(reader["Zusage"].ToString()) ? (bool)reader["Zusage"] : false;
                                     package.Address.Id = long.Parse(reader["id_addr"].ToString());
                                     package.Memo.Id = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
                                     package.Memo.Content = reader["Memo"].ToString();
@@ -262,7 +263,12 @@ namespace IxSApp
                                     {
                                         lstFirm.Items[jobNr - 1].BackColor = Color.Chocolate;
                                         lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                    }
 
+                                    if (package.Bewerbung.Zusage)
+                                    {
+                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                        lstFirm.Items[jobNr - 1].BackColor = Color.ForestGreen;
                                     }
 
                                     dataItem.Value.Item = package;
@@ -282,9 +288,7 @@ namespace IxSApp
                     lstFirm.PerformLayout();
 
                     if (selectedItem != null)
-                    {
                         selectedItem.Selected = true;
-                    }
 
                     //Make a control, draw it in item directly
 
@@ -418,17 +422,17 @@ namespace IxSApp
 
         private void lstFirm_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked)
-            {
-                e.Item.BackColor = Color.NavajoWhite;
-            }
-            else
-                e.Item.BackColor = Color.White;
+            //if (e.Item.Checked)
+            //{
+            //    e.Item.BackColor = Color.NavajoWhite;
+            //}
+            //else
+            //    e.Item.BackColor = Color.White;
         }
 
         private void filterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void lstFirm_MouseUp(object sender, MouseEventArgs e)
@@ -440,6 +444,12 @@ namespace IxSApp
             {
                 selectedItem = hitTestItem.Item;
                 selectedSubItem = hitTestItem.SubItem;
+            }
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (selectedItem != null)
+                    toolStripFilterFirm.Text = selectedItem.SubItems[1].Text;
             }
         }
 
@@ -689,7 +699,9 @@ namespace IxSApp
                             continue;
                         break;
                     case 4:
-                        continue;
+                        if (value.Value.Item.Bewerbung.Zusage)
+                            continue;
+                        break;
                 }
 
                 item.ForeColor = Color.LightGray;
@@ -751,6 +763,52 @@ namespace IxSApp
         private void lstFirm_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
             
+        }
+
+        private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            toolButtonEdit_Click(sender, e);
+        }
+
+        private void toolStripFilterFirm_Click(object sender, EventArgs e)
+        {
+            if (selectedItem != null)
+                txtSearch.Text = selectedItem.SubItems[1].Text;
+        }
+
+        private void toolStripFilterDelete_Click(object sender, EventArgs e)
+        {
+            btnDelete_Click(sender, e);
+        }
+
+        private void filterToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstFirm_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+        
+        }
+
+        private void lstFirm_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            e.UseDefaultCursors = false;
+        }
+
+        private void lstFirm_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void lstFirm_MouseDown(object sender, MouseEventArgs e)
+        {
+        
         }
     }
 }
