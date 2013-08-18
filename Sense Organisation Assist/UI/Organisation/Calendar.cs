@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace IxSApp
 {
-    public partial class UserReportUI : Form
+    public partial class CalendarView : Form
     {
-        public UserReportUI()
+        public CalendarView()
         {
             InitializeComponent();
         }
