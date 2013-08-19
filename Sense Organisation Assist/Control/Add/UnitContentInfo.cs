@@ -29,14 +29,22 @@ namespace IxSApp
         /// <summary>
         /// The id
         /// </summary>
-        public long Id;
+        public long Id { get; set; }
         /// <summary>
         /// The table name
         /// </summary>
-        public string TableName;
+        public string TableName { get; set; }
         /// <summary>
         /// The item
         /// </summary>
-        public Units Item;
+        public Units Item { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can selected.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance can selected; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanSelect { get; set; }
     }
 }

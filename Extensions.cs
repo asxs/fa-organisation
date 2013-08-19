@@ -37,6 +37,35 @@ namespace IxSApp
     /// </summary>
     public static class Extensions
     {
+        public static T[] Add<T>(this T[] items, T item)
+            where T : class
+        {
+            if (item == null)
+                throw new ArgumentNullException("item");
+
+            Array.Resize<T>(ref items, items.Length + 1);
+            items[items.Length - 1] 
+                = item;
+            return items;
+        }
+
+        public static T[] RemoveAt<T>(this T[] items, int index)
+        {
+            if (index == -1 || index < -1 || index > items.Length)
+                throw new ArgumentOutOfRangeException("index");
+
+            var destination 
+                = new T[items.Length - 1];
+
+            if (index == 0)
+                index++;
+
+            Array.Copy(items, 0, destination, 0, index);
+            Array.Copy(items, index + 1, destination, index + 1, items.Length - 1);
+
+            return items;
+        }
+
         /// <summary>
         /// Compares the with case.
         /// </summary>
@@ -75,6 +104,36 @@ namespace IxSApp
             return result;
         }
 
+        public static void ReStart(this System.Threading.Thread thread)
+        {
+            try
+            {
+                thread.Abort();
+                System.Threading.
+                    Thread.Sleep(10);
+
+                while (true)
+                {
+                    if (!(thread.IsAlive))
+                        break;
+
+                    System.Threading.
+                        Thread.Sleep(1);
+                    Application.DoEvents();
+                }
+            }
+            catch (System.Threading.ThreadAbortException ex)
+            {
+                throw ex;
+            }
+            catch (System.Threading.ThreadInterruptedException ex)
+            {
+                throw ex;
+            }
+
+            thread.Start();
+        }
+
         /// <summary>
         /// Adds the specified item.
         /// </summary>
@@ -84,6 +143,37 @@ namespace IxSApp
         public static ListViewItem Add(this ListView item, ListViewItemUnit unit)
         {
             return item.Items.Add(unit as ListViewItem);
+        }
+
+        /// <summary>
+        /// Adds the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="unit">The unit.</param>
+        /// <returns></returns>
+        public static ListViewItem Add(this ListView.ListViewItemCollection item, ListViewItemUnit unit)
+        {
+            return item.Add(unit as ListViewItem);
+        }
+
+        /// <summary>
+        /// Gets the item content info.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static UnitContentInfo GetItemContentInfo(this ListViewItem item)
+        {
+            return (item as ListViewItemUnit).Value;
+        }
+
+        /// <summary>
+        /// Gets the item unit.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static ListViewItemUnit GetItemUnit(this ListViewItem item)
+        {
+            return (item as ListViewItemUnit);
         }
 
         /// <summary>

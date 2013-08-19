@@ -24,11 +24,11 @@ namespace IxSApp
 {
     using Data;
 
-    public partial class ItemView : Form
+    public partial class VacancyView : Form
     {
         private SAConnection connection = null;
 
-        public ItemView()
+        public VacancyView()
         {
             InitializeComponent();
         }
@@ -479,7 +479,7 @@ namespace IxSApp
                                 var id
                                     = TableIdCommand.CreateInstance(action).Get("NEW", "ASXS_ANLAGE");
 
-                                action.CommandText = string.Format("INSERT INTO ASXS_ANLAGE VALUES ({0}, {1}, csconvert('{2}', 'os_charset'), '{3}', '{4}')", id, Package.Firm.Id, txtAnlage.Text, "Anlage", Path.GetFileNameWithoutExtension(txtAnlage.Text));
+                                action.CommandText = string.Format("INSERT INTO ASXS_ANLAGE VALUES ({0}, {1}, '{2}', '{3}', '{4}')", id, Package.Firm.Id, txtAnlage.Text, "Anlage", Path.GetFileNameWithoutExtension(txtAnlage.Text));
                                 action.Prepare();
                                 action.ExecuteNonQuery();
                             }

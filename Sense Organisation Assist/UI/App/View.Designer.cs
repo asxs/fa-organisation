@@ -41,12 +41,7 @@
             this.tabFirm = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitJobControl = new System.Windows.Forms.SplitContainer();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lstInfos = new System.Windows.Forms.ListView();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lstFilter = new System.Windows.Forms.ListView();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.webVacance = new System.Windows.Forms.WebBrowser();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -58,6 +53,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.lstInfos = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lstFilter = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lstFirm = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -72,8 +73,6 @@
             this.btnContinue = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -84,8 +83,9 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imgProject = new System.Windows.Forms.ImageList(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolBarAdd = new System.Windows.Forms.ToolStripButton();
@@ -191,7 +191,6 @@
             this.tabFirm.Controls.Add(this.tabPage6);
             this.tabFirm.Controls.Add(this.tabPage4);
             this.tabFirm.Controls.Add(this.tabPage3);
-            this.tabFirm.Controls.Add(this.tabPage5);
             this.tabFirm.ImageList = this.imgProject;
             this.tabFirm.Location = new System.Drawing.Point(37, 30);
             this.tabFirm.Name = "tabFirm";
@@ -223,6 +222,7 @@
             // 
             // splitJobControl.Panel1
             // 
+            this.splitJobControl.Panel1.Controls.Add(this.webVacance);
             this.splitJobControl.Panel1.Controls.Add(this.panel1);
             this.splitJobControl.Panel1.Controls.Add(this.lstInfos);
             this.splitJobControl.Panel1.Controls.Add(this.label6);
@@ -242,79 +242,19 @@
             this.splitJobControl.SplitterDistance = 580;
             this.splitJobControl.TabIndex = 1;
             // 
-            // label6
+            // webVacance
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label6.Location = new System.Drawing.Point(996, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(1, 603);
-            this.label6.TabIndex = 8;
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.DimGray;
-            this.label7.Location = new System.Drawing.Point(983, 593);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(256, 10);
-            this.label7.TabIndex = 9;
-            this.label7.Visible = false;
-            // 
-            // lstInfos
-            // 
-            this.lstInfos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstInfos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstInfos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader11});
-            this.lstInfos.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstInfos.GridLines = true;
-            this.lstInfos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstInfos.Location = new System.Drawing.Point(1017, 189);
-            this.lstInfos.MultiSelect = false;
-            this.lstInfos.Name = "lstInfos";
-            this.lstInfos.Scrollable = false;
-            this.lstInfos.ShowGroups = false;
-            this.lstInfos.ShowItemToolTips = true;
-            this.lstInfos.Size = new System.Drawing.Size(183, 177);
-            this.lstInfos.TabIndex = 7;
-            this.lstInfos.UseCompatibleStateImageBehavior = false;
-            this.lstInfos.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Status";
-            this.columnHeader11.Width = 183;
-            // 
-            // lstFilter
-            // 
-            this.lstFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstFilter.BackColor = System.Drawing.Color.White;
-            this.lstFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstFilter.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7});
-            this.lstFilter.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.lstFilter.FullRowSelect = true;
-            this.lstFilter.GridLines = true;
-            this.lstFilter.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstFilter.Location = new System.Drawing.Point(726, 2);
-            this.lstFilter.MultiSelect = false;
-            this.lstFilter.Name = "lstFilter";
-            this.lstFilter.Scrollable = false;
-            this.lstFilter.Size = new System.Drawing.Size(274, 599);
-            this.lstFilter.TabIndex = 4;
-            this.lstFilter.UseCompatibleStateImageBehavior = false;
-            this.lstFilter.View = System.Windows.Forms.View.Details;
-            this.lstFilter.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseClick);
-            this.lstFilter.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseDown);
-            this.lstFilter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseUp);
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Name";
-            this.columnHeader7.Width = 271;
+            this.webVacance.AllowNavigation = false;
+            this.webVacance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.webVacance.IsWebBrowserContextMenuEnabled = false;
+            this.webVacance.Location = new System.Drawing.Point(1015, 388);
+            this.webVacance.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webVacance.Name = "webVacance";
+            this.webVacance.ScriptErrorsSuppressed = true;
+            this.webVacance.Size = new System.Drawing.Size(234, 180);
+            this.webVacance.TabIndex = 10;
+            this.webVacance.Visible = false;
+            this.webVacance.WebBrowserShortcutsEnabled = false;
             // 
             // panel1
             // 
@@ -345,6 +285,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(8, 54);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(242, 17);
@@ -442,6 +383,81 @@
             this.label5.Size = new System.Drawing.Size(194, 61);
             this.label5.TabIndex = 2;
             // 
+            // lstInfos
+            // 
+            this.lstInfos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstInfos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstInfos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11});
+            this.lstInfos.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstInfos.GridLines = true;
+            this.lstInfos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstInfos.Location = new System.Drawing.Point(1017, 189);
+            this.lstInfos.MultiSelect = false;
+            this.lstInfos.Name = "lstInfos";
+            this.lstInfos.Scrollable = false;
+            this.lstInfos.ShowGroups = false;
+            this.lstInfos.ShowItemToolTips = true;
+            this.lstInfos.Size = new System.Drawing.Size(183, 177);
+            this.lstInfos.TabIndex = 7;
+            this.lstInfos.UseCompatibleStateImageBehavior = false;
+            this.lstInfos.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Status";
+            this.columnHeader11.Width = 183;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label6.Location = new System.Drawing.Point(996, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(1, 603);
+            this.label6.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.DimGray;
+            this.label7.Location = new System.Drawing.Point(983, 593);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(256, 10);
+            this.label7.TabIndex = 9;
+            this.label7.Visible = false;
+            // 
+            // lstFilter
+            // 
+            this.lstFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstFilter.BackColor = System.Drawing.Color.White;
+            this.lstFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstFilter.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7});
+            this.lstFilter.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lstFilter.FullRowSelect = true;
+            this.lstFilter.GridLines = true;
+            this.lstFilter.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstFilter.Location = new System.Drawing.Point(726, 2);
+            this.lstFilter.MultiSelect = false;
+            this.lstFilter.Name = "lstFilter";
+            this.lstFilter.Scrollable = false;
+            this.lstFilter.Size = new System.Drawing.Size(274, 599);
+            this.lstFilter.TabIndex = 4;
+            this.lstFilter.UseCompatibleStateImageBehavior = false;
+            this.lstFilter.View = System.Windows.Forms.View.Details;
+            this.lstFilter.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstFilter_ItemSelectionChanged);
+            this.lstFilter.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseClick);
+            this.lstFilter.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseDown);
+            this.lstFilter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstFilter_MouseUp);
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Name";
+            this.columnHeader7.Width = 271;
+            // 
             // lstFirm
             // 
             this.lstFirm.Activation = System.Windows.Forms.ItemActivation.OneClick;
@@ -475,6 +491,7 @@
             this.lstFirm.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstFirm_ItemDrag);
             this.lstFirm.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.lstFirm_ItemMouseHover);
             this.lstFirm.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstFirm_ItemSelectionChanged);
+            this.lstFirm.SelectedIndexChanged += new System.EventHandler(this.lstFirm_SelectedIndexChanged);
             this.lstFirm.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstFirm_DragDrop);
             this.lstFirm.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.lstFirm_GiveFeedback);
             this.lstFirm.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstFirm_MouseDoubleClick);
@@ -573,25 +590,6 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.ImageIndex = 5;
-            this.tabPage6.Location = new System.Drawing.Point(4, 23);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1277, 610);
-            this.tabPage6.TabIndex = 6;
-            this.tabPage6.Text = "Arbeitsagentur";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.ImageIndex = 7;
-            this.tabPage4.Location = new System.Drawing.Point(4, 23);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1277, 610);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Optionen";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -701,6 +699,25 @@
             this.label3.Size = new System.Drawing.Size(707, 72);
             this.label3.TabIndex = 4;
             // 
+            // tabPage6
+            // 
+            this.tabPage6.ImageIndex = 5;
+            this.tabPage6.Location = new System.Drawing.Point(4, 23);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1277, 610);
+            this.tabPage6.TabIndex = 6;
+            this.tabPage6.Text = "Arbeitsagentur";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.ImageIndex = 7;
+            this.tabPage4.Location = new System.Drawing.Point(4, 23);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1277, 610);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Optionen";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // tabPage3
             // 
             this.tabPage3.ImageIndex = 6;
@@ -710,17 +727,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Bericht";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.ImageIndex = 8;
-            this.tabPage5.Location = new System.Drawing.Point(4, 23);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1277, 610);
-            this.tabPage5.TabIndex = 5;
-            this.tabPage5.Text = "Zusammenfassung";
-            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
@@ -886,9 +892,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.listViewItemUnitBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            //this.SetStyle(System.Windows.Forms.ControlStyles.CacheText, true);
-            //this.SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint, true);
-            //this.SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
+
         }
 
         #endregion
@@ -924,7 +928,6 @@
         private System.Windows.Forms.ToolStripMenuItem druckenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.ListView lstDrive;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
@@ -962,6 +965,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.WebBrowser webVacance;
 
     }
 }

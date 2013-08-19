@@ -35,5 +35,23 @@ namespace IxSApp
         /// LIST
         /// </summary>
         public const string ListTokenString = "LIST";
+
+        /// <summary>
+        /// The tab page2
+        /// </summary>
+        public const string TabPage2 = "TABPAGE2";
+
+        public const string Select = "SELECT";
+        public const string From = "FROM";
+        public const string Where = "WHERE";
+        public const string OrderBy = "ORDER BY";
+        public const string Asc = "ASC";
+        public const string Desc = "DESC";
+        public const string Asterix = "*";
+        public const string Join = "JOIN";
+        public const string On = "ON";
+        public const string Equal = "=";
+        public const string ColumnNameAnlage = "Anlage";
+        public const string ColumnNameFirm = "Firma";
     }
 }

@@ -95,8 +95,8 @@ namespace IxSApp
     {
         private ListViewItem selectedItem = null;
         private ListViewItem.ListViewSubItem selectedSubItem = null;
-        private Thread reloadFirmThread = null;
-        private ItemView viewUi = null;
+        private Thread refreshVacancyViewThread = null;
+        private VacancyView viewUi = null;
         private Units package;
         private int columnDisplayIndex = -1;
         private string sortColumn = "ORDER BY Absage";
@@ -123,7 +123,15 @@ namespace IxSApp
         {
             splitJobControl.Panel2Collapsed = true;
             Initialize();
-            reloadFirmThread.Start();
+            refreshVacancyViewThread.Start();
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         /// <summary>
@@ -131,7 +139,9 @@ namespace IxSApp
         /// </summary>
         private void Initialize()
         {
-            reloadFirmThread = new Thread(new ThreadStart(ReNewView));
+            refreshVacancyViewThread 
+                = new Thread(new ThreadStart(ReNewView));
+
             package = new Units()
             {
                 Memo = new WorkUnitMemo(),
@@ -140,7 +150,7 @@ namespace IxSApp
                 Firm = new WorkUnitFirm(),
                 Mandant = new WorkUnitMandant()
             };
-            viewUi = new ItemView();
+            viewUi = new VacancyView();
         }
 
         /// <summary>
@@ -334,21 +344,27 @@ namespace IxSApp
             {
                 lstInfos.Items.Clear();
                 selectedItem = e.Item;
-
+                
                 var value = selectedItem as ListViewItemUnit;
                 if (value != null)
                 {
-                    lstInfos.Items.Add(value.Value.Item.Firm.Name);
-                    lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Bold, GraphicsUnit.Point);
+                    if (!(value.Value.CanSelect))
+                        selectedItem.Selected = false;
 
-                    if (!value.Value.Item.Bewerbung.State && !value.Value.Item.Bewerbung.Zusage)
+                    if (selectedItem.Selected)
                     {
-                        lstInfos.Items.Add("");
-                        lstInfos.Items.Add("Sie haben noch keine");
-                        lstInfos.Items.Add("endgültige Antwort zu Ihrer");
-                        lstInfos.Items.Add("Bewerbung erhalten.");
 
-                        foreach (var foreColor in new Color[] 
+                        lstInfos.Items.Add(value.Value.Item.Firm.Name);
+                        lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Bold, GraphicsUnit.Point);
+
+                        if (!value.Value.Item.Bewerbung.State && !value.Value.Item.Bewerbung.Zusage)
+                        {
+                            lstInfos.Items.Add("");
+                            lstInfos.Items.Add("Sie haben noch keine");
+                            lstInfos.Items.Add("endgültige Antwort zu Ihrer");
+                            lstInfos.Items.Add("Bewerbung erhalten.");
+
+                            foreach (var foreColor in new Color[] 
                         { 
                             Color.FromArgb(0, 250, 250, 250), 
                             Color.FromArgb(0, 200, 200, 200), 
@@ -362,27 +378,35 @@ namespace IxSApp
                             Color.FromArgb(0, 20, 20, 20), 
                             Color.FromArgb(0, 0, 0, 0) 
                         })
-                        {
-                            lstInfos.Items[0].ForeColor = foreColor;
-                            lstInfos.Items[2].ForeColor = foreColor;
-                            lstInfos.Items[2].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
-                            lstInfos.Items[3].ForeColor = foreColor;
-                            lstInfos.Items[3].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
-                            lstInfos.Items[4].ForeColor = foreColor;
-                            lstInfos.Items[4].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                            {
+                                lstInfos.Items[0].ForeColor = foreColor;
+                                lstInfos.Items[2].ForeColor = foreColor;
+                                lstInfos.Items[2].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                                lstInfos.Items[3].ForeColor = foreColor;
+                                lstInfos.Items[3].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                                lstInfos.Items[4].ForeColor = foreColor;
+                                lstInfos.Items[4].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
 
-                            Thread.Sleep(10);
-                            Application.DoEvents();
+                                Thread.Sleep(10);
+                                Application.DoEvents();
+                            }
                         }
-                    }
-                    else
-                    {
-                        lstInfos.Items.Add("");
-                        lstInfos.Items.Add(string.Concat(value.Value.Item.Bewerbung.State ? "Sie haben eine Absage bekommen" : (value.Value.Item.Bewerbung.Zusage ? "Sie haben eine Zusage bekommen" : "Sie haben noch keine endgültige Antwort zu Ihrer Bewerbung erhalten.")));
-                        lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                        else
+                        {
+                            lstInfos.Items.Add("");
+                            lstInfos.Items.Add(string.Concat(value.Value.Item.Bewerbung.State ? "Sie haben eine Absage bekommen" : (value.Value.Item.Bewerbung.Zusage ? "Sie haben eine Zusage bekommen" : "Sie haben noch keine endgültige Antwort zu Ihrer Bewerbung erhalten.")));
+                            lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                        }
                     }
                 }
             }
+
+            try
+            {
+                //webVacance.Url = new Uri(((ListViewItemUnit)selectedItem).Value.Item.Firm.Website);
+                //webVacance.ScrollBarsEnabled = false;
+            }
+            catch { }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -414,52 +438,68 @@ namespace IxSApp
             }
         }
 
+        private ListViewItemUnit vacancyItem = null;
+
+        private void ShowDetailDialog(StatementType typeOfEditing)
+        {
+            if (typeOfEditing != StatementType.Insert && typeOfEditing != StatementType.Update)
+                throw new InvalidOperationException("Detail dialog can only have the insertion or update value");
+
+            viewUi = new VacancyView();
+            viewUi.Id = vacancyItem.Value.Id;
+            viewUi.Package = vacancyItem.Value.Item;
+            viewUi.TypeOfEditing = typeOfEditing;
+
+            var dialogResult
+                = viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+        }
+
         private void toolBarAdd_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
-            viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
-            viewUi.TypeOfEditing = StatementType.Insert;
-
-            if (viewUi.IsDisposed)
-            {
-                viewUi = new ItemView();
-                viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
-                viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
-                viewUi.TypeOfEditing = StatementType.Insert;
-            }
-
-            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-
-            }
+            ShowDetailDialog(typeOfEditing: StatementType.Insert);
         }
 
         private void toolButtonEdit_Click(object sender, EventArgs e)
         {
-            viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
-            viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
-            viewUi.TypeOfEditing = StatementType.Update;
+            ShowDetailDialog(typeOfEditing: StatementType.Update);
+        }
 
-            if (viewUi.IsDisposed)
+        private FaOrganisationAbstract firmAppend = null;
+        private FaOrganisationAbstract firmEditing = null;
+
+        public static class FaOrganisationFactory
+        {
+            public static FaOrganisationAppend CreateOrganisationAppend()
             {
-                viewUi = new ItemView();
-                viewUi.Id = ((ListViewItemUnit)selectedItem).Value.Id;
-                viewUi.Package = ((ListViewItemUnit)selectedItem).Value.Item;
-                viewUi.TypeOfEditing = StatementType.Update;
+                
             }
 
-            if (viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            public static FaOrganisationEdit CreateOrganisationEditing()
             {
 
             }
         }
 
+        private void ResetVacancyStateToken()
+        {
+            reNewView = false;
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            ResetVacancyStateToken();
+            refreshVacancyViewThread.ReStart();
+        }
+
         private void toolButtonDelete_Click(object sender, EventArgs e)
         {
+
             using (var edit = new FaOrganisationEdit())
             {
                 var bewerbung =
-                    ((ListViewItemUnit)selectedItem).Value.Item.Bewerbung;
+                    selectedItem.GetItemContentInfo().Item.Bewerbung;
                 
                 bewerbung.State = true;
 
@@ -469,40 +509,11 @@ namespace IxSApp
                 },
 
                 new BewerbungDataUnit(),
-                ((ListViewItemUnit)selectedItem).Value.Id);
+                selectedItem.GetItemContentInfo().Id);
             }
         }
 
         private void toolButtonRefresh_Click(object sender, EventArgs e)
-        {
-            reNewView = false;
-            try
-            {
-                reloadFirmThread.Abort();
-                reloadFirmThread = null;
-            }
-            catch { }
-
-            reloadFirmThread = new Thread(new ThreadStart(ReNewView));
-            reloadFirmThread.Start();
-        }
-
-        private void lstFirm_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-
-        }
-
-        private void lstFirm_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            //if (e.Item.Checked)
-            //{
-            //    e.Item.BackColor = Color.NavajoWhite;
-            //}
-            //else
-            //    e.Item.BackColor = Color.White;
-        }
-
-        private void filterToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
@@ -516,6 +527,7 @@ namespace IxSApp
             {
                 selectedItem = hitTestItem.Item;
                 selectedSubItem = hitTestItem.SubItem;
+                vacancyItem = hitTestItem.Item.GetItemUnit();
             }
 
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -525,31 +537,11 @@ namespace IxSApp
             }
         }
 
-        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void druckenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void datenbankToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void tabFirm_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabFirm.SelectedTab.Name.ToUpper())
             {
-                case "TABPAGE2":
+                case Constants.TabPage2:
                     {
                         lstDrive.Items.Clear();
                         try
@@ -721,7 +713,7 @@ namespace IxSApp
                     sortColumn = "Firma";
                     break;
                 case 5:
-                    sortColumn = "Absage";
+                    sortColumn = "Absage, Firma";
                     break;
                 case 3:
                     sortColumn = "Abgeschickt";
@@ -752,7 +744,7 @@ namespace IxSApp
 
             foreach (ListViewItem item in lstFirm.Items)
             {
-                var value = (ListViewItemUnit)item;
+                var value = item.GetItemUnit();
                 if (value == null)
                     continue;
 
@@ -765,6 +757,7 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Bewerbungen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            value.Value.CanSelect = true;
                             continue;
                         }
                         break;
@@ -773,6 +766,7 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Rückmeldungen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            value.Value.CanSelect = true;
                             continue;
                         }
                         break;
@@ -781,6 +775,7 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Absagen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            value.Value.CanSelect = true;
                             continue;
                         }
                         break;
@@ -789,6 +784,7 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Zusagen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            value.Value.CanSelect = true;
                             continue;
                         }
                         break;
@@ -861,7 +857,8 @@ namespace IxSApp
 
         private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            toolButtonEdit_Click(sender, e);
+            if (selectedItem.Selected)
+                toolButtonEdit_Click(sender, e);
         }
 
         private void toolStripFilterFirm_Click(object sender, EventArgs e)
@@ -962,12 +959,20 @@ namespace IxSApp
 
         private void lstFilter_MouseClick(object sender, MouseEventArgs e)
         {
-
+            if (e.Clicks != 0)
+            {
+                lstFilter.SelectedIndices.Clear();
+                lstFilter.Refresh();
+            }
         }
 
         private void lstFilter_MouseDown(object sender, MouseEventArgs e)
         {
-
+            if (e.Clicks != 0)
+            {
+                lstFilter.SelectedIndices.Clear();
+                lstFilter.Refresh();
+            }
         }
 
         private void lstFilter_MouseUp(object sender, MouseEventArgs e)
@@ -985,12 +990,22 @@ namespace IxSApp
 
         private void View_Paint(object sender, PaintEventArgs e)
         {
-            var rect = e.ClipRectangle;
+            
         }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
+        }
+
+        private void lstFirm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstFilter_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            e.Item.Selected = false;
         }
     }
 }
