@@ -102,6 +102,21 @@ namespace IxSApp
         public string TableName { get { return "ASXS_BEWERBUNG"; } set { ; } }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [firm answer].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [firm answer]; otherwise, <c>false</c>.
+        /// </value>
+        public bool? FirmAnswer { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [awaiting firm reply].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [awaiting firm reply]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AwaitingFirmReply { get; set; }
+
+        /// <summary>
         /// To the SQL string.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -119,7 +134,7 @@ namespace IxSApp
                     commandText = string.Format("INSERT INTO {0} (id, state, sent, state_own, reply, day, positive_reply) VALUES ({1}, {2}, {3}, {4}, {5}, '{6}', {7})", TableName, id, State ? 1 : 0, Sent ? 1 : 0, NegativeStateAtOwn ? 1 : 0, Reply ? 1 : 0, Day.ToTimeStamp(), Zusage ? 1 : 0);
                     break;
                 case StatementType.Update:
-                    commandText = string.Concat("UPDATE V_FIRM SET Eigenverantwortlich = ", NegativeStateAtOwn ? 1 : 0, ", Zusage = ", Zusage ? 1 : 0, ", Absage = ", State ? 1 : 0, ", Abgeschickt = ", Sent ? 1 : 0, ", Tag = '", Day.ToTimeStamp(), "', Rueckmeldung = ", Reply ? 1 : 0, " WHERE ID = ", id);
+                    commandText = string.Concat("UPDATE V_FIRM SET Eigenverantwortlich = ", NegativeStateAtOwn ? 1 : 0, ", Zusage = ", Zusage ? 1 : 0, ", Absage = ", State ? 1 : 0, ", Abgeschickt = ", Sent ? 1 : 0, ", Tag = '", Day.ToTimeStamp(), "', Rueckmeldung = ", Reply ? 1 : 0, ", Antwort = ", FirmAnswer.HasValue ? (FirmAnswer.Value ? "1" : "0") : "null", ", Firmenrueckmeldung = ", AwaitingFirmReply ? 1 : 0, " WHERE ID = ", id);
                     break;
             }
 

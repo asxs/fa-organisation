@@ -37,6 +37,14 @@ namespace IxSApp
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Adds the specified items.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">item</exception>
         public static T[] Add<T>(this T[] items, T item)
             where T : class
         {
@@ -49,6 +57,14 @@ namespace IxSApp
             return items;
         }
 
+        /// <summary>
+        /// Removes at.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentOutOfRangeException">index</exception>
         public static T[] RemoveAt<T>(this T[] items, int index)
         {
             if (index == -1 || index < -1 || index > items.Length)

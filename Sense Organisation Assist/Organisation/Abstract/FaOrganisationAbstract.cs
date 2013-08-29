@@ -30,10 +30,19 @@ namespace IxSApp
 {
     using Data;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class TypedTransactionList : IList<IDbCommand>
     {
+        /// <summary>
+        /// The commands
+        /// </summary>
         protected IDbCommand[] commands = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypedTransactionList"/> class.
+        /// </summary>
         public TypedTransactionList()
             : base()
         {
@@ -60,6 +69,23 @@ namespace IxSApp
         //   System.NotSupportedException:
         //     Die Eigenschaft wird festgelegt, und die System.Collections.Generic.IList<T>
         //     ist schreibgeschützt.
+        /// <summary>
+        /// Ruft das Element am angegebenen Index ab oder legt dieses fest.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// commands
+        /// or
+        /// value
+        /// or
+        /// commands
+        /// </exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// index
+        /// or
+        /// index
+        /// </exception>
         public IDbCommand this[int index]
         {
             get
@@ -98,6 +124,14 @@ namespace IxSApp
         // Rückgabewerte:
         //     Der Index von item, wenn das Element in der Liste gefunden wird, andernfalls
         //     -1.
+        /// <summary>
+        /// Bestimmt den Index eines bestimmten Elements in der <see cref="T:System.Collections.Generic.IList`1" />.
+        /// </summary>
+        /// <param name="item">Das im <see cref="T:System.Collections.Generic.IList`1" /> zu suchende Objekt.</param>
+        /// <returns>
+        /// Der Index von <paramref name="item" />, wenn das Element in der Liste gefunden wird, andernfalls -1.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">item</exception>
         public int IndexOf(IDbCommand item)
         {
             if (item == null)
@@ -124,6 +158,18 @@ namespace IxSApp
         //
         //   System.NotSupportedException:
         //     Die System.Collections.Generic.IList<T> ist schreibgeschützt.
+        /// <summary>
+        /// Fügt am angegebenen Index ein Element in die <see cref="T:System.Collections.Generic.IList`1" /> ein.
+        /// </summary>
+        /// <param name="index">Der nullbasierte Index, an dem <paramref name="item" /> eingefügt werden soll.</param>
+        /// <param name="item">Das in die <see cref="T:System.Collections.Generic.IList`1" /> einzufügende Objekt.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// item
+        /// or
+        /// item.Connection
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">connection must be open</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">index</exception>
         public void Insert(int index, IDbCommand item)
         {
             if (item == null)
@@ -156,6 +202,11 @@ namespace IxSApp
         //
         //   System.NotSupportedException:
         //     Die System.Collections.Generic.IList<T> ist schreibgeschützt.
+        /// <summary>
+        /// Entfernt das <see cref="T:System.Collections.Generic.IList`1" />-Element am angegebenen Index.
+        /// </summary>
+        /// <param name="index">Der nullbasierte Index des zu entfernenden Elements.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">index</exception>
         public void RemoveAt(int index)
         {
             if (index == -1 || index < -1 || index > commands.Length)
@@ -177,6 +228,10 @@ namespace IxSApp
         //     Die Anzahl der Elemente, die in System.Collections.Generic.ICollection<T>
         //     enthalten sind.
 
+        /// <summary>
+        /// Ruft die Anzahl der Elemente ab, die in <see cref="T:System.Collections.Generic.ICollection`1" /> enthalten sind.
+        /// </summary>
+        /// <returns>Die Anzahl der Elemente, die in <see cref="T:System.Collections.Generic.ICollection`1" /> enthalten sind.</returns>
         int Count { get; }
         //
         // Zusammenfassung:
@@ -186,6 +241,10 @@ namespace IxSApp
         // Rückgabewerte:
         //     true, wenn System.Collections.Generic.ICollection<T> schreibgeschützt ist,
         //     andernfalls false.
+        /// <summary>
+        /// Ruft einen Wert ab, der angibt, ob <see cref="T:System.Collections.Generic.ICollection`1" /> schreibgeschützt ist.
+        /// </summary>
+        /// <returns>true, wenn <see cref="T:System.Collections.Generic.ICollection`1" /> schreibgeschützt ist, andernfalls false.</returns>
         bool IsReadOnly { get; }
 
         // Zusammenfassung:
@@ -199,6 +258,10 @@ namespace IxSApp
         // Ausnahmen:
         //   System.NotSupportedException:
         //     System.Collections.Generic.ICollection<T> ist schreibgeschützt.
+        /// <summary>
+        /// Adds the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
         void Add(T item);
 
         //
@@ -208,6 +271,9 @@ namespace IxSApp
         // Ausnahmen:
         //   System.NotSupportedException:
         //     System.Collections.Generic.ICollection<T> ist schreibgeschützt.
+        /// <summary>
+        /// Entfernt alle Elemente aus <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
         void Clear();
 
         //
@@ -222,6 +288,13 @@ namespace IxSApp
         // Rückgabewerte:
         //     true, wenn sich item in System.Collections.Generic.ICollection<T> befindet,
         //     andernfalls false.
+        /// <summary>
+        /// Determines whether [contains] [the specified item].
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified item]; otherwise, <c>false</c>.
+        /// </returns>
         bool Contains(T item);
 
         //
@@ -251,6 +324,11 @@ namespace IxSApp
         //     zu kopierenden Elemente ist größer als der verfügbare Platz von arrayIndex
         //     bis zum Ende des Ziel-array.– oder –Typ T kann nicht automatisch in den Typ
         //     des Ziel-array umgewandelt werden.
+        /// <summary>
+        /// Copies to.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="arrayIndex">Index of the array.</param>
         void CopyTo(T[] array, int arrayIndex);
 
         //
@@ -270,67 +348,542 @@ namespace IxSApp
         // Ausnahmen:
         //   System.NotSupportedException:
         //     System.Collections.Generic.ICollection<T> ist schreibgeschützt.
+        /// <summary>
+        /// Removes the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
         bool Remove(T item);
 
 
         #endregion
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IDataLayer
     {
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
         void Open();
+        /// <summary>
+        /// Opens the specified connection string.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
         void Open(string connectionString);
-        void TryOpen();
-        void TryOpen(string connectionString);
+        /// <summary>
+        /// Tries the open.
+        /// </summary>
+        /// <returns></returns>
+        bool TryOpen();
+        /// <summary>
+        /// Tries the open.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <returns></returns>
+        bool TryOpen(string connectionString);
+        /// <summary>
+        /// Opens the with transaction.
+        /// </summary>
+        /// <param name="isolationLevel">The isolation level.</param>
         void OpenWithTransaction(IsolationLevel isolationLevel);
+        /// <summary>
+        /// Updates the specified connection string.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="makeNewConnection">if set to <c>true</c> [make new connection].</param>
         void Update(string connectionString, bool makeNewConnection);
+        /// <summary>
+        /// Gets the connection information.
+        /// </summary>
         void GetConnectionInformation();
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         void Close();
     }
 
-    public interface IBasicLayer 
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IBasicLayer
     {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         string Name { get; }
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>
+        /// The command.
+        /// </value>
         IDbCommand Command { get; }
+        /// <summary>
+        /// Gets the connection.
+        /// </summary>
+        /// <value>
+        /// The connection.
+        /// </value>
         IDbConnection Connection { get; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class DataLayerProperties
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataLayerProperties"/> class.
+        /// </summary>
         public DataLayerProperties()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataLayerProperties"/> class.
+        /// </summary>
+        /// <param name="typeOfEditing">The type of editing.</param>
         public DataLayerProperties(StatementType typeOfEditing)
         {
 
         }
 
+        /// <summary>
+        /// Adds the specified type of editing.
+        /// </summary>
+        /// <param name="typeOfEditing">The type of editing.</param>
+        /// <returns></returns>
         protected virtual IDbCommand Add(StatementType typeOfEditing)
         {
             return default(IDbCommand);
         }
 
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDbConnection Open()
         {
             return default(IDbConnection);
         }
 
+        /// <summary>
+        /// Opens the specified connection string.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <returns></returns>
         protected virtual IDbConnection Open(string connectionString)
         {
             return default(IDbConnection);
         }
 
+        /// <summary>
+        /// Gets the select command.
+        /// </summary>
+        /// <value>
+        /// The select command.
+        /// </value>
         public IDbCommand SelectCommand { get; }
+        /// <summary>
+        /// Gets the update command.
+        /// </summary>
+        /// <value>
+        /// The update command.
+        /// </value>
         public IDbCommand UpdateCommand { get; }
+        /// <summary>
+        /// Gets the insert command.
+        /// </summary>
+        /// <value>
+        /// The insert command.
+        /// </value>
         public IDbCommand InsertCommand { get; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [use transaction].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use transaction]; otherwise, <c>false</c>.
+        /// </value>
         public bool UseTransaction { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class IxSAppDatabaseLayer : IDataLayer
     {
-    
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum SqlSystem : int
+    {
+        /// <summary>
+        /// The SQL server
+        /// </summary>
+        SqlServer = 0,
+        /// <summary>
+        /// The oracle database
+        /// </summary>
+        OracleDatabase = 1,
+        /// <summary>
+        /// The sybase
+        /// </summary>
+        Sybase = 2,
+        /// <summary>
+        /// The none
+        /// </summary>
+        None
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum TransactionSystemDirectionType : int
+    {
+        /// <summary>
+        /// The forward
+        /// </summary>
+        Forward,
+        /// <summary>
+        /// The backward
+        /// </summary>
+        Backward,
+        /// <summary>
+        /// The error
+        /// </summary>
+        Error
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IxSAppTransactionSystem
+    {
+        /// <summary>
+        /// Sets the isolation level.
+        /// </summary>
+        /// <param name="isolationLevel">The isolation level.</param>
+        void SetIsolationLevel(IsolationLevel isolationLevel);
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
+        void Reset();
+        /// <summary>
+        /// Catches the transaction keyword.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        TransactionSystemDirectionType CatchTransactionKeyword(string item);
+        /// <summary>
+        /// Verifies the keywords.
+        /// </summary>
+        void VerifyKeywords(); //regexp
+        /// <summary>
+        /// Generates the command text.
+        /// </summary>
+        /// <returns></returns>
+        string GenerateCommandText();
+        /// <summary>
+        /// Gets the isolation.
+        /// </summary>
+        /// <value>
+        /// The isolation.
+        /// </value>
+        IsolationLevel Isolation { get; }
+        /// <summary>
+        /// Gets the system.
+        /// </summary>
+        /// <value>
+        /// The system.
+        /// </value>
+        SqlSystem System { get; }
+        /// <summary>
+        /// Gets the properties.
+        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
+        TransactionLayerProperties Properties { get; }
+        /// <summary>
+        /// Gets the keywords.
+        /// </summary>
+        /// <value>
+        /// The keywords.
+        /// </value>
+        string[] Keywords { get; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class SqlServerTransactionSystem 
+        : IxSAppTransactionSystem
+    {
+        /// <summary>
+        /// The transaction string
+        /// </summary>
+        protected string transactionString = string.Empty;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlServerTransactionSystem"/> class.
+        /// </summary>
+        public SqlServerTransactionSystem()
+        {
+
+        }
+
+        #region SqlServerTransactionSystem (IxSAppTransactionSystem)
+
+        /// <summary>
+        /// Sets the isolation level.
+        /// </summary>
+        /// <param name="isolationLevel">The isolation level.</param>
+        public void SetIsolationLevel(IsolationLevel isolationLevel)
+        {
+            Isolation = isolationLevel;
+        }
+
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
+        public void Reset()
+        {
+            transactionString = string.Empty;
+        }
+
+        /// <summary>
+        /// Catches the transaction keyword.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public TransactionSystemDirectionType CatchTransactionKeyword(string item)
+        {
+            var direction 
+                = TransactionSystemDirectionType.Error;
+
+            if (Isolation != IsolationLevel.Chaos && Isolation != IsolationLevel.Unspecified)
+            {
+                switch (Isolation)
+                {
+                    case IsolationLevel.ReadCommitted:
+                        {
+                            item = item.ToUpper();
+                            switch (item)
+                            {
+                                case "BEGIN":
+                                    direction = TransactionSystemDirectionType.Forward;
+                                    item =
+                                        string.Concat(item, " ");
+                                    break;
+                                case "TRANSACTION":
+                                    direction = TransactionSystemDirectionType.Forward;
+                                    item =
+                                        string.Concat(item, " ");
+                                    break;
+                                case "SET":
+                                    direction = TransactionSystemDirectionType.Forward;
+                                    item =
+                                        string.Concat(item, " ");
+                                    break;
+                                case "ISOLATION":
+                                    direction = TransactionSystemDirectionType.Forward;
+                                    item =
+                                        string.Concat(item, " ");
+                                    break;
+                                case "LEVEL":
+                                    direction = TransactionSystemDirectionType.Forward;
+                                    item =
+                                        string.Concat(item, " ");
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            switch (Isolation)
+            {
+                case IsolationLevel.ReadCommitted:
+                    {
+                        item = item.ToUpper();
+                        switch (item)
+                        {
+                            case "READ":
+                                direction = TransactionSystemDirectionType.Forward;
+                                item =
+                                    string.Concat(item, " ");
+                                break;
+                            case "COMMITTED":
+                                direction = TransactionSystemDirectionType.Forward;
+                                item =
+                                    string.Concat(item, " ");
+                                break;
+                        }
+                    }
+                    break;
+            }
+
+            if (direction ==
+                TransactionSystemDirectionType.Forward)
+                transactionString = string.Concat(transactionString, item);
+
+            return direction;
+        }
+
+        /// <summary>
+        /// Verifies the keywords.
+        /// </summary>
+        public void VerifyKeywords() //regexp
+        {
+
+        }
+
+        /// <summary>
+        /// Generates the command text.
+        /// </summary>
+        /// <returns></returns>
+        public string GenerateCommandText()
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the isolation.
+        /// </summary>
+        /// <value>
+        /// The isolation.
+        /// </value>
+        public IsolationLevel Isolation { get; internal set; }
+        /// <summary>
+        /// Gets the system.
+        /// </summary>
+        /// <value>
+        /// The system.
+        /// </value>
+        public SqlSystem System { get; internal set; }
+        /// <summary>
+        /// Gets the properties.
+        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
+        public TransactionLayerProperties Properties { get; internal set; }
+        /// <summary>
+        /// Gets the keywords.
+        /// </summary>
+        /// <value>
+        /// The keywords.
+        /// </value>
+        public string[] Keywords { get; internal set; } 
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public struct TransactionLayerProperties
+    {
+        /// <summary>
+        /// Gets the command text.
+        /// </summary>
+        /// <value>
+        /// The command text.
+        /// </value>
+        public string CommandText
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has errors.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has errors; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasErrors 
+        { 
+            get; 
+            internal set; 
+        }
+
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>
+        /// The command.
+        /// </value>
+        public IDbCommand Command { get; internal set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class IxSAppCommandFactory
+    {
+        /// <summary>
+        /// Creates the qualified transaction command.
+        /// </summary>
+        /// <param name="system">The system.</param>
+        /// <param name="isolationLevel">The isolation level.</param>
+        /// <returns></returns>
+        /// <exception cref="System.FormatException"></exception>
+        public static string CreateQualifiedTransactionCommand(SqlSystem system, IsolationLevel isolationLevel)
+        {
+            IxSAppTransactionSystem
+                transactionSystem = null;
+
+            switch (system)
+            {
+                case SqlSystem.Sybase:
+                    {
+
+                    }
+                    break;
+                case SqlSystem.SqlServer:
+                    {
+                        transactionSystem = new SqlServerTransactionSystem();
+                    }
+                    break;
+                case SqlSystem.OracleDatabase:
+                    {
+
+                    }
+                    break;
+            }
+
+            transactionSystem.SetIsolationLevel(isolationLevel: isolationLevel);
+
+            foreach (var keyword in
+                new string[] { "BEGIN", "TRANSACTION", "SET", "ISOLATION", "LEVEL", "READ", "COMMITTED", "UNCOMMITTED", "SERIALZE", "SNAPSHOT" })
+            {
+                var direction 
+                    = transactionSystem.CatchTransactionKeyword(item: keyword);
+
+                if (direction == TransactionSystemDirectionType.Forward) //its really unnecessary... (dummy for future)
+                    continue;
+                else
+                    if (direction ==
+                        TransactionSystemDirectionType.Backward)
+                        throw new FormatException(keyword);
+            }
+
+            var commandText = 
+                transactionSystem.GenerateCommandText();
+            
+            return commandText;
+        }
     }
 
     /// <summary>
@@ -359,7 +912,7 @@ namespace IxSApp
         //protected TypedTransactionList transactions = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FaOrganisationAbstract"/> class.
+        /// Initializes a new instance of the <see cref="FaOrganisationAbstract" /> class.
         /// </summary>
         public FaOrganisationAbstract()
         {
@@ -397,11 +950,9 @@ namespace IxSApp
         /// </summary>
         /// <param name="encapsulateWithTransaction">if set to <c>true</c> [encapsulate with transaction].</param>
         /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">
-        /// connection have to be initialized
+        /// <exception cref="System.InvalidOperationException">connection have to be initialized
         /// or
-        /// connection have to be open
-        /// </exception>
+        /// connection have to be open</exception>
         protected virtual IDbConnection OpenInternalWithTransaction(bool encapsulateWithTransaction)
         {
             if (connection == null)
@@ -440,6 +991,12 @@ namespace IxSApp
             return connection;
         }
 
+        /// <summary>
+        /// Opens the transaction internal.
+        /// </summary>
+        /// <param name="isolationLevel">The isolation level.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">command</exception>
         protected virtual bool OpenTransactionInternal(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             var result 
@@ -463,6 +1020,13 @@ namespace IxSApp
             return result;
         }
 
+        /// <summary>
+        /// Commits the transaction.
+        /// </summary>
+        /// <param name="transactionCommand">The transaction command.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">transactionCommand</exception>
+        /// <exception cref="System.InvalidOperationException">no open connection</exception>
         protected virtual bool CommitTransaction(IDbCommand transactionCommand)
         {
             var result = true;
@@ -487,6 +1051,11 @@ namespace IxSApp
             return result;
         }
 
+        /// <summary>
+        /// Commits all transactions.
+        /// </summary>
+        /// <param name="commands">The commands.</param>
+        /// <returns></returns>
         protected virtual bool CommitAllTransactions(params IDbCommand[] commands)
         {
             var result = true;
@@ -507,6 +1076,13 @@ namespace IxSApp
             return result;
         }
 
+        /// <summary>
+        /// Creates the command internal.
+        /// </summary>
+        /// <param name="createNewCommand">if set to <c>true</c> [create new command].</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">connection must have a value</exception>
+        /// <exception cref="System.Data.DataException">connection must be open before it can be used</exception>
         protected virtual IDbCommand CreateCommandInternal(bool createNewCommand = false)
         {
             if (connection == null)

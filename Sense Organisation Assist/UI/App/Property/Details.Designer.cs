@@ -54,8 +54,6 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolBack = new System.Windows.Forms.ToolStripButton();
-            this.toolNext = new System.Windows.Forms.ToolStripButton();
             this.label9 = new System.Windows.Forms.Label();
             this.txtAnlage = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -63,10 +61,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolAdd = new System.Windows.Forms.ToolStripButton();
             this.label10 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolSave = new System.Windows.Forms.ToolStripButton();
             this.chkAbsageBack = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.cbFirma = new System.Windows.Forms.ComboBox();
@@ -81,9 +77,21 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.chkFirmReply = new System.Windows.Forms.CheckBox();
+            this.radioDeath = new System.Windows.Forms.RadioButton();
+            this.radioWork = new System.Windows.Forms.RadioButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolSave = new System.Windows.Forms.ToolStripButton();
+            this.toolAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolBack = new System.Windows.Forms.ToolStripButton();
+            this.toolNext = new System.Windows.Forms.ToolStripButton();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // chkReply
@@ -351,30 +359,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(111, 159);
             this.toolStrip1.TabIndex = 46;
             // 
-            // toolBack
-            // 
-            this.toolBack.BackColor = System.Drawing.Color.DarkGray;
-            this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBack.Image = global::IxSApp.Properties.Resources.left;
-            this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
-            this.toolBack.Name = "toolBack";
-            this.toolBack.Size = new System.Drawing.Size(109, 68);
-            this.toolBack.Text = "toolStripButton1";
-            this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
-            // 
-            // toolNext
-            // 
-            this.toolNext.BackColor = System.Drawing.Color.DarkGray;
-            this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolNext.Image = global::IxSApp.Properties.Resources.right;
-            this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolNext.Name = "toolNext";
-            this.toolNext.Size = new System.Drawing.Size(109, 68);
-            this.toolNext.Text = "toolStripButton2";
-            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -444,20 +428,6 @@
             this.toolStrip2.Size = new System.Drawing.Size(37, 41);
             this.toolStrip2.TabIndex = 51;
             // 
-            // toolAdd
-            // 
-            this.toolAdd.BackColor = System.Drawing.Color.Wheat;
-            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolAdd.Image = global::IxSApp.Properties.Resources.page_writing;
-            this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolAdd.Name = "toolAdd";
-            this.toolAdd.Size = new System.Drawing.Size(35, 36);
-            this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
-            this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
-            this.toolAdd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolAdd_MouseMove);
-            this.toolAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.toolAdd_Paint);
-            // 
             // label10
             // 
             this.label10.BackColor = System.Drawing.SystemColors.Control;
@@ -478,16 +448,6 @@
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip3.Size = new System.Drawing.Size(26, 25);
             this.toolStrip3.TabIndex = 53;
-            // 
-            // toolSave
-            // 
-            this.toolSave.BackColor = System.Drawing.SystemColors.Control;
-            this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolSave.Image = global::IxSApp.Properties.Resources.icon_save;
-            this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolSave.Name = "toolSave";
-            this.toolSave.Size = new System.Drawing.Size(23, 22);
-            this.toolSave.Click += new System.EventHandler(this.toolSave_Click);
             // 
             // chkAbsageBack
             // 
@@ -561,7 +521,7 @@
             this.chkPositiveReply.AutoSize = true;
             this.chkPositiveReply.BackColor = System.Drawing.Color.SteelBlue;
             this.chkPositiveReply.ForeColor = System.Drawing.Color.White;
-            this.chkPositiveReply.Location = new System.Drawing.Point(493, 302);
+            this.chkPositiveReply.Location = new System.Drawing.Point(493, 291);
             this.chkPositiveReply.Name = "chkPositiveReply";
             this.chkPositiveReply.Size = new System.Drawing.Size(309, 17);
             this.chkPositiveReply.TabIndex = 62;
@@ -617,11 +577,140 @@
             this.label17.Size = new System.Drawing.Size(114, 680);
             this.label17.TabIndex = 68;
             // 
-            // ViewUI
+            // chkFirmReply
+            // 
+            this.chkFirmReply.BackColor = System.Drawing.Color.SteelBlue;
+            this.chkFirmReply.ForeColor = System.Drawing.Color.White;
+            this.chkFirmReply.Location = new System.Drawing.Point(493, 308);
+            this.chkFirmReply.Name = "chkFirmReply";
+            this.chkFirmReply.Size = new System.Drawing.Size(351, 27);
+            this.chkFirmReply.TabIndex = 69;
+            this.chkFirmReply.Text = "Warten Sie zur Zeit auf eine endgültige Rückmeldung der Firma?";
+            this.chkFirmReply.UseVisualStyleBackColor = false;
+            // 
+            // radioDeath
+            // 
+            this.radioDeath.AutoSize = true;
+            this.radioDeath.Location = new System.Drawing.Point(562, 510);
+            this.radioDeath.Name = "radioDeath";
+            this.radioDeath.Size = new System.Drawing.Size(14, 13);
+            this.radioDeath.TabIndex = 70;
+            this.radioDeath.TabStop = true;
+            this.radioDeath.UseVisualStyleBackColor = true;
+            // 
+            // radioWork
+            // 
+            this.radioWork.AutoSize = true;
+            this.radioWork.Location = new System.Drawing.Point(741, 510);
+            this.radioWork.Name = "radioWork";
+            this.radioWork.Size = new System.Drawing.Size(14, 13);
+            this.radioWork.TabIndex = 71;
+            this.radioWork.TabStop = true;
+            this.radioWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioWork.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.radioWork.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.Image = global::IxSApp.Properties.Resources._000425a_l1;
+            this.pictureBox1.Location = new System.Drawing.Point(483, 385);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(170, 119);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 72;
+            this.pictureBox1.TabStop = false;
+            // 
+            // toolSave
+            // 
+            this.toolSave.BackColor = System.Drawing.SystemColors.Control;
+            this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolSave.Image = global::IxSApp.Properties.Resources.icon_save;
+            this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSave.Name = "toolSave";
+            this.toolSave.Size = new System.Drawing.Size(23, 22);
+            this.toolSave.Click += new System.EventHandler(this.toolSave_Click);
+            // 
+            // toolAdd
+            // 
+            this.toolAdd.BackColor = System.Drawing.Color.Wheat;
+            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolAdd.Image = global::IxSApp.Properties.Resources.page_writing;
+            this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAdd.Name = "toolAdd";
+            this.toolAdd.Size = new System.Drawing.Size(35, 36);
+            this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
+            this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
+            this.toolAdd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolAdd_MouseMove);
+            this.toolAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.toolAdd_Paint);
+            // 
+            // toolBack
+            // 
+            this.toolBack.BackColor = System.Drawing.Color.DarkGray;
+            this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBack.Image = global::IxSApp.Properties.Resources.left;
+            this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
+            this.toolBack.Name = "toolBack";
+            this.toolBack.Size = new System.Drawing.Size(109, 68);
+            this.toolBack.Text = "toolStripButton1";
+            this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
+            // 
+            // toolNext
+            // 
+            this.toolNext.BackColor = System.Drawing.Color.DarkGray;
+            this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolNext.Image = global::IxSApp.Properties.Resources.right;
+            this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolNext.Name = "toolNext";
+            this.toolNext.Size = new System.Drawing.Size(109, 68);
+            this.toolNext.Text = "toolStripButton2";
+            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label18.Location = new System.Drawing.Point(659, 385);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(190, 119);
+            this.label18.TabIndex = 73;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(662, 411);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(182, 67);
+            this.label19.TabIndex = 74;
+            this.label19.Text = "Sie haben eine endgültige Zusage bekommen und sind aus der Arbeitslosigkeit entla" +
+    "ssen.";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(483, 526);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(174, 39);
+            this.label20.TabIndex = 75;
+            this.label20.Text = "(Endgültige Absage oder es ist \r\nkeine Antwort zu erwarten, \r\naufgrund von Initia" +
+    "tivbewerbungen)";
+            // 
+            // VacancyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 680);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.radioWork);
+            this.Controls.Add(this.radioDeath);
+            this.Controls.Add(this.chkFirmReply);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.chkPositiveReply);
             this.Controls.Add(this.label11);
@@ -668,11 +757,12 @@
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label17);
+            this.Controls.Add(this.label18);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ViewUI";
+            this.Name = "VacancyView";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bearbeitung von Einträgen im Firmenverzeichnis - (c) Sense Applications 2013";
@@ -684,6 +774,7 @@
             this.toolStrip2.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,5 +834,12 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox chkFirmReply;
+        private System.Windows.Forms.RadioButton radioDeath;
+        private System.Windows.Forms.RadioButton radioWork;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }

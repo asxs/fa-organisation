@@ -321,6 +321,7 @@
     <None Include="Resources\back.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\000425a_l1.gif" />
     <None Include="Resources\right.png" />
     <None Include="Resources\left.png" />
     <None Include="Resources\arrow_right.png" />

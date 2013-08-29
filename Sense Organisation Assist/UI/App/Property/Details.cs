@@ -76,6 +76,13 @@ namespace IxSApp
             chkUserReply.Checked = Package.Mandant.ReplyRequired;
             chkPositiveReply.Checked = Package.Bewerbung.Zusage;
             radioAbsageUser.Checked = Package.Bewerbung.NegativeStateAtOwn;
+            chkFirmReply.Checked = Package.Bewerbung.AwaitingFirmReply;
+
+            if (Package.Bewerbung.FirmAnswer.HasValue)
+            {
+                radioDeath.Checked = !Package.Bewerbung.FirmAnswer.Value;
+                radioWork.Checked = Package.Bewerbung.FirmAnswer.Value;
+            }
 
             lstAnlagen.Items.Clear();
             try
@@ -169,7 +176,9 @@ namespace IxSApp
                     Reply = chkReply.Checked,
                     Sent = chkBewerbung.Checked,
                     State = radioAbsage.Checked,
-                    Zusage = chkPositiveReply.Checked
+                    Zusage = chkPositiveReply.Checked,
+                    AwaitingFirmReply = chkFirmReply.Checked,
+                    FirmAnswer = radioWork.Checked ? true : radioDeath.Checked ? false : new Nullable<bool>()
                 };
 
                 save.Edit

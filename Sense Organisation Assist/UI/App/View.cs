@@ -158,184 +158,216 @@ namespace IxSApp
         /// </summary>
         private void ReNewView()
         {
-            var reNewActivity
-                = 1;
-
-            Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
-
-            if (lstFirm.InvokeRequired || reNewView)
+            try
             {
-                lstFirm.Invoke(new Action(() =>
+                var reNewActivity
+                    = 1;
+
+                Thread.Sleep(reNewActivity == 1 ? 1 : 5000);
+
+                if (lstFirm.InvokeRequired || reNewView)
                 {
-                    lstFirm.SuspendLayout();
-                    lstFirm.Items.Clear();
-
-                    Application.DoEvents();
-
-                    using (var connection = new SAConnection(ConnectionStringManager.ConnectionStringNetworkServer))
+                    lstFirm.Invoke(new Action(() =>
                     {
-                        connection.Open();
-                        if (connection.State == ConnectionState.Open)
+                        lstFirm.SuspendLayout();
+                        lstFirm.Items.Clear();
+
+                        Application.DoEvents();
+
+                        using (var connection = new SAConnection(ConnectionStringManager.ConnectionStringNetworkServer))
                         {
-                            var command =
-                                connection.CreateCommand();
-
-                            command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " ASC" : string.Empty);
-                            command.Prepare();
-
-                            using (var reader = command.ExecuteReader())
+                            connection.Open();
+                            if (connection.State == ConnectionState.Open)
                             {
-                                var jobNr = 1;
+                                var command =
+                                    connection.CreateCommand();
 
-                                while (reader.Read())
+                                command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " ASC" : string.Empty);
+                                command.Prepare();
+
+                                using (var reader = command.ExecuteReader())
                                 {
-                                    var id = reader.GetInt64(0);
-                                    if (id == 999)
-                                        continue;
+                                    var jobNr = 1;
 
-                                    var firmName =
-                                        reader["Firma"].ToString();
-
-                                    if (chkFilter.Checked && !string.IsNullOrEmpty(txtSearch.Text))
-                                        if (!(firmName.CompareWithCase(txtSearch.Text)))
+                                    while (reader.Read())
+                                    {
+                                        var id = reader.GetInt64(0);
+                                        if (id == 999)
                                             continue;
 
-                                    package = new Units() 
-                                    { 
-                                        Firm = new WorkUnitFirm(),
-                                        Bewerbung = new WorkUnitBewerbung(), 
-                                        Address = new WorkUnitAddress(), 
-                                        Memo = new WorkUnitMemo(),
-                                        Anlage = new WorkUnitAnlage(),
-                                        Mandant = new WorkUnitMandant()
-                                    };
+                                        var firmName =
+                                            reader["Firma"].ToString();
 
-                                    var dataItem = 
-                                        new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+                                        if (chkFilter.Checked && !string.IsNullOrEmpty(txtSearch.Text))
+                                            if (!(firmName.CompareWithCase(txtSearch.Text)))
+                                                continue;
 
-                                    package.Firm.Website = reader["Website"].ToString();
-                                    package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
-                                    package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
-                                    package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
-                                    package.Firm.Id_Mandant = package.Mandant.Id = long.Parse(string.IsNullOrEmpty(reader["id_man"].ToString()) ? "0" : reader["id_man"].ToString());
-                                    package.Firm.ReplyRequired = package.Mandant.ReplyRequired = string.IsNullOrEmpty(reader["reply_req"].ToString()) ? false : (bool)reader["reply_req"];
-                                    package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
-                                    package.Bewerbung.Day = (DateTime)reader["Tag"];
-                                    package.Bewerbung.Zusage = !string.IsNullOrEmpty(reader["Zusage"].ToString()) ? (bool)reader["Zusage"] : false;
-                                    package.Address.Id = long.Parse(reader["id_addr"].ToString());
-                                    package.Memo.Id = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
-                                    package.Memo.Content = reader["Memo"].ToString();
-                                    package.Bewerbung.NegativeStateAtOwn = !string.IsNullOrEmpty(reader["Eigenverantwortlich"].ToString()) ? (bool)reader["Eigenverantwortlich"] : false;
-
-                                    lstFirm.Items.Add(dataItem);
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
-
-                                    var sentInformationToFirm =
-                                        (package.Bewerbung.Sent = (bool)reader["Abgeschickt"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
-
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
-
-                                    var today = DateTime.Today;
-                                    //var idleTime =
-                                    //    (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
-                                    var idleTime =
-                                        today.SubtractTimeSpanWithoutWeekends(DateTime.Parse(reader["Tag"].ToString()));
-
-                                    lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
-
-                                    var negativeReply
-                                        = (package.Bewerbung.State = (bool)reader["Absage"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
-
-                                    var negativeStateAtOwn
-                                        = package.Bewerbung.NegativeStateAtOwn ? "Ja" : "Nein";
-
-                                    var editButtonItem 
-                                        = lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
-
-                                    lstFirm
-                                        .Controls.Add(new Button() 
-                                                      { 
-                                                          Size = new System.Drawing.Size(25, 20), 
-                                                          Location = new System.Drawing.Point(editButtonItem.Bounds.X+255, editButtonItem.Bounds.Y-1),
-                                                          Text = "...",
-                                                          Visible = false
-                                                      });
-
-                                    if (idleTime > 3)
-                                    {
-                                        //lstFirm.Items[jobNr - 1].BackColor = Color.FromArgb(112, 191, 250);
-                                        //lstFirm.Items[jobNr - 1].ForeColor = Color.White;
-                                    }
-                                    else
-                                    {
-                                        if (idleTime > 2)
+                                        package = new Units()
                                         {
-                                            lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                            Firm = new WorkUnitFirm(),
+                                            Bewerbung = new WorkUnitBewerbung(),
+                                            Address = new WorkUnitAddress(),
+                                            Memo = new WorkUnitMemo(),
+                                            Anlage = new WorkUnitAnlage(),
+                                            Mandant = new WorkUnitMandant()
+                                        };
+
+                                        var dataItem =
+                                            new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+
+                                        package.Firm.Website = reader["Website"].ToString();
+                                        package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
+                                        package.Firm.Id_Bew = long.Parse(reader["id_bew"].ToString());
+                                        package.Firm.Id_Addr = long.Parse(reader["id_addr"].ToString());
+                                        package.Firm.Id_Mandant = package.Mandant.Id = long.Parse(string.IsNullOrEmpty(reader["id_man"].ToString()) ? "0" : reader["id_man"].ToString());
+                                        package.Firm.ReplyRequired = package.Mandant.ReplyRequired = string.IsNullOrEmpty(reader["reply_req"].ToString()) ? false : (bool)reader["reply_req"];
+                                        package.Bewerbung.Id = long.Parse(reader["id_bew"].ToString());
+                                        package.Bewerbung.Day = (DateTime)reader["Tag"];
+                                        package.Bewerbung.Zusage = !string.IsNullOrEmpty(reader["Zusage"].ToString()) ? (bool)reader["Zusage"] : false;
+                                        package.Address.Id = long.Parse(reader["id_addr"].ToString());
+                                        package.Memo.Id = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
+                                        package.Memo.Content = reader["Memo"].ToString();
+                                        package.Bewerbung.NegativeStateAtOwn = !string.IsNullOrEmpty(reader["Eigenverantwortlich"].ToString()) ? (bool)reader["Eigenverantwortlich"] : false;
+                                        package.Bewerbung.FirmAnswer = !string.IsNullOrEmpty(reader["Antwort"].ToString()) ? (reader["Antwort"].ToString().ToUpper() == "1" ? true : false) : string.IsNullOrEmpty(reader["Antwort"].ToString()) ? new Nullable<bool>() : false;
+                                        package.Bewerbung.AwaitingFirmReply = !string.IsNullOrEmpty(reader["Firmenrueckmeldung"].ToString()) ? ((reader["Firmenrueckmeldung"]).ToString().ToUpper() == "1" ? true : false) : false;
+
+                                        lstFirm.Items.Add(dataItem);
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
+
+                                        var sentInformationToFirm =
+                                            (package.Bewerbung.Sent = (bool)reader["Abgeschickt"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
+
+                                        var today = DateTime.Today;
+                                        //var idleTime =
+                                        //    (today - (package.Bewerbung.Day = DateTime.Parse(reader["Tag"].ToString())).Value).Days.ToString();
+                                        var idleTime =
+                                            today.SubtractTimeSpanWithoutWeekends(DateTime.Parse(reader["Tag"].ToString()));
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(idleTime + " Tage");
+
+                                        var negativeReply
+                                            = (package.Bewerbung.State = (bool)reader["Absage"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
+
+                                        var negativeStateAtOwn
+                                            = package.Bewerbung.NegativeStateAtOwn ? "Ja" : "Nein";
+
+                                        var editButtonItem
+                                            = lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                        lstFirm
+                                            .Controls.Add(new Button()
+                                                          {
+                                                              Size = new System.Drawing.Size(25, 20),
+                                                              Location = new System.Drawing.Point(editButtonItem.Bounds.X + 255, editButtonItem.Bounds.Y - 1),
+                                                              Text = "...",
+                                                              Visible = false
+                                                          });
+
+                                        if (idleTime > 3)
+                                        {
+                                            //lstFirm.Items[jobNr - 1].BackColor = Color.FromArgb(112, 191, 250);
+                                            //lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                         }
+                                        else
+                                        {
+                                            if (idleTime > 2)
+                                            {
+                                                lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                            }
+                                        }
+
+                                        if (sentInformationToFirm == "Nein")
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
+
+                                        if (negativeReply == "Ja" || negativeStateAtOwn == "Ja")
+                                        {
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
+                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                            lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
+                                        }
+
+                                        //make a rule change set, with priority for color management of that information from user or for e.g. firm
+
+                                        if (package.Firm.ReplyRequired)
+                                        {
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.Chocolate;
+                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                        }
+
+                                        if (package.Bewerbung.Zusage)
+                                        {
+                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.ForestGreen;
+                                        }
+
+                                        if (package.Bewerbung.AwaitingFirmReply) 
+                                        {
+                                            lstFirm.Items[jobNr - 1].BackColor = Color.DarkGoldenrod;
+                                            lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                        }
+
+                                        if (package.Bewerbung.FirmAnswer != null)
+                                        {
+                                            if (!package.Bewerbung.FirmAnswer.Value)
+                                            {
+                                                lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                                lstFirm.Items[jobNr - 1].BackColor = Color.White;
+                                            }
+                                            else
+                                            {
+                                                if (package.Bewerbung.FirmAnswer.Value)
+                                                {
+                                                    lstFirm.Items[jobNr - 1].BackColor = Color.Green;
+                                                    lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                                }
+                                            }
+                                        }
+
+                                        dataItem.Value.Item = package;
+
+                                        jobNr++;
                                     }
 
-                                    if (sentInformationToFirm == "Nein")
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
-
-                                    if (negativeReply == "Ja" || negativeStateAtOwn == "Ja")
+                                    try
                                     {
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
-                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
-                                        lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
+                                        reader.Close();
                                     }
-
-                                    //make a rule change set, with priority for color management of that information from user or for e.g. firm
-
-                                    if (package.Firm.ReplyRequired)
-                                    {
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.Chocolate;
-                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
-                                    }
-
-                                    if (package.Bewerbung.Zusage)
-                                    {
-                                        lstFirm.Items[jobNr - 1].ForeColor = Color.White;
-                                        lstFirm.Items[jobNr - 1].BackColor = Color.ForestGreen;
-                                    }
-
-                                    dataItem.Value.Item = package;
-
-                                    jobNr++;
+                                    catch { }
                                 }
-
-                                try
-                                {
-                                    reader.Close();
-                                }
-                                catch { }
                             }
                         }
-                    }
 
-                    lstFirm.PerformLayout();
+                        lstFirm.PerformLayout();
 
-                    if (selectedItem != null)
-                        selectedItem.Selected = true;
+                        if (selectedItem != null)
+                            selectedItem.Selected = true;
 
-                    //Make a control, draw it in item directly
+                        //Make a control, draw it in item directly
 
-                    //var g = lstFirm.CreateGraphics();
-                    //if (g != null)
-                    //{
-                    //    var item = lstFirm.Items[15 - 1].GetBounds(ItemBoundsPortion.Entire);
-                    //    g.DrawRectangle(Pens.DarkGray, new System.Drawing.Rectangle(item.X, item.Y, 929, 17));
-                    //}
+                        //var g = lstFirm.CreateGraphics();
+                        //if (g != null)
+                        //{
+                        //    var item = lstFirm.Items[15 - 1].GetBounds(ItemBoundsPortion.Entire);
+                        //    g.DrawRectangle(Pens.DarkGray, new System.Drawing.Rectangle(item.X, item.Y, 929, 17));
+                        //}
 
-                    if (toolStripFilter.SelectedIndex == -1)
-                    {
-                        toolStripFilter.SelectedIndex = 1;
-                        lstFirm_ColumnClick(this, new ColumnClickEventArgs(1));
-                    }
-                }));
+                        if (toolStripFilter.SelectedIndex == -1)
+                        {
+                            toolStripFilter.SelectedIndex = 1;
+                            lstFirm_ColumnClick(this, new ColumnClickEventArgs(1));
+                        }
+                    }));
+                }
+
+                reNewActivity++;
             }
+            catch (Exception ex)
+            {
 
-            reNewActivity++;
+            }
         }
 
         private void lstFirm_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -394,7 +426,22 @@ namespace IxSApp
                         else
                         {
                             lstInfos.Items.Add("");
-                            lstInfos.Items.Add(string.Concat(value.Value.Item.Bewerbung.State ? "Sie haben eine Absage bekommen" : (value.Value.Item.Bewerbung.Zusage ? "Sie haben eine Zusage bekommen" : "Sie haben noch keine endgültige Antwort zu Ihrer Bewerbung erhalten.")));
+                            if (!(value.Value.Item.Bewerbung.FirmAnswer.HasValue))
+                                lstInfos.Items.Add(string.Concat(value.Value.Item.Bewerbung.State ? "Sie haben eine Absage bekommen" : (value.Value.Item.Bewerbung.Zusage ? "Sie haben eine Zusage bekommen" : "Sie haben noch keine endgültige Antwort zu Ihrer Bewerbung erhalten.")));
+                            else
+                            {
+                                if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                                    if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                                    {
+                                        lstInfos.Items.Add("Sie haben eine endgültige");
+                                        lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                                        lstInfos.Items[lstInfos.Items.Count - 1].ForeColor = Color.DarkRed;
+                                        lstInfos.Items.Add("Absage bekommen.");
+                                        lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
+                                        lstInfos.Items[lstInfos.Items.Count - 1].ForeColor = Color.DarkRed;
+                                    }
+                            }
+
                             lstInfos.Items[lstInfos.Items.Count - 1].Font = new Font("Segoe UI", 8.25f, FontStyle.Regular, GraphicsUnit.Point);
                         }
                     }
@@ -469,15 +516,15 @@ namespace IxSApp
 
         public static class FaOrganisationFactory
         {
-            public static FaOrganisationAppend CreateOrganisationAppend()
-            {
+            //public static FaOrganisationAppend CreateOrganisationAppend()
+            //{
                 
-            }
+            //}
 
-            public static FaOrganisationEdit CreateOrganisationEditing()
-            {
+            //public static FaOrganisationEdit CreateOrganisationEditing()
+            //{
 
-            }
+            //}
         }
 
         private void ResetVacancyStateToken()
@@ -534,6 +581,29 @@ namespace IxSApp
             {
                 if (selectedItem != null)
                     toolStripFilterFirm.Text = selectedItem.SubItems[1].Text;
+            }
+
+            try
+            {
+                if (selectedItem != null)
+                {
+                    if (strikeOutWatcher != null)
+                    {
+                        strikeOutWatcher.Stop();
+                        if (strikeOutWatcher.Elapsed.Milliseconds > 500)
+                        {
+                            canStrikeOut = true;
+
+                            toolButtonDelete_Click(sender, e);
+                            toolStripFilter_SelectedIndexChanged(sender, e);
+                        }
+                        strikeOutWatcher.Reset();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -751,13 +821,27 @@ namespace IxSApp
                 switch (toolStripFilter.SelectedIndex) 
                 {
                     case 0:
+                        value.Value.CanSelect = true;
+
+                        if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                            if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                            {
+                                value.Value.CanSelect = false;
+                            }
                         continue;
                     case 1:
                         if (value.Value.Item.Bewerbung.Sent)
                         {
                             lstFilter.Columns[0].Text = "Bewerbungen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
+
+                            if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                                if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                                {
+                                    value.Value.CanSelect = false;
+                                }
                             continue;
                         }
                         break;
@@ -766,7 +850,14 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Rückmeldungen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
+
+                            if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                                if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                                {
+                                    value.Value.CanSelect = false;
+                                }
                             continue;
                         }
                         break;
@@ -775,7 +866,14 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Absagen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
+
+                            if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                                if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                                {
+                                    value.Value.CanSelect = false;
+                                }
                             continue;
                         }
                         break;
@@ -784,7 +882,14 @@ namespace IxSApp
                         {
                             lstFilter.Columns[0].Text = "Zusagen";
                             lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
+
+                            if (value.Value.Item.Bewerbung.FirmAnswer.HasValue)
+                                if (!(value.Value.Item.Bewerbung.FirmAnswer.Value))
+                                {
+                                    value.Value.CanSelect = false;
+                                }
                             continue;
                         }
                         break;
@@ -831,13 +936,17 @@ namespace IxSApp
             }
             else
                 if (string.IsNullOrEmpty(txtSearch.Text))
+                {
                     sortColumn = string.Empty;
+                    lstFirm.BackColor = Color.White;
+                }
 
             reNewView = true;
             ReNewView();
             reNewView = false;
 
             toolStripFilter_SelectedIndexChanged(sender, e);
+            lstFirm.BackColor = Color.White;
         }
 
         private void chkFilter_CheckedChanged(object sender, EventArgs e)
@@ -848,11 +957,12 @@ namespace IxSApp
         private void btnDelete_Click(object sender, EventArgs e)
         {
             txtSearch.Text = string.Empty;
+            lstFirm.BackColor = Color.White;
         }
 
         private void lstFirm_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
-            
+            e.DrawDefault = true;
         }
 
         private void lstFirm_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -892,8 +1002,19 @@ namespace IxSApp
             e.UseDefaultCursors = false;
         }
 
+        private bool canStrikeOut = false;
+        private System.Diagnostics.Stopwatch strikeOutWatcher = null;
+
         private void lstFirm_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                if (strikeOutWatcher == null)
+                    strikeOutWatcher = new System.Diagnostics.Stopwatch();
+
+                strikeOutWatcher.Start();
+            }
+
             //if (e.Button == System.Windows.Forms.MouseButtons.Left)
             //{
             //    x = e.X;
@@ -973,6 +1094,8 @@ namespace IxSApp
                 lstFilter.SelectedIndices.Clear();
                 lstFilter.Refresh();
             }
+
+
         }
 
         private void lstFilter_MouseUp(object sender, MouseEventArgs e)
@@ -981,6 +1104,9 @@ namespace IxSApp
             {
                 txtSearch.Text = lstFilter.SelectedItems[0].Text;
             }
+
+            //foreach (var point in points)
+            //    System.IO.File.AppendAllText(@"H:\absage.log", "new System.Drawing.Point(" + point.X + "," + point.Y + "),");
         }
 
         private void lstFirm_BeforeLabelEdit(object sender, LabelEditEventArgs e)
@@ -1006,6 +1132,56 @@ namespace IxSApp
         private void lstFilter_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             e.Item.Selected = false;
+        }
+
+        private List<System.Drawing.Point> points = new List<Point>();
+
+        private void lstFilter_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                var g =
+                    lstFilter.CreateGraphics();
+
+                if (g != null)
+                {
+                    g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    g.DrawLine(Pens.Brown, e.Location, new Point(e.Location.X + 2, e.Location.Y + 1));
+                    points.Add(e.Location);
+                    
+                }
+            }
+        }
+
+        private void lstFirm_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            return;
+        }
+
+        private void lstFilter_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+            //e.Graphics.DrawRectangle(Pens.Lavender, e.Bounds);
+            //e.DrawText();
+        }
+
+        private void lstFilter_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        private void lstFirm_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+
+            //if (e.Item.Font.Strikeout)
+            //    e.Graphics.DrawLine(Pens.White, new Point(0, e.Bounds.Y - 7), new Point(lstFirm.Width, e.Bounds.Y - 7));
+        }
+
+        private void lstFirm_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            e.DrawDefault = true;
         }
     }
 }
