@@ -95,6 +95,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sense Organisation Assist\Data\Common\DataLayerProperties.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Enum\SqlSystem.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Transactions\Enum\TransactionSystemDirectionType.cs" />
+    <Compile Include="Sense Organisation Assist\Data\IxSAppCommandFactory.cs" />
+    <Compile Include="Sense Organisation Assist\Data\IxSAppDatabaseLayer.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Transactions\Microsoft\SqlServerTransactionSystem.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Transactions\TransactionLayerProperties.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Transactions\IList\TypedTransactionList.cs" />
+    <Compile Include="Sense Organisation Assist\Interfaces\Data\IBasicLayer.cs" />
+    <Compile Include="Sense Organisation Assist\Interfaces\Data\IDataLayer.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Transactions\Interfaces\IxSAppTransactionSystem.cs" />
     <Compile Include="Sense Organisation Assist\UI\Organisation\Calendar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,10 +182,10 @@
     <Compile Include="Sense Organisation Assist\UI\App\Printing\PrintPreview.Designer.cs">
       <DependentUpon>PrintPreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sense Organisation Assist\Data\QueryParameter.cs" />
-    <Compile Include="Sense Organisation Assist\Data\QueryState.cs" />
-    <Compile Include="Sense Organisation Assist\Data\SqlQuery.cs" />
-    <Compile Include="Sense Organisation Assist\Data\ConnectionStringManager.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Common\QueryParameter.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Enum\QueryStateType.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Common\SqlQuery.cs" />
+    <Compile Include="Sense Organisation Assist\Data\Common\ConnectionStringManager.cs" />
     <Compile Include="Sense Organisation Assist\UI\App\View.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -384,6 +395,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sense Organisation Assist\Data\Transactions\Oracle\" />
+    <Folder Include="Sense Organisation Assist\Data\Transactions\SAP Sybase\" />
+    <Folder Include="Sense Organisation Assist\Data\Transactions\SQLite.NET\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

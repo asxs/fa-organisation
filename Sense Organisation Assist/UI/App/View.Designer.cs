@@ -49,6 +49,8 @@
             this.chkFilter = new System.Windows.Forms.CheckBox();
             this.toolStripFilter = new System.Windows.Forms.ComboBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -75,6 +77,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lstDrive = new System.Windows.Forms.ListView();
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -83,18 +86,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolBarAdd = new System.Windows.Forms.ToolStripButton();
             this.toolButtonEdit = new System.Windows.Forms.ToolStripButton();
             this.toolButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolNew = new System.Windows.Forms.ToolStripButton();
             this.toolAbsage = new System.Windows.Forms.ToolStripButton();
             this.toolState = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.workUnitBewerbungBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listViewItemUnitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
@@ -107,11 +107,11 @@
             this.toolStrip2.SuspendLayout();
             this.ctxFirm.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workUnitBewerbungBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listViewItemUnitBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -279,32 +279,29 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(8, 70);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(207, 17);
+            this.checkBox2.Size = new System.Drawing.Size(137, 17);
             this.checkBox2.TabIndex = 6;
-            this.checkBox2.Text = "Filterung unter Beachtung der Anzeige";
+            this.checkBox2.Text = "Beachtung der Anzeige";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(8, 54);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(242, 17);
+            this.checkBox1.Size = new System.Drawing.Size(89, 17);
             this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Den kompletten firmennamen berücksichtigen";
+            this.checkBox1.Text = "Volltextsuche";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // chkFilter
             // 
             this.chkFilter.AutoSize = true;
-            this.chkFilter.Checked = true;
-            this.chkFilter.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFilter.Location = new System.Drawing.Point(8, 38);
             this.chkFilter.Name = "chkFilter";
-            this.chkFilter.Size = new System.Drawing.Size(232, 17);
+            this.chkFilter.Size = new System.Drawing.Size(162, 17);
             this.chkFilter.TabIndex = 4;
-            this.chkFilter.Text = "Filterung unter Beachtung der Schreibweise";
+            this.chkFilter.Text = "Beachtung der Schreibweise";
             this.chkFilter.UseVisualStyleBackColor = true;
             this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
             // 
@@ -340,6 +337,26 @@
             this.toolStrip2.TabIndex = 2;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.White;
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::IxSApp.Properties.Resources.delete;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(22, 20);
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Enabled = false;
+            this.toolStripButton2.Image = global::IxSApp.Properties.Resources.add;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(22, 20);
+            this.toolStripButton2.Text = "toolStripButton2";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -351,7 +368,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSearch.BackColor = System.Drawing.Color.FloralWhite;
             this.txtSearch.Location = new System.Drawing.Point(8, 88);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(183, 20);
@@ -414,7 +431,7 @@
             // 
             this.lstFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstFilter.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lstFilter.BackColor = System.Drawing.Color.FloralWhite;
             this.lstFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstFilter.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader7});
@@ -618,6 +635,16 @@
             this.label1.TabIndex = 2;
             this.label1.Text = resources.GetString("label1.Text");
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::IxSApp.Properties.Resources.list;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // lstDrive
             // 
             this.lstDrive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -721,53 +748,6 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripCrm_ItemClicked);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(28, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(28, 6);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(811, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.White;
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::IxSApp.Properties.Resources.delete;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(22, 20);
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Enabled = false;
-            this.toolStripButton2.Image = global::IxSApp.Properties.Resources.add;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(22, 20);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::IxSApp.Properties.Resources.list;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // toolBarAdd
             // 
             this.toolBarAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -795,6 +775,11 @@
             this.toolButtonRefresh.Size = new System.Drawing.Size(28, 20);
             this.toolButtonRefresh.Click += new System.EventHandler(this.toolButtonRefresh_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(28, 6);
+            // 
             // toolNew
             // 
             this.toolNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -821,6 +806,18 @@
             this.toolState.Name = "toolState";
             this.toolState.Size = new System.Drawing.Size(28, 20);
             this.toolState.Click += new System.EventHandler(this.toolState_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(28, 6);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(811, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
             // 
             // workUnitBewerbungBindingSource
             // 
@@ -861,13 +858,13 @@
             this.ctxFirm.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.workUnitBewerbungBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listViewItemUnitBindingSource)).EndInit();
             this.ResumeLayout(false);

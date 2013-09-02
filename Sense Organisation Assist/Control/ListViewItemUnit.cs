@@ -18,6 +18,19 @@ using System.Windows.Forms;
 
 namespace IxSApp.LvUnits
 {
+    public class ListViewSubItemUnit
+        : ListViewItem.ListViewSubItem
+    {
+        public ListViewSubItemUnit()
+            : base()
+        {
+
+        }
+
+        public Control EntryControl { get; private set; }
+    }
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -57,5 +70,12 @@ namespace IxSApp.LvUnits
         /// The value.
         /// </value>
         public UnitContentInfo Value { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="ListViewItemUnit"/> is editable.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if editable; otherwise, <c>false</c>.
+        /// </value>
+        public bool Editable { get; set; }
     }
 }

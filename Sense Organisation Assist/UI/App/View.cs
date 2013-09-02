@@ -231,6 +231,8 @@ namespace IxSApp
                                         package.Bewerbung.FirmAnswer = !string.IsNullOrEmpty(reader["Antwort"].ToString()) ? (reader["Antwort"].ToString().ToUpper() == "1" ? true : false) : string.IsNullOrEmpty(reader["Antwort"].ToString()) ? new Nullable<bool>() : false;
                                         package.Bewerbung.AwaitingFirmReply = !string.IsNullOrEmpty(reader["Firmenrueckmeldung"].ToString()) ? ((reader["Firmenrueckmeldung"]).ToString().ToUpper() == "1" ? true : false) : false;
 
+                                        dataItem.EntryControl = new TextBox();
+
                                         lstFirm.Items.Add(dataItem);
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
@@ -575,6 +577,7 @@ namespace IxSApp
                 selectedItem = hitTestItem.Item;
                 selectedSubItem = hitTestItem.SubItem;
                 vacancyItem = hitTestItem.Item.GetItemUnit();
+                
             }
 
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
