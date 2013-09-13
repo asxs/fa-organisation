@@ -1,1 +1,1 @@
-Organisation Assist (still in develoment. Time for ReThink the UI)
+Organisation Assist (Still in development. Rethink the UI)
