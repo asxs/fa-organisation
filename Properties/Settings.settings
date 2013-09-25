@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="As.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IxSApp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="TinyOrganisationCRM" Type="(Connection string)" Scope="Application">
@@ -9,6 +9,14 @@
   &lt;ProviderName&gt;iAnywhere.Data.SQLAnywhere&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">UserID=dba;Password=sql;DatabaseName=asxs;DatabaseFile=.\data\asxs.db;ServerName=asxs</Value>
+    </Setting>
+    <Setting Name="ASXS" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Driver={SQL Anywhere 12};uid=dba;pwd=sql;databasefile=asxs;servername=asxs;autostop=YES;integrated=NO;filedsn=C:\Users\lherrmann\Documents\asxs.dsn&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.Odbc&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Driver={SQL Anywhere 12};uid=dba;pwd=sql;databasefile=asxs;servername=asxs;autostop=YES;integrated=NO;filedsn=C:\Users\lherrmann\Documents\asxs.dsn</Value>
     </Setting>
   </Settings>
 </SettingsFile>

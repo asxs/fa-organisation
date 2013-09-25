@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="v_asxs" targetNamespace="http://tempuri.org/v_asxs.xsd" xmlns:mstns="http://tempuri.org/v_asxs.xsd" xmlns="http://tempuri.org/v_asxs.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ASXS" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ASXS (Settings)" PropertyReference="ApplicationSettings.IxSApp.Properties.Settings.GlobalReference.Default.ASXS" Provider="System.Data.Odbc" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_firmTableAdapter" GeneratorDataComponentClassName="v_firmTableAdapter" Name="v_firm" UserDataComponentName="v_firmTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ASXS (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT "ID", "Firma", "Stadt", "PLZ", "Straße", "Hausnummer", "Absage", "Abgeschickt", "Tag", "Rueckmeldung", "Korrespondenz", "Memo", "Website", "id_bew", "id_addr", "id_memo", "id_man", "reply_req", "Zusage", "Eigenverantwortlich", "Firmenrueckmeldung", "Antwort" FROM "DBA"."v_firm"</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="Firma" DataSetColumn="Firma" />
+              <Mapping SourceColumn="Stadt" DataSetColumn="Stadt" />
+              <Mapping SourceColumn="PLZ" DataSetColumn="PLZ" />
+              <Mapping SourceColumn="Straße" DataSetColumn="Straße" />
+              <Mapping SourceColumn="Hausnummer" DataSetColumn="Hausnummer" />
+              <Mapping SourceColumn="Absage" DataSetColumn="Absage" />
+              <Mapping SourceColumn="Abgeschickt" DataSetColumn="Abgeschickt" />
+              <Mapping SourceColumn="Tag" DataSetColumn="Tag" />
+              <Mapping SourceColumn="Rueckmeldung" DataSetColumn="Rueckmeldung" />
+              <Mapping SourceColumn="Korrespondenz" DataSetColumn="Korrespondenz" />
+              <Mapping SourceColumn="Memo" DataSetColumn="Memo" />
+              <Mapping SourceColumn="Website" DataSetColumn="Website" />
+              <Mapping SourceColumn="id_bew" DataSetColumn="id_bew" />
+              <Mapping SourceColumn="id_addr" DataSetColumn="id_addr" />
+              <Mapping SourceColumn="id_memo" DataSetColumn="id_memo" />
+              <Mapping SourceColumn="id_man" DataSetColumn="id_man" />
+              <Mapping SourceColumn="reply_req" DataSetColumn="reply_req" />
+              <Mapping SourceColumn="Zusage" DataSetColumn="Zusage" />
+              <Mapping SourceColumn="Eigenverantwortlich" DataSetColumn="Eigenverantwortlich" />
+              <Mapping SourceColumn="Firmenrueckmeldung" DataSetColumn="Firmenrueckmeldung" />
+              <Mapping SourceColumn="Antwort" DataSetColumn="Antwort" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="v_asxs" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="v_asxs" msprop:Generator_UserDSName="v_asxs">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_firm" msprop:Generator_TableClassName="v_firmDataTable" msprop:Generator_TableVarName="tablev_firm" msprop:Generator_TablePropName="v_firm" msprop:Generator_RowDeletingName="v_firmRowDeleting" msprop:Generator_RowChangingName="v_firmRowChanging" msprop:Generator_RowEvHandlerName="v_firmRowChangeEventHandler" msprop:Generator_RowDeletedName="v_firmRowDeleted" msprop:Generator_UserTableName="v_firm" msprop:Generator_RowChangedName="v_firmRowChanged" msprop:Generator_RowEvArgName="v_firmRowChangeEvent" msprop:Generator_RowClassName="v_firmRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+              <xs:element name="Firma" msprop:Generator_ColumnVarNameInTable="columnFirma" msprop:Generator_ColumnPropNameInRow="Firma" msprop:Generator_ColumnPropNameInTable="FirmaColumn" msprop:Generator_UserColumnName="Firma" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Stadt" msprop:Generator_ColumnVarNameInTable="columnStadt" msprop:Generator_ColumnPropNameInRow="Stadt" msprop:Generator_ColumnPropNameInTable="StadtColumn" msprop:Generator_UserColumnName="Stadt" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PLZ" msprop:Generator_ColumnVarNameInTable="columnPLZ" msprop:Generator_ColumnPropNameInRow="PLZ" msprop:Generator_ColumnPropNameInTable="PLZColumn" msprop:Generator_UserColumnName="PLZ" type="xs:int" minOccurs="0" />
+              <xs:element name="Straße" msprop:Generator_ColumnVarNameInTable="columnStraße" msprop:Generator_ColumnPropNameInRow="Straße" msprop:Generator_ColumnPropNameInTable="StraßeColumn" msprop:Generator_UserColumnName="Straße" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Hausnummer" msprop:Generator_ColumnVarNameInTable="columnHausnummer" msprop:Generator_ColumnPropNameInRow="Hausnummer" msprop:Generator_ColumnPropNameInTable="HausnummerColumn" msprop:Generator_UserColumnName="Hausnummer" type="xs:int" minOccurs="0" />
+              <xs:element name="Absage" msprop:Generator_ColumnVarNameInTable="columnAbsage" msprop:Generator_ColumnPropNameInRow="Absage" msprop:Generator_ColumnPropNameInTable="AbsageColumn" msprop:Generator_UserColumnName="Absage" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Abgeschickt" msprop:Generator_ColumnVarNameInTable="columnAbgeschickt" msprop:Generator_ColumnPropNameInRow="Abgeschickt" msprop:Generator_ColumnPropNameInTable="AbgeschicktColumn" msprop:Generator_UserColumnName="Abgeschickt" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Tag" msprop:Generator_ColumnVarNameInTable="columnTag" msprop:Generator_ColumnPropNameInRow="Tag" msprop:Generator_ColumnPropNameInTable="TagColumn" msprop:Generator_UserColumnName="Tag" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Rueckmeldung" msprop:Generator_ColumnVarNameInTable="columnRueckmeldung" msprop:Generator_ColumnPropNameInRow="Rueckmeldung" msprop:Generator_ColumnPropNameInTable="RueckmeldungColumn" msprop:Generator_UserColumnName="Rueckmeldung" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Korrespondenz" msprop:Generator_ColumnVarNameInTable="columnKorrespondenz" msprop:Generator_ColumnPropNameInRow="Korrespondenz" msprop:Generator_ColumnPropNameInTable="KorrespondenzColumn" msprop:Generator_UserColumnName="Korrespondenz" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Memo" msprop:Generator_ColumnVarNameInTable="columnMemo" msprop:Generator_ColumnPropNameInRow="Memo" msprop:Generator_ColumnPropNameInTable="MemoColumn" msprop:Generator_UserColumnName="Memo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Website" msprop:Generator_ColumnVarNameInTable="columnWebsite" msprop:Generator_ColumnPropNameInRow="Website" msprop:Generator_ColumnPropNameInTable="WebsiteColumn" msprop:Generator_UserColumnName="Website" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_bew" msprop:Generator_ColumnVarNameInTable="columnid_bew" msprop:Generator_ColumnPropNameInRow="id_bew" msprop:Generator_ColumnPropNameInTable="id_bewColumn" msprop:Generator_UserColumnName="id_bew" type="xs:long" minOccurs="0" />
+              <xs:element name="id_addr" msprop:Generator_ColumnVarNameInTable="columnid_addr" msprop:Generator_ColumnPropNameInRow="id_addr" msprop:Generator_ColumnPropNameInTable="id_addrColumn" msprop:Generator_UserColumnName="id_addr" type="xs:long" minOccurs="0" />
+              <xs:element name="id_memo" msprop:Generator_ColumnVarNameInTable="columnid_memo" msprop:Generator_ColumnPropNameInRow="id_memo" msprop:Generator_ColumnPropNameInTable="id_memoColumn" msprop:Generator_UserColumnName="id_memo" type="xs:long" minOccurs="0" />
+              <xs:element name="id_man" msprop:Generator_ColumnVarNameInTable="columnid_man" msprop:Generator_ColumnPropNameInRow="id_man" msprop:Generator_ColumnPropNameInTable="id_manColumn" msprop:Generator_UserColumnName="id_man" type="xs:long" minOccurs="0" />
+              <xs:element name="reply_req" msprop:Generator_ColumnVarNameInTable="columnreply_req" msprop:Generator_ColumnPropNameInRow="reply_req" msprop:Generator_ColumnPropNameInTable="reply_reqColumn" msprop:Generator_UserColumnName="reply_req" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Zusage" msprop:Generator_ColumnVarNameInTable="columnZusage" msprop:Generator_ColumnPropNameInRow="Zusage" msprop:Generator_ColumnPropNameInTable="ZusageColumn" msprop:Generator_UserColumnName="Zusage" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Eigenverantwortlich" msprop:Generator_ColumnVarNameInTable="columnEigenverantwortlich" msprop:Generator_ColumnPropNameInRow="Eigenverantwortlich" msprop:Generator_ColumnPropNameInTable="EigenverantwortlichColumn" msprop:Generator_UserColumnName="Eigenverantwortlich" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Firmenrueckmeldung" msprop:Generator_ColumnVarNameInTable="columnFirmenrueckmeldung" msprop:Generator_ColumnPropNameInRow="Firmenrueckmeldung" msprop:Generator_ColumnPropNameInTable="FirmenrueckmeldungColumn" msprop:Generator_UserColumnName="Firmenrueckmeldung" type="xs:long" minOccurs="0" />
+              <xs:element name="Antwort" msprop:Generator_ColumnVarNameInTable="columnAntwort" msprop:Generator_ColumnPropNameInRow="Antwort" msprop:Generator_ColumnPropNameInTable="AntwortColumn" msprop:Generator_UserColumnName="Antwort" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:v_firm" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

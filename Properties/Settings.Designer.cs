@@ -33,5 +33,16 @@ namespace IxSApp.Properties {
                 return ((string)(this["TinyOrganisationCRM"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Driver={SQL Anywhere 12};uid=dba;pwd=sql;databasefile=asxs;servername=asxs;autost" +
+            "op=YES;integrated=NO;filedsn=C:\\Users\\lherrmann\\Documents\\asxs.dsn")]
+        public string ASXS {
+            get {
+                return ((string)(this["ASXS"]));
+            }
+        }
     }
 }

@@ -54,6 +54,8 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolBack = new System.Windows.Forms.ToolStripButton();
+            this.toolNext = new System.Windows.Forms.ToolStripButton();
             this.label9 = new System.Windows.Forms.Label();
             this.txtAnlage = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -61,8 +63,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolAdd = new System.Windows.Forms.ToolStripButton();
             this.label10 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.toolSave = new System.Windows.Forms.ToolStripButton();
             this.chkAbsageBack = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.cbFirma = new System.Windows.Forms.ComboBox();
@@ -76,18 +80,14 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.chkFirmReply = new System.Windows.Forms.CheckBox();
             this.radioDeath = new System.Windows.Forms.RadioButton();
             this.radioWork = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolSave = new System.Windows.Forms.ToolStripButton();
-            this.toolAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolBack = new System.Windows.Forms.ToolStripButton();
-            this.toolNext = new System.Windows.Forms.ToolStripButton();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -151,7 +151,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOrganisation.Location = new System.Drawing.Point(15, 67);
             this.txtOrganisation.Name = "txtOrganisation";
-            this.txtOrganisation.Size = new System.Drawing.Size(416, 20);
+            this.txtOrganisation.Size = new System.Drawing.Size(301, 20);
             this.txtOrganisation.TabIndex = 16;
             // 
             // groupBox1
@@ -359,6 +359,31 @@
             this.toolStrip1.Size = new System.Drawing.Size(111, 159);
             this.toolStrip1.TabIndex = 46;
             // 
+            // toolBack
+            // 
+            this.toolBack.BackColor = System.Drawing.Color.DarkGray;
+            this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBack.Enabled = false;
+            this.toolBack.Image = global::IxSApp.Properties.Resources.left;
+            this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
+            this.toolBack.Name = "toolBack";
+            this.toolBack.Size = new System.Drawing.Size(109, 68);
+            this.toolBack.Text = "toolStripButton1";
+            this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
+            // 
+            // toolNext
+            // 
+            this.toolNext.BackColor = System.Drawing.Color.DarkGray;
+            this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolNext.Image = global::IxSApp.Properties.Resources.right;
+            this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolNext.Name = "toolNext";
+            this.toolNext.Size = new System.Drawing.Size(109, 68);
+            this.toolNext.Text = "toolStripButton2";
+            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -428,6 +453,20 @@
             this.toolStrip2.Size = new System.Drawing.Size(37, 41);
             this.toolStrip2.TabIndex = 51;
             // 
+            // toolAdd
+            // 
+            this.toolAdd.BackColor = System.Drawing.Color.Wheat;
+            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolAdd.Image = global::IxSApp.Properties.Resources.page_writing;
+            this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAdd.Name = "toolAdd";
+            this.toolAdd.Size = new System.Drawing.Size(35, 36);
+            this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
+            this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
+            this.toolAdd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolAdd_MouseMove);
+            this.toolAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.toolAdd_Paint);
+            // 
             // label10
             // 
             this.label10.BackColor = System.Drawing.SystemColors.Control;
@@ -449,6 +488,16 @@
             this.toolStrip3.Size = new System.Drawing.Size(26, 25);
             this.toolStrip3.TabIndex = 53;
             // 
+            // toolSave
+            // 
+            this.toolSave.BackColor = System.Drawing.SystemColors.Control;
+            this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolSave.Image = global::IxSApp.Properties.Resources.icon_save;
+            this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSave.Name = "toolSave";
+            this.toolSave.Size = new System.Drawing.Size(23, 22);
+            this.toolSave.Click += new System.EventHandler(this.toolSave_Click);
+            // 
             // chkAbsageBack
             // 
             this.chkAbsageBack.BackColor = System.Drawing.SystemColors.Control;
@@ -466,7 +515,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 658);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(858, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(857, 22);
             this.statusStrip1.TabIndex = 56;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -523,9 +572,9 @@
             this.chkPositiveReply.ForeColor = System.Drawing.Color.White;
             this.chkPositiveReply.Location = new System.Drawing.Point(493, 291);
             this.chkPositiveReply.Name = "chkPositiveReply";
-            this.chkPositiveReply.Size = new System.Drawing.Size(309, 17);
+            this.chkPositiveReply.Size = new System.Drawing.Size(354, 17);
             this.chkPositiveReply.TabIndex = 62;
-            this.chkPositiveReply.Text = "Haben Sie eine Zusage bekommen? (Vorstellungsgespräch)";
+            this.chkPositiveReply.Text = "Haben Sie eine Zusage bekommen? (Vorst.-Gespräch, Tel.-Interview)";
             this.chkPositiveReply.UseVisualStyleBackColor = false;
             // 
             // label12
@@ -567,15 +616,6 @@
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(30, 3);
             this.label16.TabIndex = 67;
-            // 
-            // label17
-            // 
-            this.label17.BackColor = System.Drawing.Color.DarkGray;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label17.Location = new System.Drawing.Point(858, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(114, 680);
-            this.label17.TabIndex = 68;
             // 
             // chkFirmReply
             // 
@@ -621,54 +661,6 @@
             this.pictureBox1.TabIndex = 72;
             this.pictureBox1.TabStop = false;
             // 
-            // toolSave
-            // 
-            this.toolSave.BackColor = System.Drawing.SystemColors.Control;
-            this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolSave.Image = global::IxSApp.Properties.Resources.icon_save;
-            this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolSave.Name = "toolSave";
-            this.toolSave.Size = new System.Drawing.Size(23, 22);
-            this.toolSave.Click += new System.EventHandler(this.toolSave_Click);
-            // 
-            // toolAdd
-            // 
-            this.toolAdd.BackColor = System.Drawing.Color.Wheat;
-            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolAdd.Image = global::IxSApp.Properties.Resources.page_writing;
-            this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolAdd.Name = "toolAdd";
-            this.toolAdd.Size = new System.Drawing.Size(35, 36);
-            this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
-            this.toolAdd.MouseHover += new System.EventHandler(this.toolAdd_MouseHover);
-            this.toolAdd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolAdd_MouseMove);
-            this.toolAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.toolAdd_Paint);
-            // 
-            // toolBack
-            // 
-            this.toolBack.BackColor = System.Drawing.Color.DarkGray;
-            this.toolBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBack.Image = global::IxSApp.Properties.Resources.left;
-            this.toolBack.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolBack.ImageTransparentColor = System.Drawing.Color.DarkOrchid;
-            this.toolBack.Name = "toolBack";
-            this.toolBack.Size = new System.Drawing.Size(109, 68);
-            this.toolBack.Text = "toolStripButton1";
-            this.toolBack.Click += new System.EventHandler(this.toolBack_Click);
-            // 
-            // toolNext
-            // 
-            this.toolNext.BackColor = System.Drawing.Color.DarkGray;
-            this.toolNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolNext.Image = global::IxSApp.Properties.Resources.right;
-            this.toolNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolNext.Name = "toolNext";
-            this.toolNext.Size = new System.Drawing.Size(109, 68);
-            this.toolNext.Text = "toolStripButton2";
-            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
-            // 
             // label18
             // 
             this.label18.BackColor = System.Drawing.Color.DarkSeaGreen;
@@ -700,11 +692,19 @@
             this.label20.Text = "(Endgültige Absage oder es ist \r\nkeine Antwort zu erwarten, \r\naufgrund von Initia" +
     "tivbewerbungen)";
             // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.DarkGray;
+            this.label17.Location = new System.Drawing.Point(858, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(114, 680);
+            this.label17.TabIndex = 68;
+            // 
             // VacancyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 680);
+            this.ClientSize = new System.Drawing.Size(857, 680);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.pictureBox1);
@@ -833,7 +833,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox chkFirmReply;
         private System.Windows.Forms.RadioButton radioDeath;
         private System.Windows.Forms.RadioButton radioWork;
@@ -841,5 +840,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label17;
     }
 }

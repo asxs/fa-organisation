@@ -121,7 +121,7 @@ namespace IxSApp
 
         private void UI_Load(object sender, EventArgs e)
         {
-            splitJobControl.Panel2Collapsed = true;
+            //splitJobControl.Panel2Collapsed = true;
             Initialize();
             refreshVacancyViewThread.Start();
             try
@@ -234,6 +234,7 @@ namespace IxSApp
                                         dataItem.EntryControl = new TextBox();
 
                                         lstFirm.Items.Add(dataItem);
+                                        lstFirm.Items[lstFirm.Items.Count - 1].UseItemStyleForSubItems = false;
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
 
@@ -610,50 +611,50 @@ namespace IxSApp
             }
         }
 
-        private void tabFirm_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (tabFirm.SelectedTab.Name.ToUpper())
-            {
-                case Constants.TabPage2:
-                    {
-                        lstDrive.Items.Clear();
-                        try
-                        {
-                            using (var connection = new SAConnection
-                                                    (
-                                                        ConnectionStringManager.ConnectionStringNetworkServer
-                                                    ))
-                            {
-                                connection
-                                    .Open();
+        //private void tabFirm_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    switch (tabFirm.SelectedTab.Name.ToUpper())
+        //    {
+        //        case Constants.TabPage2:
+        //            {
+        //                lstDrive.Items.Clear();
+        //                try
+        //                {
+        //                    using (var connection = new SAConnection
+        //                                            (
+        //                                                ConnectionStringManager.ConnectionStringNetworkServer
+        //                                            ))
+        //                    {
+        //                        connection
+        //                            .Open();
 
-                                if (connection.State == System.Data.ConnectionState.Open)
-                                    using (var action = connection.CreateCommand())
-                                    {
-                                        action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((ListViewItemUnit)selectedItem).Value.Id;
-                                        action.Prepare();
-                                        var anlage
-                                            = action.ExecuteReader();
+        //                        if (connection.State == System.Data.ConnectionState.Open)
+        //                            using (var action = connection.CreateCommand())
+        //                            {
+        //                                action.CommandText = "SELECT ASXS_FIRM.NAME as 'Firma', ASXS_ANLAGE.NAME as 'Anlage' FROM ASXS_FIRM RIGHT OUTER JOIN ASXS_ANLAGE ON ASXS_ANLAGE.ID_FIRM = ASXS_FIRM.ID WHERE ASXS_ANLAGE.ID_FIRM = " + ((ListViewItemUnit)selectedItem).Value.Id;
+        //                                action.Prepare();
+        //                                var anlage
+        //                                    = action.ExecuteReader();
 
-                                        while (anlage.Read())
-                                        {
-                                            lstDrive.Items.Add(anlage["Anlage"].ToString());
-                                            lstDrive.Items[lstDrive.Items.Count - 1].SubItems.Add(anlage["Firma"].ToString());
-                                        }
-                                    }
+        //                                while (anlage.Read())
+        //                                {
+        //                                    lstDrive.Items.Add(anlage["Anlage"].ToString());
+        //                                    lstDrive.Items[lstDrive.Items.Count - 1].SubItems.Add(anlage["Firma"].ToString());
+        //                                }
+        //                            }
 
-                                connection.Close();
-                            }
-                        }
-                        catch { }
-                        finally
-                        {
+        //                        connection.Close();
+        //                    }
+        //                }
+        //                catch { }
+        //                finally
+        //                {
 
-                        }
-                    }
-                    break;
-            }
-        }
+        //                }
+        //            }
+        //            break;
+        //    }
+        //}
 
         private void tabFirm_TabIndexChanged(object sender, EventArgs e)
         {
@@ -809,7 +810,7 @@ namespace IxSApp
 
         private void toolStripFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstFilter.Items.Clear();
+            //lstFilter.Items.Clear();
 
             reNewView = true;
             ReNewView();
@@ -835,8 +836,8 @@ namespace IxSApp
                     case 1:
                         if (value.Value.Item.Bewerbung.Sent)
                         {
-                            lstFilter.Columns[0].Text = "Bewerbungen";
-                            lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Columns[0].Text = "Bewerbungen";
+                            //lstFilter.Items.Add(item.SubItems[1].Text);
                             //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
 
@@ -851,8 +852,8 @@ namespace IxSApp
                     case 2:
                         if (value.Value.Item.Bewerbung.Reply)
                         {
-                            lstFilter.Columns[0].Text = "Rückmeldungen";
-                            lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Columns[0].Text = "Rückmeldungen";
+                            //lstFilter.Items.Add(item.SubItems[1].Text);
                             //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
 
@@ -867,8 +868,8 @@ namespace IxSApp
                     case 3:
                         if (value.Value.Item.Bewerbung.State)
                         {
-                            lstFilter.Columns[0].Text = "Absagen";
-                            lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Columns[0].Text = "Absagen";
+                            //lstFilter.Items.Add(item.SubItems[1].Text);
                             //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
 
@@ -883,8 +884,8 @@ namespace IxSApp
                     case 4:
                         if (value.Value.Item.Bewerbung.Zusage)
                         {
-                            lstFilter.Columns[0].Text = "Zusagen";
-                            lstFilter.Items.Add(item.SubItems[1].Text);
+                            //lstFilter.Columns[0].Text = "Zusagen";
+                            //lstFilter.Items.Add(item.SubItems[1].Text);
                             //lstFilter.Items[lstFilter.Items.Count - 1].ImageIndex = 8;
                             value.Value.CanSelect = true;
 
@@ -907,7 +908,7 @@ namespace IxSApp
                 }
             }
 
-            lstFilter.Columns[0].Text = toolStripFilter.SelectedIndex == 0 ? lstFilter.Columns[0].Text = string.Empty : lstFilter.Items.Count.ToString() + " " + lstFilter.Columns[0].Text;
+            //lstFilter.Columns[0].Text = toolStripFilter.SelectedIndex == 0 ? lstFilter.Columns[0].Text = string.Empty : lstFilter.Items.Count.ToString() + " " + lstFilter.Columns[0].Text;
         }
 
         private void toolStripFilter_Click(object sender, EventArgs e)
@@ -1085,8 +1086,8 @@ namespace IxSApp
         {
             if (e.Clicks != 0)
             {
-                lstFilter.SelectedIndices.Clear();
-                lstFilter.Refresh();
+                //lstFilter.SelectedIndices.Clear();
+                //lstFilter.Refresh();
             }
         }
 
@@ -1094,8 +1095,8 @@ namespace IxSApp
         {
             if (e.Clicks != 0)
             {
-                lstFilter.SelectedIndices.Clear();
-                lstFilter.Refresh();
+                //lstFilter.SelectedIndices.Clear();
+                //lstFilter.Refresh();
             }
 
 
@@ -1103,10 +1104,10 @@ namespace IxSApp
 
         private void lstFilter_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1 && lstFilter.SelectedItems.Count > 0)
-            {
-                txtSearch.Text = lstFilter.SelectedItems[0].Text;
-            }
+            //if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1 && lstFilter.SelectedItems.Count > 0)
+            //{
+            //    txtSearch.Text = lstFilter.SelectedItems[0].Text;
+            //}
 
             //foreach (var point in points)
             //    System.IO.File.AppendAllText(@"H:\absage.log", "new System.Drawing.Point(" + point.X + "," + point.Y + "),");
@@ -1141,20 +1142,20 @@ namespace IxSApp
 
         private void lstFilter_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                var g =
-                    lstFilter.CreateGraphics();
+            //if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            //{
+            //    var g =
+            //        lstFilter.CreateGraphics();
 
-                if (g != null)
-                {
-                    g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                    g.DrawLine(Pens.Brown, e.Location, new Point(e.Location.X + 2, e.Location.Y + 1));
-                    points.Add(e.Location);
+            //    if (g != null)
+            //    {
+            //        g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+            //        g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            //        g.DrawLine(Pens.Brown, e.Location, new Point(e.Location.X + 2, e.Location.Y + 1));
+            //        points.Add(e.Location);
                     
-                }
-            }
+            //    }
+            //}
         }
 
         private void lstFirm_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
@@ -1171,7 +1172,9 @@ namespace IxSApp
 
         private void lstFilter_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
-            e.DrawDefault = true;
+            //e.DrawDefault = true;
+            e.Graphics.FillRectangle(Brushes.Snow, e.Bounds);
+            e.Graphics.DrawString(e.Header.Text, e.Font, SystemBrushes.ControlDarkDark, new PointF(3, 7));
         }
 
         private void lstFirm_DrawItem(object sender, DrawListViewItemEventArgs e)
@@ -1185,6 +1188,11 @@ namespace IxSApp
         private void lstFirm_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
             e.DrawDefault = true;
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            new UI().ShowDialog();
         }
     }
 }
