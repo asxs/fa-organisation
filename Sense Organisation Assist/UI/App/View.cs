@@ -121,12 +121,16 @@ namespace IxSApp
 
         private void UI_Load(object sender, EventArgs e)
         {
+            lstFirm.Groups.Add(new ListViewGroup("Stellengesuche   "));
+
             //splitJobControl.Panel2Collapsed = true;
             Initialize();
             refreshVacancyViewThread.Start();
             try
             {
+                VacancyView.StartLocation = new Point(Location.X + 23, Location.Y + 80);
                 
+
             }
             catch (Exception ex)
             {
@@ -182,7 +186,7 @@ namespace IxSApp
                                 var command =
                                     connection.CreateCommand();
 
-                                command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " ASC" : string.Empty);
+                                command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " DESC" : string.Empty);
                                 command.Prepare();
 
                                 using (var reader = command.ExecuteReader())
@@ -258,13 +262,16 @@ namespace IxSApp
                                         var negativeReply
                                             = (package.Bewerbung.State = (bool)reader["Absage"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
 
+                                        //if (negativeReply == "Ja")
+                                        //{
+                                        //    lstFirm.Groups[1].Items.Add(lstFirm.Items[lstFirm.Items.Count - 1]);
+                                        //}
+
                                         var negativeStateAtOwn
                                             = package.Bewerbung.NegativeStateAtOwn ? "Ja" : "Nein";
 
                                         var editButtonItem
                                             = lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
-
-                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
 
                                         lstFirm
                                             .Controls.Add(new Button()
@@ -310,6 +317,7 @@ namespace IxSApp
                                         {
                                             lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                             lstFirm.Items[jobNr - 1].BackColor = Color.ForestGreen;
+                                            //lstFirm.Items[jobNr - 1].SubItems[1].Font = new Font("Arial", 10.25f, FontStyle.Bold);
                                         }
 
                                         if (package.Bewerbung.AwaitingFirmReply) 
@@ -349,6 +357,7 @@ namespace IxSApp
                             }
                         }
 
+                        lstFirm.Groups[0].Items.AddRange(lstFirm.Items);
                         lstFirm.PerformLayout();
 
                         if (selectedItem != null)
@@ -792,16 +801,16 @@ namespace IxSApp
                 case 1:
                     sortColumn = "Firma";
                     break;
-                case 5:
+                case 6:
                     sortColumn = "Absage, Firma";
                     break;
-                case 3:
+                case 4:
                     sortColumn = "Abgeschickt";
                     break;
-                case 4:
+                case 5:
                     sortColumn = "Tag";
                     break;
-                case 2:
+                case 3:
                     sortColumn = "Rueckmeldung";
                     break;
             } sortColumn = !string.IsNullOrEmpty(sortColumn) ? "ORDER BY " + sortColumn : string.Empty;
@@ -1199,6 +1208,11 @@ namespace IxSApp
         private void btnTest_Click(object sender, EventArgs e)
         {
             new UI().ShowDialog();
+        }
+
+        private void View_Move(object sender, EventArgs e)
+        {
+            VacancyView.StartLocation = new Point(Location.X + 23, Location.Y + 80);
         }
     }
 }

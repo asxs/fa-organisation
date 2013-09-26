@@ -53,7 +53,6 @@
             this.toolStripFilter = new System.Windows.Forms.ComboBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,12 +66,13 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.label3 = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.LinkLabel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.workUnitBewerbungBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listViewItemUnitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
@@ -226,6 +226,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.chkFilter);
@@ -262,12 +263,13 @@
             // chkFilter
             // 
             this.chkFilter.AutoSize = true;
+            this.chkFilter.BackColor = System.Drawing.SystemColors.Control;
             this.chkFilter.Location = new System.Drawing.Point(8, 37);
             this.chkFilter.Name = "chkFilter";
             this.chkFilter.Size = new System.Drawing.Size(162, 17);
             this.chkFilter.TabIndex = 4;
             this.chkFilter.Text = "Beachtung der Schreibweise";
-            this.chkFilter.UseVisualStyleBackColor = true;
+            this.chkFilter.UseVisualStyleBackColor = false;
             // 
             // toolStripFilter
             // 
@@ -291,13 +293,12 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnDelete,
-            this.toolStripButton2});
+            this.btnDelete});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(194, 88);
+            this.toolStrip2.Location = new System.Drawing.Point(192, 87);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip2.Size = new System.Drawing.Size(24, 48);
+            this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStrip2.Size = new System.Drawing.Size(24, 25);
             this.toolStrip2.TabIndex = 2;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -310,16 +311,6 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(22, 20);
             // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Enabled = false;
-            this.toolStripButton2.Image = global::IxSApp.Properties.Resources.add;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(22, 20);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -331,7 +322,8 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.BackColor = System.Drawing.Color.Snow;
+            this.txtSearch.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtSearch.ForeColor = System.Drawing.Color.Black;
             this.txtSearch.Location = new System.Drawing.Point(8, 88);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(183, 20);
@@ -386,16 +378,13 @@
             this.columnHeader6,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader8});
+            this.columnHeader4});
             this.lstFirm.ContextMenuStrip = this.ctxFirm;
             this.lstFirm.FullRowSelect = true;
             this.lstFirm.GridLines = true;
             this.lstFirm.HideSelection = false;
-            this.lstFirm.LabelEdit = true;
             this.lstFirm.Location = new System.Drawing.Point(15, 55);
             this.lstFirm.Name = "lstFirm";
-            this.lstFirm.ShowGroups = false;
             this.lstFirm.ShowItemToolTips = true;
             this.lstFirm.Size = new System.Drawing.Size(1035, 577);
             this.lstFirm.TabIndex = 13;
@@ -445,11 +434,6 @@
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader4.Width = 114;
             // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Zusage";
-            this.columnHeader8.Width = 139;
-            // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -474,14 +458,15 @@
             this.label3.ActiveLinkColor = System.Drawing.Color.White;
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.BackColor = System.Drawing.Color.Gainsboro;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.label3.LinkColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(1073, 203);
+            this.label3.Location = new System.Drawing.Point(1075, 206);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(183, 23);
+            this.label3.Size = new System.Drawing.Size(189, 23);
             this.label3.TabIndex = 20;
             this.label3.TabStop = true;
-            this.label3.Text = "   Neue Firma hinzufügen ...";
+            this.label3.Text = "   1. Neue Firma hinzufügen...";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
@@ -489,14 +474,15 @@
             this.label6.ActiveLinkColor = System.Drawing.Color.White;
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.BackColor = System.Drawing.Color.Gainsboro;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.label6.LinkColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(1073, 281);
+            this.label6.Location = new System.Drawing.Point(1075, 282);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(183, 41);
+            this.label6.Size = new System.Drawing.Size(189, 41);
             this.label6.TabIndex = 21;
             this.label6.TabStop = true;
-            this.label6.Text = "   Die ausgewählte Firma hat Ihnen \r\n   eine Absage erteilt ...";
+            this.label6.Text = "   3. Die ausgewählte Firma hat Ihnen \r\n   eine Absage erteilt...";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
@@ -504,15 +490,32 @@
             this.label7.ActiveLinkColor = System.Drawing.Color.White;
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.BackColor = System.Drawing.Color.Gainsboro;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.label7.LinkColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(1073, 231);
+            this.label7.Location = new System.Drawing.Point(1075, 232);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(183, 45);
+            this.label7.Size = new System.Drawing.Size(189, 45);
             this.label7.TabIndex = 22;
             this.label7.TabStop = true;
-            this.label7.Text = "   Bearbeitung der aktuell \r\n   ausgewählten Firma ...";
+            this.label7.Text = "   2. Bearbeitung der aktuell \r\n   ausgewählten Firma...";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.BackColor = System.Drawing.Color.LightGray;
+            this.label8.Location = new System.Drawing.Point(1073, 204);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(187, 121);
+            this.label8.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(195, 108);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(21, 10);
+            this.label9.TabIndex = 24;
             // 
             // workUnitBewerbungBindingSource
             // 
@@ -531,6 +534,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -542,9 +546,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "View";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Organisation des Arbeitsverhältnisses im Kündigungsfall - (c) XSA 2013";
+            this.Text = "Organisation des Arbeitsverhältnisses im Kündigungsfall (c) XSA 2013";
             this.Load += new System.EventHandler(this.UI_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
+            this.Move += new System.EventHandler(this.View_Move);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ctxFirm.ResumeLayout(false);
@@ -585,7 +590,6 @@
         private System.Windows.Forms.ComboBox toolStripFilter;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton btnDelete;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label5;
@@ -602,10 +606,11 @@
         private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.LinkLabel label3;
         private System.Windows.Forms.LinkLabel label6;
         private System.Windows.Forms.LinkLabel label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
 
     }
 }

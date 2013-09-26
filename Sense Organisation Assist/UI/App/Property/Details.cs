@@ -33,6 +33,8 @@ namespace IxSApp
             InitializeComponent();
         }
 
+        public static System.Drawing.Point StartLocation { get; set; }
+
         /// <summary>
         /// Gets or sets the package.
         /// </summary>
@@ -77,6 +79,7 @@ namespace IxSApp
             chkPositiveReply.Checked = Package.Bewerbung.Zusage;
             radioAbsageUser.Checked = Package.Bewerbung.NegativeStateAtOwn;
             chkFirmReply.Checked = Package.Bewerbung.AwaitingFirmReply;
+            cbBranche.SelectedIndex = 0;
 
             if (Package.Bewerbung.FirmAnswer.HasValue)
             {
@@ -598,6 +601,46 @@ namespace IxSApp
         private void ViewUI_MouseMove(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private static int x = 0;
+        private static int y = 0;
+
+        private void label21_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                try
+                {
+                    SuspendLayout();
+                    var pointToClient
+                        = PointToScreen(new Point(x, y));
+
+                    SetDesktopLocation(pointToClient.X, pointToClient.Y);
+                    PerformLayout();
+                    Application.DoEvents();
+                }
+                catch { }
+            }
+        }
+
+        private void label21_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void label21_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                x = e.X;
+                y = e.Y;
+            }
+        }
+
+        private void btnBrowser_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo() { Arguments = txtAnzeige.Text, CreateNoWindow = false, UseShellExecute = true, FileName = "chrome.exe" });
         }
     }
 }
