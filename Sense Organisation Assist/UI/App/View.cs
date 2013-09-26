@@ -236,12 +236,16 @@ namespace IxSApp
                                         lstFirm.Items.Add(dataItem);
                                         lstFirm.Items[lstFirm.Items.Count - 1].UseItemStyleForSubItems = false;
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
 
                                         var sentInformationToFirm =
                                             (package.Bewerbung.Sent = (bool)reader["Abgeschickt"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein";
 
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
+
+                                        if (sentInformationToFirm == "Ja")
+                                            lstFirm.Items[lstFirm.Items.Count - 1].SubItems[4].BackColor = Color.LightYellow;
 
                                         var today = DateTime.Today;
                                         //var idleTime =
@@ -259,6 +263,8 @@ namespace IxSApp
 
                                         var editButtonItem
                                             = lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(negativeReply);
+
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
 
                                         lstFirm
                                             .Controls.Add(new Button()
@@ -587,28 +593,28 @@ namespace IxSApp
                     toolStripFilterFirm.Text = selectedItem.SubItems[1].Text;
             }
 
-            try
-            {
-                if (selectedItem != null)
-                {
-                    if (strikeOutWatcher != null)
-                    {
-                        strikeOutWatcher.Stop();
-                        if (strikeOutWatcher.Elapsed.Milliseconds > 500)
-                        {
-                            canStrikeOut = true;
+            //try
+            //{
+            //    if (selectedItem != null)
+            //    {
+            //        if (strikeOutWatcher != null)
+            //        {
+            //            strikeOutWatcher.Stop();
+            //            if (strikeOutWatcher.Elapsed.Milliseconds > 500)
+            //            {
+            //                canStrikeOut = true;
 
-                            toolButtonDelete_Click(sender, e);
-                            toolStripFilter_SelectedIndexChanged(sender, e);
-                        }
-                        strikeOutWatcher.Reset();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+            //                toolButtonDelete_Click(sender, e);
+            //                toolStripFilter_SelectedIndexChanged(sender, e);
+            //            }
+            //            strikeOutWatcher.Reset();
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
         }
 
         //private void tabFirm_SelectedIndexChanged(object sender, EventArgs e)
