@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -55,10 +56,6 @@
     <ApplicationIcon>Lib\new_page.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fluent">
-      <HintPath>..\..\..\Desktop\UNS\Fluent.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="iAnywhere.Data.SQLAnywhere.v3.5, Version=12.0.1.34573, Culture=neutral, PublicKeyToken=f222fc4333e0d400, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -133,6 +130,12 @@
     </Compile>
     <Compile Include="Sense Organisation Assist\UI.Designer.cs">
       <DependentUpon>UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sense Organisation Assist\UI\App\InfoMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sense Organisation Assist\UI\App\InfoMessage.Designer.cs">
+      <DependentUpon>InfoMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Sense Organisation Assist\UI\Organisation\Calendar.cs">
       <SubType>Form</SubType>
@@ -235,6 +238,9 @@
     </Compile>
     <EmbeddedResource Include="Sense Organisation Assist\UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sense Organisation Assist\UI\App\InfoMessage.resx">
+      <DependentUpon>InfoMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sense Organisation Assist\UI\Organisation\Calendar.resx">
       <DependentUpon>Calendar.cs</DependentUpon>
@@ -452,6 +458,12 @@
     <Folder Include="Sense Organisation Assist\Data\Transactions\Oracle\" />
     <Folder Include="Sense Organisation Assist\Data\Transactions\SAP Sybase\" />
     <Folder Include="Sense Organisation Assist\Data\Transactions\SQLite.NET\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sense Organisation Assist SQLite4 CLI\Sense Organisation Assist SQLite4 CLI.vcxproj">
+      <Project>{f4396711-248c-451a-bd3e-8012ac700368}</Project>
+      <Name>Sense Organisation Assist SQLite4 CLI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

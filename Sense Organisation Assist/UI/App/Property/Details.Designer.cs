@@ -89,6 +89,10 @@
             this.cbBranche = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
             this.btnBrowser = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -97,12 +101,11 @@
             // chkReply
             // 
             this.chkReply.BackColor = System.Drawing.SystemColors.Control;
-            this.chkReply.Location = new System.Drawing.Point(15, 234);
+            this.chkReply.Location = new System.Drawing.Point(17, 270);
             this.chkReply.Name = "chkReply";
             this.chkReply.Size = new System.Drawing.Size(379, 36);
             this.chkReply.TabIndex = 23;
-            this.chkReply.Text = "Haben Sie eine erste Rückmeldung bekommen?\r\n(Automatische E-Mail - Antwort, Anruf" +
-    " oder Postschreiben)";
+            this.chkReply.Text = "Haben Sie eine erste Rückmeldung bekommen?\r\n(E-Mail, Anruf oder Postschreiben)";
             this.chkReply.UseVisualStyleBackColor = false;
             // 
             // label2
@@ -119,10 +122,9 @@
             // dateTimeDay
             // 
             this.dateTimeDay.CalendarMonthBackground = System.Drawing.Color.White;
-            this.dateTimeDay.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
-            this.dateTimeDay.Location = new System.Drawing.Point(480, 74);
+            this.dateTimeDay.Location = new System.Drawing.Point(480, 77);
             this.dateTimeDay.Name = "dateTimeDay";
-            this.dateTimeDay.Size = new System.Drawing.Size(367, 20);
+            this.dateTimeDay.Size = new System.Drawing.Size(198, 20);
             this.dateTimeDay.TabIndex = 20;
             // 
             // chkBewerbung
@@ -131,7 +133,7 @@
             this.chkBewerbung.BackColor = System.Drawing.SystemColors.Control;
             this.chkBewerbung.Checked = true;
             this.chkBewerbung.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBewerbung.Location = new System.Drawing.Point(15, 216);
+            this.chkBewerbung.Location = new System.Drawing.Point(17, 252);
             this.chkBewerbung.Name = "chkBewerbung";
             this.chkBewerbung.Size = new System.Drawing.Size(223, 17);
             this.chkBewerbung.TabIndex = 18;
@@ -237,7 +239,7 @@
             // 
             // txtAnzeige
             // 
-            this.txtAnzeige.Location = new System.Drawing.Point(15, 186);
+            this.txtAnzeige.Location = new System.Drawing.Point(15, 171);
             this.txtAnzeige.Name = "txtAnzeige";
             this.txtAnzeige.Size = new System.Drawing.Size(403, 20);
             this.txtAnzeige.TabIndex = 33;
@@ -247,7 +249,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.Control;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 168);
+            this.label6.Location = new System.Drawing.Point(12, 153);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(157, 13);
             this.label6.TabIndex = 34;
@@ -258,7 +260,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.SystemColors.Control;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(14, 275);
+            this.label7.Location = new System.Drawing.Point(14, 314);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(380, 13);
             this.label7.TabIndex = 36;
@@ -270,11 +272,11 @@
             this.txtMemo.AcceptsTab = true;
             this.txtMemo.Enabled = false;
             this.txtMemo.HideSelection = false;
-            this.txtMemo.Location = new System.Drawing.Point(17, 294);
+            this.txtMemo.Location = new System.Drawing.Point(17, 333);
             this.txtMemo.Multiline = true;
             this.txtMemo.Name = "txtMemo";
             this.txtMemo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMemo.Size = new System.Drawing.Size(401, 113);
+            this.txtMemo.Size = new System.Drawing.Size(401, 74);
             this.txtMemo.TabIndex = 37;
             // 
             // btnExit
@@ -431,7 +433,7 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolAdd});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip2.Location = new System.Drawing.Point(427, 294);
+            this.toolStrip2.Location = new System.Drawing.Point(428, 333);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip2.Size = new System.Drawing.Size(37, 41);
@@ -454,7 +456,7 @@
             // label10
             // 
             this.label10.BackColor = System.Drawing.SystemColors.Control;
-            this.label10.Location = new System.Drawing.Point(425, 333);
+            this.label10.Location = new System.Drawing.Point(426, 372);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 23);
             this.label10.TabIndex = 52;
@@ -507,7 +509,7 @@
             // 
             this.chkUserReply.AutoSize = true;
             this.chkUserReply.BackColor = System.Drawing.SystemColors.Control;
-            this.chkUserReply.Location = new System.Drawing.Point(243, 216);
+            this.chkUserReply.Location = new System.Drawing.Point(249, 252);
             this.chkUserReply.Name = "chkUserReply";
             this.chkUserReply.Size = new System.Drawing.Size(190, 17);
             this.chkUserReply.TabIndex = 58;
@@ -693,10 +695,9 @@
             // 
             // cbBranche
             // 
-            this.cbBranche.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBranche.FormattingEnabled = true;
             this.cbBranche.Items.AddRange(new object[] {
-            "Automotive",
+            "Automobilindustrie",
             "Dienstleistung",
             "Geoinformationssysteme (GIS)",
             "Industrie"});
@@ -716,7 +717,7 @@
             // 
             // btnBrowser
             // 
-            this.btnBrowser.Location = new System.Drawing.Point(428, 185);
+            this.btnBrowser.Location = new System.Drawing.Point(428, 170);
             this.btnBrowser.Name = "btnBrowser";
             this.btnBrowser.Size = new System.Drawing.Size(27, 22);
             this.btnBrowser.TabIndex = 80;
@@ -724,11 +725,61 @@
             this.btnBrowser.UseVisualStyleBackColor = true;
             this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(17, 221);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(274, 20);
+            this.textBox1.TabIndex = 81;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "C#",
+            "C/C++",
+            "C++/CLI",
+            "VBA",
+            "VB.NET",
+            "Web",
+            "Desktop",
+            "Java",
+            "Javascript",
+            "HTML5"});
+            this.comboBox1.Location = new System.Drawing.Point(297, 220);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 82;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(14, 204);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(211, 13);
+            this.label24.TabIndex = 83;
+            this.label24.Text = "Geben Sie bitte die Stellenbezeichnung an:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(295, 204);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(106, 13);
+            this.label25.TabIndex = 84;
+            this.label25.Text = "Programmiersprache:";
+            // 
             // VacancyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 686);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnBrowser);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.cbBranche);
@@ -866,5 +917,9 @@
         private System.Windows.Forms.ComboBox cbBranche;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button btnBrowser;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
     }
 }

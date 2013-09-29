@@ -121,7 +121,9 @@ namespace IxSApp
 
         private void UI_Load(object sender, EventArgs e)
         {
-            lstFirm.Groups.Add(new ListViewGroup("Stellengesuche   "));
+            lstFirm.Groups.Add(new ListViewGroup("Zusagen   "));
+            lstFirm.Groups.Add(new ListViewGroup("Stellenangebote   "));
+            //lstFirm.Groups.Add(new ListViewGroup("Absagen   "));
 
             //splitJobControl.Panel2Collapsed = true;
             Initialize();
@@ -186,7 +188,7 @@ namespace IxSApp
                                 var command =
                                     connection.CreateCommand();
 
-                                command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " DESC" : string.Empty);
+                                command.CommandText = "SELECT * FROM V_FIRM " + sortColumn + (sortColumn.StartsWith("ORDER BY") ? " ASC" : string.Empty);
                                 command.Prepare();
 
                                 using (var reader = command.ExecuteReader())
@@ -217,7 +219,7 @@ namespace IxSApp
                                         };
 
                                         var dataItem =
-                                            new ListViewItemUnit(jobNr.ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+                                            new ListViewItemUnit(long.Parse(reader["ID"].ToString()).ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
 
                                         package.Firm.Website = reader["Website"].ToString();
                                         package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
@@ -241,6 +243,8 @@ namespace IxSApp
                                         lstFirm.Items[lstFirm.Items.Count - 1].UseItemStyleForSubItems = false;
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Firm.Name = reader["Firma"].ToString()));
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
+                                        lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add("");
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add((package.Bewerbung.Reply = (bool)reader["Rueckmeldung"]).ToString().ToUpper() == "TRUE" ? "Ja" : "Nein");
 
                                         var sentInformationToFirm =
@@ -249,7 +253,7 @@ namespace IxSApp
                                         lstFirm.Items[lstFirm.Items.Count - 1].SubItems.Add(sentInformationToFirm);
 
                                         if (sentInformationToFirm == "Ja")
-                                            lstFirm.Items[lstFirm.Items.Count - 1].SubItems[4].BackColor = Color.LightYellow;
+                                            lstFirm.Items[lstFirm.Items.Count - 1].SubItems[6].BackColor = Color.LightYellow;
 
                                         var today = DateTime.Today;
                                         //var idleTime =
@@ -357,7 +361,26 @@ namespace IxSApp
                             }
                         }
 
-                        lstFirm.Groups[0].Items.AddRange(lstFirm.Items);
+                        foreach (ListViewItem item in lstFirm.Items)
+                        {
+                            if (item.GetItemUnit().GetItemContentInfo().Item.Bewerbung.Zusage)
+                                continue;
+
+                            lstFirm.Groups[1].Items.Add(item);
+                        }
+
+                        foreach (ListViewItem item in lstFirm.Items)
+                        {
+                            if (item.GetItemUnit().GetItemContentInfo().Item.Bewerbung.Zusage)
+                                lstFirm.Groups[0].Items.Add(item);
+                        }
+
+                        //foreach (ListViewItem item in lstFirm.Items)
+                        //{
+                        //    if (item.GetItemUnit().GetItemContentInfo().Item.Bewerbung.State)
+                        //        lstFirm.Groups[2].Items.Add(item);
+                        //}
+
                         lstFirm.PerformLayout();
 
                         if (selectedItem != null)
@@ -517,11 +540,17 @@ namespace IxSApp
 
             var dialogResult
                 = viewUi.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+
+            reNewView = true;
+            ReNewView();
+            reNewView = false;
+
+            toolStripFilter_SelectedIndexChanged(null, new EventArgs());
         }
 
         private void toolBarAdd_Click(object sender, EventArgs e)
         {
-            ShowDetailDialog(typeOfEditing: StatementType.Insert);
+
         }
 
         private void toolButtonEdit_Click(object sender, EventArgs e)
@@ -576,6 +605,12 @@ namespace IxSApp
                 new BewerbungDataUnit(),
                 selectedItem.GetItemContentInfo().Id);
             }
+
+            reNewView = true;
+            ReNewView();
+            reNewView = false;
+
+            toolStripFilter_SelectedIndexChanged(sender, e);
         }
 
         private void toolButtonRefresh_Click(object sender, EventArgs e)
@@ -763,6 +798,12 @@ namespace IxSApp
                     new FirmDataUnit()
                 );
             }
+
+            reNewView = true;
+            ReNewView();
+            reNewView = false;
+
+            toolStripFilter_SelectedIndexChanged(sender, e);
         }
 
         private void toolState_Click(object sender, EventArgs e)
@@ -801,16 +842,16 @@ namespace IxSApp
                 case 1:
                     sortColumn = "Firma";
                     break;
-                case 6:
+                case 8:
                     sortColumn = "Absage, Firma";
                     break;
-                case 4:
+                case 6:
                     sortColumn = "Abgeschickt";
                     break;
-                case 5:
+                case 7:
                     sortColumn = "Tag";
                     break;
-                case 3:
+                case 5:
                     sortColumn = "Rueckmeldung";
                     break;
             } sortColumn = !string.IsNullOrEmpty(sortColumn) ? "ORDER BY " + sortColumn : string.Empty;
@@ -1213,6 +1254,19 @@ namespace IxSApp
         private void View_Move(object sender, EventArgs e)
         {
             VacancyView.StartLocation = new Point(Location.X + 23, Location.Y + 80);
+        }
+
+        private unsafe void btnTestWrapper_Click(object sender, EventArgs e)
+        {
+            IXsApp.XSASQLiteConnection testConnection = new IXsApp.XSASQLiteConnection();
+            var ptr = System.Runtime.InteropServices.Marshal.StringToBSTR(":memory");
+            sbyte* connectionString = (sbyte*)ptr.ToPointer();
+            testConnection.Open(connectionString);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
