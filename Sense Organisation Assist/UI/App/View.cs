@@ -102,9 +102,13 @@ namespace IxSApp
         private string sortColumn = "ORDER BY Absage";
         private bool reNewView = false;
         private bool caseSensitive4Filter = false;
+        private List<CustomTabControl> customTabControls = null;
 
         public View()
         {
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+
             InitializeComponent();
         }
 
@@ -131,8 +135,6 @@ namespace IxSApp
             try
             {
                 VacancyView.StartLocation = new Point(Location.X + 23, Location.Y + 80);
-                
-
             }
             catch (Exception ex)
             {
@@ -157,6 +159,12 @@ namespace IxSApp
                 Mandant = new WorkUnitMandant()
             };
             viewUi = new VacancyView();
+
+            customTabControls = new List<CustomTabControl>();
+            customTabControls.Add(new CustomTabControl() { Control = lblFirm, Active = true, InheritedControls = new List<Control>() { lstFirmlist } });
+            customTabControls.Add(new CustomTabControl() { Control = lblVacancy, Active = false, InheritedControls = new List<Control>() { lstFirm } });
+            customTabControls.Add(new CustomTabControl() { Control = lblUnterlagen, Active = false, InheritedControls = new List<Control>() });
+            customTabControls.Add(new CustomTabControl() { Control = lblVerwaltung, Active = false, InheritedControls = new List<Control>() });
         }
 
         /// <summary>
@@ -177,6 +185,7 @@ namespace IxSApp
                     {
                         lstFirm.SuspendLayout();
                         lstFirm.Items.Clear();
+                        lstFirmlist.Items.Clear();
 
                         Application.DoEvents();
 
@@ -220,6 +229,9 @@ namespace IxSApp
 
                                         var dataItem =
                                             new ListViewItemUnit(long.Parse(reader["ID"].ToString()).ToString().PadLeft(2, '0')) { Value = new UnitContentInfo() { Id = (package.Firm.Id = long.Parse(reader["ID"].ToString())), TableName = "ASXS_FIRM" } };
+
+                                        lstFirmlist.Items.Add(long.Parse(reader["ID"].ToString()).ToString().PadLeft(2, '0'));
+                                        lstFirmlist.Items[lstFirmlist.Items.Count - 1].SubItems.Add(firmName);
 
                                         package.Firm.Website = reader["Website"].ToString();
                                         package.Firm.Id_Memo = long.Parse(string.IsNullOrEmpty(reader["id_memo"].ToString()) ? "0" : reader["id_memo"].ToString());
@@ -286,27 +298,38 @@ namespace IxSApp
                                                               Visible = false
                                                           });
 
-                                        if (idleTime > 3)
+                                        //if (idleTime > 3)
+                                        if (false)
                                         {
                                             //lstFirm.Items[jobNr - 1].BackColor = Color.FromArgb(112, 191, 250);
                                             //lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                         }
                                         else
                                         {
-                                            if (idleTime > 2)
+                                            if (idleTime > 2 && idleTime < 30)
                                             {
                                                 lstFirm.Items[jobNr - 1].BackColor = Color.WhiteSmoke;
+                                            }
+                                            else if (idleTime > 30)
+                                            {
+                                                lstFirm.Items[jobNr - 1].BackColor = Color.Black;
+                                                lstFirm.Items[jobNr - 1].ForeColor = Color.White;
+                                                lstFirm.Items[jobNr - 1].UseItemStyleForSubItems = true;
                                             }
                                         }
 
                                         if (sentInformationToFirm == "Nein")
+                                        {
                                             lstFirm.Items[jobNr - 1].BackColor = Color.AntiqueWhite;
+                                            lstFirm.Items[jobNr - 1].UseItemStyleForSubItems = false;
+                                        }
 
                                         if (negativeReply == "Ja" || negativeStateAtOwn == "Ja")
                                         {
                                             lstFirm.Items[jobNr - 1].BackColor = Color.IndianRed;
                                             lstFirm.Items[jobNr - 1].ForeColor = Color.White;
                                             lstFirm.Items[jobNr - 1].Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Strikeout, GraphicsUnit.Point);
+                                            lstFirm.Items[jobNr - 1].UseItemStyleForSubItems = false;
                                         }
 
                                         //make a rule change set, with priority for color management of that information from user or for e.g. firm
@@ -397,7 +420,7 @@ namespace IxSApp
 
                         if (toolStripFilter.SelectedIndex == -1)
                         {
-                            toolStripFilter.SelectedIndex = 1;
+                            toolStripFilter.SelectedIndex = 0;
                             lstFirm_ColumnClick(this, new ColumnClickEventArgs(1));
                         }
                     }));
@@ -1268,5 +1291,151 @@ namespace IxSApp
         {
 
         }
+
+        private void lblFirm_Click(object sender, EventArgs e)
+        {
+            SetActiveTabControl(lblFirm.Name);
+        }
+
+        private void SetActiveTabControl(string controlName)
+        {
+            var activateControl
+                = true;
+
+            foreach (var control in customTabControls)
+            {
+                if (control == null)
+                    continue;
+
+                if (control.Control.Name.ToUpper() != controlName.ToUpper())
+                {
+                    control.Active = true;
+
+                    if (!(control.Control.BackColor == Color.SteelBlue))
+                    {
+                        control.Control.Size = new Size(control.Control.Size.Width, 25);
+                        control.Control.BackColor = Color.SteelBlue;
+                        control.Control.Font = new Font(control.Control.Font, FontStyle.Regular);
+
+                        foreach (var item in control.InheritedControls)
+                            item.Visible = false;
+                    }
+                    else
+                        activateControl = true;
+                    continue;
+                }
+
+                if (activateControl)
+                {
+                    control.Active = false;
+                    control.Control.Size = new Size(control.Control.Size.Width, 27);
+                    if (!(control.Control.BackColor == Color.Black))
+                        control.Control.Font = new Font(control.Control.Font, FontStyle.Bold);
+
+                    control.Control.BackColor = Color.Black;
+                    foreach (var item in control.InheritedControls)
+                        item.Visible = true;
+                }
+            }
+        }
+
+        private void lblVacancy_Click(object sender, EventArgs e)
+        {
+            SetActiveTabControl(lblVacancy.Name);
+        }
+
+        private void lblFirm_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void lblVacancy_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblVacancy_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void lblFirm_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void lblUnterlagen_Click(object sender, EventArgs e)
+        {
+            SetActiveTabControl(lblUnterlagen.Name);
+        }
+
+        private void lblVerwaltung_Click(object sender, EventArgs e)
+        {
+            SetActiveTabControl(lblVerwaltung.Name);
+        }
+
+        private void lblUnterlagen_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void lblUnterlagen_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void lblVerwaltung_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void lblVerwaltung_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class CustomTabControl
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomTabControl"/> class.
+        /// </summary>
+        public CustomTabControl()
+        {
+            InheritedControls = new List<Control>();
+            Control = new Label();
+            Active = false;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="CustomTabControl"/> is active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if active; otherwise, <c>false</c>.
+        /// </value>
+        public bool Active { get; set; }
+        /// <summary>
+        /// Gets or sets the control.
+        /// </summary>
+        /// <value>
+        /// The control.
+        /// </value>
+        public Label Control { get; set; }
+
+        /// <summary>
+        /// Gets or sets the inherited controls.
+        /// </summary>
+        /// <value>
+        /// The inherited controls.
+        /// </value>
+        public List<Control> InheritedControls { get; set; }
     }
 }

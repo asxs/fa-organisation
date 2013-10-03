@@ -223,6 +223,16 @@ namespace IxSApp.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DatabaseProject {
+            get {
+                object obj = ResourceManager.GetObject("DatabaseProject", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
@@ -356,6 +366,26 @@ namespace IxSApp.Properties {
         internal static System.Drawing.Bitmap process {
             get {
                 object obj = ResourceManager.GetObject("process", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap propertysheets {
+            get {
+                object obj = ResourceManager.GetObject("propertysheets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap propertysheets1 {
+            get {
+                object obj = ResourceManager.GetObject("propertysheets1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

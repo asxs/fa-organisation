@@ -32,7 +32,8 @@ namespace IxSApp
     /// <summary>
     /// 
     /// </summary>
-    public sealed class MandantDataUnit : IWorkDataUnit
+    public sealed class MandantDataUnit 
+        : IWorkDataUnit
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MandantDataUnit"/> class.
