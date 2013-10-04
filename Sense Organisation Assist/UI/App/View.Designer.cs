@@ -53,6 +53,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chkFilter = new System.Windows.Forms.CheckBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lstInfos = new System.Windows.Forms.ListView();
@@ -89,15 +90,41 @@
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.btnGoogleSearchTest = new System.Windows.Forms.Button();
+            this.txtHttp = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.lstJobSearch = new System.Windows.Forms.ListView();
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lnkStellensuche = new System.Windows.Forms.LinkLabel();
+            this.txtLnk = new System.Windows.Forms.TextBox();
+            this.txtLocation = new System.Windows.Forms.TextBox();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chkBewerbungen = new System.Windows.Forms.CheckBox();
+            this.chkLocation = new System.Windows.Forms.CheckBox();
+            this.txtKeywords = new System.Windows.Forms.TextBox();
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkKeyword = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtRegion = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtFirm = new System.Windows.Forms.TextBox();
+            this.chkFirm = new System.Windows.Forms.CheckBox();
             this.workUnitBewerbungBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listViewItemUnitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.ctxFirm.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workUnitBewerbungBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listViewItemUnitBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -341,6 +368,17 @@
             this.toolStrip2.Text = "toolStrip2";
             this.toolStrip2.Visible = false;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.LightGray;
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::IxSApp.Properties.Resources.delete;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(22, 20);
+            this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -367,13 +405,13 @@
             this.columnHeader11});
             this.lstInfos.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstInfos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstInfos.Location = new System.Drawing.Point(1071, 617);
+            this.lstInfos.Location = new System.Drawing.Point(1286, 535);
             this.lstInfos.MultiSelect = false;
             this.lstInfos.Name = "lstInfos";
             this.lstInfos.Scrollable = false;
             this.lstInfos.ShowGroups = false;
             this.lstInfos.ShowItemToolTips = true;
-            this.lstInfos.Size = new System.Drawing.Size(183, 15);
+            this.lstInfos.Size = new System.Drawing.Size(183, 24);
             this.lstInfos.TabIndex = 15;
             this.lstInfos.UseCompatibleStateImageBehavior = false;
             this.lstInfos.View = System.Windows.Forms.View.Details;
@@ -477,6 +515,9 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 645);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1322, 22);
@@ -535,7 +576,7 @@
             // 
             // btnTestWrapper
             // 
-            this.btnTestWrapper.Location = new System.Drawing.Point(1210, 617);
+            this.btnTestWrapper.Location = new System.Drawing.Point(1286, 556);
             this.btnTestWrapper.Name = "btnTestWrapper";
             this.btnTestWrapper.Size = new System.Drawing.Size(100, 25);
             this.btnTestWrapper.TabIndex = 24;
@@ -568,7 +609,7 @@
             this.lblFirm.BackColor = System.Drawing.Color.SteelBlue;
             this.lblFirm.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFirm.ForeColor = System.Drawing.Color.White;
-            this.lblFirm.Location = new System.Drawing.Point(285, 26);
+            this.lblFirm.Location = new System.Drawing.Point(105, 26);
             this.lblFirm.Name = "lblFirm";
             this.lblFirm.Size = new System.Drawing.Size(89, 25);
             this.lblFirm.TabIndex = 27;
@@ -620,6 +661,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtHttp);
             this.groupBox1.Location = new System.Drawing.Point(1286, 19);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(2, 628);
@@ -654,7 +696,7 @@
             this.lblUnterlagen.BackColor = System.Drawing.Color.SteelBlue;
             this.lblUnterlagen.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnterlagen.ForeColor = System.Drawing.Color.White;
-            this.lblUnterlagen.Location = new System.Drawing.Point(105, 26);
+            this.lblUnterlagen.Location = new System.Drawing.Point(286, 26);
             this.lblUnterlagen.Name = "lblUnterlagen";
             this.lblUnterlagen.Size = new System.Drawing.Size(89, 25);
             this.lblUnterlagen.TabIndex = 36;
@@ -711,16 +753,256 @@
             this.pictureBox3.TabIndex = 32;
             this.pictureBox3.TabStop = false;
             // 
-            // btnDelete
+            // btnGoogleSearchTest
             // 
-            this.btnDelete.BackColor = System.Drawing.Color.LightGray;
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::IxSApp.Properties.Resources.delete;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(22, 20);
-            this.btnDelete.Visible = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnGoogleSearchTest.Location = new System.Drawing.Point(1294, 602);
+            this.btnGoogleSearchTest.Name = "btnGoogleSearchTest";
+            this.btnGoogleSearchTest.Size = new System.Drawing.Size(101, 25);
+            this.btnGoogleSearchTest.TabIndex = 40;
+            this.btnGoogleSearchTest.Text = "Google HTTP";
+            this.btnGoogleSearchTest.UseVisualStyleBackColor = true;
+            this.btnGoogleSearchTest.Visible = false;
+            this.btnGoogleSearchTest.Click += new System.EventHandler(this.btnGoogleSearchTest_Click);
+            // 
+            // txtHttp
+            // 
+            this.txtHttp.Location = new System.Drawing.Point(0, 525);
+            this.txtHttp.Multiline = true;
+            this.txtHttp.Name = "txtHttp";
+            this.txtHttp.Size = new System.Drawing.Size(222, 59);
+            this.txtHttp.TabIndex = 41;
+            this.txtHttp.Visible = false;
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.BackColor = System.Drawing.Color.Brown;
+            this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearch.ForeColor = System.Drawing.Color.White;
+            this.lblSearch.Location = new System.Drawing.Point(387, 26);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(89, 25);
+            this.lblSearch.TabIndex = 42;
+            this.lblSearch.Text = "Stellensuche";
+            this.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSearch.Click += new System.EventHandler(this.lblSearch_Click);
+            this.lblSearch.MouseLeave += new System.EventHandler(this.lblSearch_MouseLeave);
+            this.lblSearch.MouseHover += new System.EventHandler(this.lblSearch_MouseHover);
+            // 
+            // lstJobSearch
+            // 
+            this.lstJobSearch.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader16,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader17});
+            this.lstJobSearch.FullRowSelect = true;
+            this.lstJobSearch.GridLines = true;
+            this.lstJobSearch.HideSelection = false;
+            this.lstJobSearch.Location = new System.Drawing.Point(15, 55);
+            this.lstJobSearch.Name = "lstJobSearch";
+            this.lstJobSearch.ShowGroups = false;
+            this.lstJobSearch.Size = new System.Drawing.Size(1035, 572);
+            this.lstJobSearch.TabIndex = 44;
+            this.lstJobSearch.UseCompatibleStateImageBehavior = false;
+            this.lstJobSearch.View = System.Windows.Forms.View.Details;
+            this.lstJobSearch.Visible = false;
+            this.lstJobSearch.SelectedIndexChanged += new System.EventHandler(this.lstJobSearch_SelectedIndexChanged);
+            this.lstJobSearch.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstJobSearch_MouseDoubleClick);
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Firmenname";
+            this.columnHeader13.Width = 181;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Stellenbezeichnung";
+            this.columnHeader14.Width = 553;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "Ort";
+            this.columnHeader15.Width = 190;
+            // 
+            // lnkStellensuche
+            // 
+            this.lnkStellensuche.ActiveLinkColor = System.Drawing.Color.White;
+            this.lnkStellensuche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkStellensuche.BackColor = System.Drawing.Color.Brown;
+            this.lnkStellensuche.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkStellensuche.ForeColor = System.Drawing.Color.White;
+            this.lnkStellensuche.LinkArea = new System.Windows.Forms.LinkArea(3, 56);
+            this.lnkStellensuche.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lnkStellensuche.LinkColor = System.Drawing.Color.White;
+            this.lnkStellensuche.Location = new System.Drawing.Point(1077, 263);
+            this.lnkStellensuche.Name = "lnkStellensuche";
+            this.lnkStellensuche.Size = new System.Drawing.Size(183, 23);
+            this.lnkStellensuche.TabIndex = 46;
+            this.lnkStellensuche.TabStop = true;
+            this.lnkStellensuche.Text = "       Stellensuche";
+            this.lnkStellensuche.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lnkStellensuche.UseCompatibleTextRendering = true;
+            this.lnkStellensuche.Visible = false;
+            this.lnkStellensuche.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkStellensuche_LinkClicked);
+            // 
+            // txtLnk
+            // 
+            this.txtLnk.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtLnk.ForeColor = System.Drawing.Color.Gray;
+            this.txtLnk.Location = new System.Drawing.Point(15, 626);
+            this.txtLnk.Name = "txtLnk";
+            this.txtLnk.Size = new System.Drawing.Size(1035, 20);
+            this.txtLnk.TabIndex = 47;
+            this.txtLnk.Text = resources.GetString("txtLnk.Text");
+            this.txtLnk.Visible = false;
+            // 
+            // txtLocation
+            // 
+            this.txtLocation.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtLocation.ForeColor = System.Drawing.Color.Black;
+            this.txtLocation.Location = new System.Drawing.Point(4, 29);
+            this.txtLocation.Name = "txtLocation";
+            this.txtLocation.Size = new System.Drawing.Size(183, 20);
+            this.txtLocation.TabIndex = 48;
+            this.txtLocation.Text = "Hannover";
+            this.txtLocation.Visible = false;
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Visible = false;
+            // 
+            // chkBewerbungen
+            // 
+            this.chkBewerbungen.AutoSize = true;
+            this.chkBewerbungen.BackColor = System.Drawing.SystemColors.Control;
+            this.chkBewerbungen.Checked = true;
+            this.chkBewerbungen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBewerbungen.ForeColor = System.Drawing.Color.Black;
+            this.chkBewerbungen.Location = new System.Drawing.Point(1077, 292);
+            this.chkBewerbungen.Name = "chkBewerbungen";
+            this.chkBewerbungen.Size = new System.Drawing.Size(140, 17);
+            this.chkBewerbungen.TabIndex = 50;
+            this.chkBewerbungen.Text = "Exklusive Bewerbungen";
+            this.chkBewerbungen.UseVisualStyleBackColor = false;
+            this.chkBewerbungen.Visible = false;
+            // 
+            // chkLocation
+            // 
+            this.chkLocation.AutoSize = true;
+            this.chkLocation.BackColor = System.Drawing.SystemColors.Control;
+            this.chkLocation.ForeColor = System.Drawing.Color.Black;
+            this.chkLocation.Location = new System.Drawing.Point(4, 10);
+            this.chkLocation.Name = "chkLocation";
+            this.chkLocation.Size = new System.Drawing.Size(172, 17);
+            this.chkLocation.TabIndex = 51;
+            this.chkLocation.Text = "Begrenzen auf (z.B. Hannover)";
+            this.chkLocation.UseVisualStyleBackColor = false;
+            this.chkLocation.Visible = false;
+            // 
+            // txtKeywords
+            // 
+            this.txtKeywords.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtKeywords.ForeColor = System.Drawing.Color.Black;
+            this.txtKeywords.Location = new System.Drawing.Point(4, 72);
+            this.txtKeywords.Name = "txtKeywords";
+            this.txtKeywords.Size = new System.Drawing.Size(183, 20);
+            this.txtKeywords.TabIndex = 52;
+            this.txtKeywords.Text = "C#";
+            this.txtKeywords.Visible = false;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "Identifikation";
+            this.columnHeader16.Width = 80;
+            // 
+            // chkKeyword
+            // 
+            this.chkKeyword.AutoSize = true;
+            this.chkKeyword.Checked = true;
+            this.chkKeyword.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkKeyword.Location = new System.Drawing.Point(4, 53);
+            this.chkKeyword.Name = "chkKeyword";
+            this.chkKeyword.Size = new System.Drawing.Size(139, 17);
+            this.chkKeyword.TabIndex = 53;
+            this.chkKeyword.Text = "Begrenzen auf (z.B. C#)";
+            this.chkKeyword.UseVisualStyleBackColor = true;
+            this.chkKeyword.Visible = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtFirm);
+            this.groupBox2.Controls.Add(this.chkLocation);
+            this.groupBox2.Controls.Add(this.chkFirm);
+            this.groupBox2.Controls.Add(this.txtLocation);
+            this.groupBox2.Controls.Add(this.chkKeyword);
+            this.groupBox2.Controls.Add(this.txtKeywords);
+            this.groupBox2.Location = new System.Drawing.Point(1073, 315);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(191, 150);
+            this.groupBox2.TabIndex = 54;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Visible = false;
+            // 
+            // txtRegion
+            // 
+            this.txtRegion.Location = new System.Drawing.Point(1051, 626);
+            this.txtRegion.Name = "txtRegion";
+            this.txtRegion.Size = new System.Drawing.Size(236, 20);
+            this.txtRegion.TabIndex = 55;
+            this.txtRegion.Visible = false;
+            this.txtRegion.TextChanged += new System.EventHandler(this.txtRegion_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(1055, 582);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(213, 39);
+            this.label14.TabIndex = 56;
+            this.label14.Text = "Im nachfolgenden, können\r\nSie eingeben an welchem Standort gesucht\r\nwerden soll:";
+            this.label14.Visible = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(1051, 575);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(236, 2);
+            this.groupBox3.TabIndex = 57;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Visible = false;
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "";
+            this.columnHeader17.Width = 0;
+            // 
+            // txtFirm
+            // 
+            this.txtFirm.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtFirm.Location = new System.Drawing.Point(4, 126);
+            this.txtFirm.Name = "txtFirm";
+            this.txtFirm.Size = new System.Drawing.Size(183, 20);
+            this.txtFirm.TabIndex = 58;
+            // 
+            // chkFirm
+            // 
+            this.chkFirm.Location = new System.Drawing.Point(4, 95);
+            this.chkFirm.Name = "chkFirm";
+            this.chkFirm.Size = new System.Drawing.Size(183, 30);
+            this.chkFirm.TabIndex = 59;
+            this.chkFirm.Text = "Begrenzen auf folgenden Firmennamen:";
+            this.chkFirm.UseVisualStyleBackColor = true;
             // 
             // workUnitBewerbungBindingSource
             // 
@@ -736,13 +1018,23 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1322, 667);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.txtRegion);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.chkBewerbungen);
+            this.Controls.Add(this.lblSearch);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtLnk);
+            this.Controls.Add(this.lnkStellensuche);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.btnGoogleSearchTest);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lblUnterlagen);
             this.Controls.Add(this.lblVerwaltung);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.lblFirm);
             this.Controls.Add(this.lblVacancy);
             this.Controls.Add(this.menuStrip1);
@@ -755,10 +1047,10 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnTestWrapper);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lstInfos);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.lstJobSearch);
             this.Controls.Add(this.lstFirm);
             this.Controls.Add(this.lstFirmlist);
             this.DoubleBuffered = true;
@@ -776,8 +1068,14 @@
             this.panel1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workUnitBewerbungBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listViewItemUnitBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -849,6 +1147,30 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnGoogleSearchTest;
+        private System.Windows.Forms.TextBox txtHttp;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.ListView lstJobSearch;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.LinkLabel lnkStellensuche;
+        private System.Windows.Forms.TextBox txtLnk;
+        private System.Windows.Forms.TextBox txtLocation;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.CheckBox chkBewerbungen;
+        private System.Windows.Forms.CheckBox chkLocation;
+        private System.Windows.Forms.TextBox txtKeywords;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.CheckBox chkKeyword;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtRegion;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.TextBox txtFirm;
+        private System.Windows.Forms.CheckBox chkFirm;
 
     }
 }

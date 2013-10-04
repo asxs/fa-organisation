@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 using System.Net;
 using System.Net.Sockets;
@@ -24,6 +25,9 @@ using System.Data.SqlClient;
 
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+
+using System.Text;
+using System.Text.RegularExpressions;
 
 //using Google;
 //using Google.Apis;
@@ -165,6 +169,7 @@ namespace IxSApp
             customTabControls.Add(new CustomTabControl() { Control = lblVacancy, Active = false, InheritedControls = new List<Control>() { lstFirm } });
             customTabControls.Add(new CustomTabControl() { Control = lblUnterlagen, Active = false, InheritedControls = new List<Control>() });
             customTabControls.Add(new CustomTabControl() { Control = lblVerwaltung, Active = false, InheritedControls = new List<Control>() });
+            customTabControls.Add(new CustomTabControl() { Control = lblSearch, Active = false, InheritedControls = new List<Control>() { lstJobSearch, lnkStellensuche, txtLnk, txtLocation, chkBewerbungen, chkLocation, txtKeywords, chkKeyword, groupBox2, groupBox3, txtRegion, label14, chkFirm, txtFirm } });
         }
 
         /// <summary>
@@ -1311,11 +1316,11 @@ namespace IxSApp
                 {
                     control.Active = true;
 
-                    if (!(control.Control.BackColor == Color.SteelBlue))
+                    if (!(control.Control.BackColor == Color.SteelBlue) && !(control.Control.BackColor == Color.Brown))
                     {
                         control.Control.Size = new Size(control.Control.Size.Width, 25);
-                        control.Control.BackColor = Color.SteelBlue;
-                        control.Control.Font = new Font(control.Control.Font, FontStyle.Regular);
+                        control.Control.BackColor = control.Control.Name.ToUpper() == "LBLSEARCH" ? Color.Brown : Color.SteelBlue;
+                        control.Control.Font = new Font(control.Control.Font, control.Control.Name.ToUpper() == "LBLSEARCH" ? FontStyle.Regular | FontStyle.Underline : FontStyle.Regular);
 
                         foreach (var item in control.InheritedControls)
                             item.Visible = false;
@@ -1397,6 +1402,326 @@ namespace IxSApp
         private void lblVerwaltung_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
+        }
+
+        private void btnGoogleSearchTest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSearch_Click(object sender, EventArgs e)
+        {
+            SetActiveTabControl(lblSearch.Name);
+        }
+
+        private void lblSearch_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void lblSearch_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void btnTest_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        public sealed class PlainHttpJobSearch 
+            : IDisposable
+        {
+            private SAConnection jobConnection = null;
+            private HttpWebRequest searchRequest = null;
+            private StreamReader 
+                            site = null;
+            private Thread siteLoadThread = null;
+            public PlainHttpJobSearch()
+            {
+
+            }
+
+            #region PlainHttpJobSearch (IDisposable)
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private void
+                Dispose(bool disposing)
+            {
+                if (disposing)
+                {
+
+                }
+            }
+
+            #endregion
+
+            public void OpenRequestAndSearch(string jobSearchSiteLink)
+            {
+                if (siteLoadThread != null)
+                    try
+                    {
+                        siteLoadThread.Abort();
+                    }
+                    catch { }
+
+                jobConnection = new SAConnection("uid=dba;pwd=sql;eng=asxs;dbf=asxs");
+                jobConnection.Open();
+
+                searchRequest
+                    = WebRequest.CreateHttp(requestUriString: jobSearchSiteLink);
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                Thread.Sleep(50);
+
+                var response = OpenRequest();
+                site =
+                     new StreamReader(response.GetResponseStream());
+
+                if (site == null)
+                    throw new InvalidOperationException();
+
+                Cursor.Current = Cursors.Default;
+
+                siteLoadThread = new
+                    Thread(new ThreadStart(SearchAsyncInternal));
+                siteLoadThread.Start();
+                
+                Thread.Sleep(150);
+            }
+
+            internal WebResponse OpenRequest()
+            {
+                var result =
+                    searchRequest.BeginGetResponse(new AsyncCallback((x) => { }), null);
+
+                while (result.IsCompleted) Application.DoEvents();
+                return
+                    searchRequest.EndGetResponse(result);
+            }
+
+            public struct JobInformationPackage
+            {
+                public string Name 
+                { 
+                    get; 
+                    set; 
+                }
+
+                public string Title 
+                { 
+                    get; 
+                    set; 
+                }
+
+                public string Location
+                {
+                    get;
+                    set;
+                }
+
+                public string Ref
+                {
+                    get;
+                    set;
+                }
+
+                public bool IfItsNotAEmptyPackage()
+                {
+                    return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Location) && !string.IsNullOrEmpty(Ref);
+                }
+            }
+
+            public ListView JobSite { get; set; }
+            public ToolStripProgressBar JobActionState { get; set; }
+            public ToolStripLabel JobActionStateText { get; set; }
+            public View Ui { get; set; }
+            private string ReplaceHttpStepStoneName(string http)
+            {
+                return http.Replace("</span>", string.Empty).Replace("<span itemprop=\"name\">", string.Empty).Replace("&amp;", "&").Trim();
+            }
+
+            private string ReplaceHttpStepStoneTitle(string http)
+            {
+                return http.Replace("</span>", string.Empty).Replace("<span itemprop=\"title\">", string.Empty).Replace("<span class='highlighted'>", string.Empty).Replace("&minus", "-").Replace("<br>", "\r\n").Replace("</br>", "\r\n").Trim();
+            }
+
+            private string ReplaceHttpStepStoneLocation(string http)
+            {
+                return http.Replace("</span>", string.Empty).Replace("<span itemprop=\"addressLocality\">", string.Empty).Trim();
+            }
+
+            internal void SearchAsyncInternal()
+            {
+                Application.DoEvents();
+
+                JobSite.Invoke(new Action(() =>
+                {
+                    JobSite.Items.Clear();
+
+                    var package =
+                        new JobInformationPackage() { Name = string.Empty, Title = string.Empty, Location = string.Empty };
+
+                    var id = 1;
+
+                    while (site.Peek() > -1)
+                    {
+                        try
+                        {
+                            var content =
+                                site.ReadLine();
+
+                            if (content.Contains("<a href=\"/stellenangebote--"))
+                            {
+                                var start = content.IndexOf('"');
+                                start =
+                                      content.IndexOf('"', start + 1);
+                                if (start != -1)
+                                    package.Ref = content.Trim().Substring("<a href=\"".Length).Substring(0, content.Trim().Substring("<a href=\"".Length + 1).IndexOf('"'));
+                            }
+                            else
+                            {
+                                if (content.Contains("<span itemprop=\"title\">"))
+                                    package.Title = ReplaceHttpStepStoneTitle(content);
+                                else if (content.Contains("<span itemprop=\"name\">"))
+                                    package.Name = ReplaceHttpStepStoneName(content);
+                                else if (content.Contains("<span itemprop=\"addressLocality\">"))
+                                    package
+                                        .Location = ReplaceHttpStepStoneLocation(content);
+                            }
+                        }
+                        catch { }
+
+                        if (package.IfItsNotAEmptyPackage())
+                        {
+                            JobSite.Items.Add(id++.ToString());
+
+                            var lastItemIndex = JobSite.Items.Count - 1;
+                            try
+                            {
+                                JobSite.Items[lastItemIndex].SubItems.Add(package.Name);
+                                JobActionStateText.Text
+                                    = package.Name;
+
+                                JobSite.Items[lastItemIndex].SubItems.Add(package.Title);
+                                JobSite.Items[lastItemIndex].SubItems.Add(package.Location);
+                                JobSite.Items[lastItemIndex].SubItems.Add(package.Ref);
+
+                                if (Ui.chkKeyword.Checked && !string.IsNullOrEmpty(Ui.txtKeywords.Text))
+                                    if (!(package.Title.ToUpper().Contains(Ui.txtKeywords.Text.ToUpper())))
+                                    {
+                                        JobSite.Items.RemoveAt(lastItemIndex);
+                                        //JobSite.Items[lastItemIndex].BackColor = Color.Black;
+                                        package = new JobInformationPackage();
+                                        continue;
+                                    }
+                            
+                                if (Ui.chkLocation.Checked && !string.IsNullOrEmpty(Ui.txtLocation.Text))
+                                    if (!(package.Location.ToUpper().Contains(Ui.txtLocation.Text.ToUpper())))
+                                    {
+                                        JobSite.Items.RemoveAt(lastItemIndex);
+                                        //JobSite.Items[lastItemIndex].BackColor = Color.Black;
+                                        package = new JobInformationPackage();
+                                        continue;
+                                    }
+
+                                if (Ui.chkFirm.Checked && !string.IsNullOrEmpty(Ui.txtFirm.Text))
+                                    if (!(package.Name.ToUpper().Contains(Ui.txtFirm.Text.ToUpper())))
+                                    {
+                                        JobSite.Items.RemoveAt(lastItemIndex);
+                                        //JobSite.Items[lastItemIndex].BackColor = Color.Black;
+                                        package = new JobInformationPackage();
+                                        continue;
+                                    }
+
+                                using (var action = jobConnection.CreateCommand())
+                                {
+                                    var name = package.Name;
+                                    if (name.Length > 8)
+                                        name = name.Substring(0, 8);
+
+                                    action.CommandText = "select * from asxs_firm where Upper(name) like '%" + name.ToUpper() + "%' order by name desc";
+                                    action.Prepare();
+
+                                    using (var reader =
+                                        action.ExecuteReader())
+                                    {
+
+                                        if (reader.HasRows)
+                                        {
+                                            JobSite.Items[lastItemIndex].BackColor = Color.Brown;
+                                            JobSite.Items[lastItemIndex].ForeColor = Color.White;
+                                            JobSite.Items[lastItemIndex].UseItemStyleForSubItems = false;
+
+                                            if (Ui.chkBewerbungen.Checked)
+                                                JobSite.Items.RemoveAt(lastItemIndex);
+                                        }
+                                    }
+                                }
+                            }
+                            catch { }
+                            
+                            package 
+                                = new JobInformationPackage();
+                        }
+                    }
+
+                    try
+                    {
+                        site.Close();
+                    }
+                    finally { site.Dispose(); }
+
+                }));
+            }
+        }
+
+        private void lnkStellensuche_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var stepStoneJobSearch 
+                = new PlainHttpJobSearch();
+
+            stepStoneJobSearch.Ui = this;
+            stepStoneJobSearch.JobSite = lstJobSearch;
+            stepStoneJobSearch.JobActionState = toolStripProgressBar1;
+            stepStoneJobSearch.JobActionStateText = toolStripStatusLabel1;
+            stepStoneJobSearch.OpenRequestAndSearch(txtLnk.Text);
+        }
+
+        private void txtRegion_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtLnk.Text))
+            {
+                var pos = txtLnk.Text.IndexOf("ws=");
+                if (pos != -1)
+                {
+                    var end = txtLnk.Text.IndexOf('&', pos);
+                    if (end != -1)
+                    {
+                        txtLnk.Text = txtLnk.Text.Remove(pos, end - pos);
+                        txtLnk.Text = txtLnk.Text.Insert(pos, "ws=" + txtRegion.Text);
+                    }
+                }
+            }
+        }
+
+        private void lstJobSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstJobSearch_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo() { Arguments = "http://www.stepstone.de" + lstJobSearch.SelectedItems[0].SubItems[4].Text, UseShellExecute = true, FileName = "chrome.exe" });
+            }
         }
     }
 
